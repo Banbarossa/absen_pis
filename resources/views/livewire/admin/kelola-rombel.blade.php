@@ -91,7 +91,8 @@
                                 <td>
                                     <div class="d-flex">
                                         @if ($item->schedules->count() >0)
-                                            <a href="/admin/detail-rombel/{{$item->id}}" class="btn btn-sm btn-primary mr-3">Penjadwalan</a>
+                                        <a href="{{route('pengajaran.detail.rombel',$item->id)}}" class="btn btn-sm btn-primary mr-3">Penjadwalan</a>
+                                        @endif
                                         @endif
                                         <div class="dropdown">
                                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -99,7 +100,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                 <button type="button" class="dropdown-item" data-toggle="modal" data-target="#crudModal" wire:click='edit({{$item->id}})'>
-                                                    Edit User
+                                                    Edit
                                                 </button>
                                                 <button class="dropdown-item" wire:confirm="Are you sure you want to delete this post?" wire:click='destroy({{$item->id}})'>Delete</button>
 
