@@ -1,0 +1,43 @@
+
+.footer{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.horizontal-list{
+    display: flex;
+    justify-content: space-between;
+}
+
+li {
+    list-style: none;
+}
+
+@media (min-width: 992px) {
+    .carousel {
+        width: 100%;
+        /* max-width: 800px; Sesuaikan ukuran yang Anda inginkan */
+        margin: 0 auto; /* Untuk menengahkan slider pada layar `lg` */
+    }
+
+    .carousel-inner {
+        text-align: center; /* Untuk menengahkan gambar pada layar `lg` */
+    }
+
+    .carousel-item {
+        /* display: flex;
+        justify-content: center;
+        align-items: center; */
+        height: 400px; /* Sesuaikan dengan tinggi yang Anda inginkan */
+    }
+    
+    .carousel-item img {
+        object-fit: cover; /* Untuk mengatur gambar sebagai "cover" */
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    
+}
