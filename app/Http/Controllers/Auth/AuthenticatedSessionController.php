@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Informasi;
+use App\Models\Knowledge;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +20,12 @@ class AuthenticatedSessionController extends Controller
     public function create(): View
     {
         // return view('auth.login');
-        return view('welcome');
+        $informasi = Informasi::latest()->first();
+        $pengetahuan = Knowledge::inRandomOrder()->first();
+        return view('welcome', [
+            'informasi' => $informasi,
+            'pengetahuan' => $pengetahuan,
+        ]);
     }
 
     /**
@@ -28,7 +35,7 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $user = $request->user();
-        if ($user && $user->status !== 1) {
+        if ($user && $user->status != 1) {
             Auth::logout(); // Logout pengguna jika status tidak disetujui
 
             return redirect()->route('welcome')->with('error', 'Akun Anda belum diapprove oleh Admin');
