@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <i class="mdi mdi-lock mr-3"></i>Login
@@ -85,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <i class="mdi mdi-information mr-3"></i>Informasi
@@ -97,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <i class="mdi mdi-help mr-3"></i>Pengetahuan
