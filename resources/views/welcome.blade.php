@@ -91,9 +91,13 @@
                         <i class="mdi mdi-information mr-3"></i>Informasi
                     </div>
                     <div class="card-body">
+                        @if ($informasi)
                         <p class="text-muted mb-0"><strong>{{$informasi->title}}</strong></p>
                         <small class="mt-0">{{\Carbon\Carbon::parse($informasi->created_at)->diffForHumans()}}</small>
                         <p class="mt-3">{!! $informasi->content !!}</p>
+                        @else
+                        <p class="mt-3">{{Belum Ada Informasi}}</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -103,9 +107,14 @@
                         <i class="mdi mdi-help mr-3"></i>Pengetahuan
                     </div>
                     <div class="card-body">
+                        @if ($pengetahuan)
                         <p class="text-muted mb-0"><strong>{{$pengetahuan->title}}</strong></p>
                         <small class="mt-0">{{\Carbon\Carbon::parse($pengetahuan->created_at)->diffForHumans()}}</small>
                         <p class="mt-3">{!! $pengetahuan->content !!}</p>
+                        @else
+                        <p class="mt-3">{{Belum Ada Data}}</p>
+                        @endif
+                        
                     </div>
                 </div>
             </div>
