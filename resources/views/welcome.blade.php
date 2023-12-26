@@ -96,7 +96,7 @@
                         <small class="mt-0">{{\Carbon\Carbon::parse($informasi->created_at)->diffForHumans()}}</small>
                         <p class="mt-3">{!! $informasi->content !!}</p>
                         @else
-                        <p class="mt-3">{{Belum Ada Informasi}}</p>
+                        <p class="mt-3">Belum Ada Informasi</p>
                         @endif
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                         <small class="mt-0">{{\Carbon\Carbon::parse($pengetahuan->created_at)->diffForHumans()}}</small>
                         <p class="mt-3">{!! $pengetahuan->content !!}</p>
                         @else
-                        <p class="mt-3">{{Belum Ada Data}}</p>
+                        <p class="mt-3">Belum Ada Data</p>
                         @endif
                         
                     </div>
