@@ -35,7 +35,12 @@ return [
             'root' => storage_path('app'),
             'throw' => false,
         ],
-
+        'public_folder' => [
+            'driver' => 'local',
+            'root' => 'storage',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
         'hosting' => [
             'driver' => 'local',
             'root' => public_path() . '../../public_html' . env('FOLDER_IN_PUBLIC_HTML') . '/storage',
@@ -77,7 +82,7 @@ return [
      */
 
     'links' => [
-        $_SERVER['DOCUMENT_ROOT'] . '/storage' => storage_path('app/public'),
+        // $_SERVER['DOCUMENT_ROOT'] . '/storage' => storage_path('app/public'),
         public_path('storage') => storage_path('app/public'),
     ],
 
