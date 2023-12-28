@@ -26,19 +26,26 @@
         </li>
 
         @role('admin')
+
+
         <li class="has_sub">
             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-star"></i> <span>Admin</span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="list-unstyled">
-                <li class="{{Request::routeIs('pengajaran.informasi') ? 'active' :''}}">
-                    <a href="{{route('pengajaran.informasi')}}" class="{{Request::routeIs('pengajaran.informasi') ? 'active' :''}}">Informasi</a>
-                </li>
-                <li class="{{Request::routeIs('pengajaran.pengetahuan') ? 'active' :''}}">
-                    <a href="{{route('pengajaran.pengetahuan')}}" class="{{Request::routeIs('pengajaran.pengetahuan') ? 'active' :''}}">Pengetahuan</a>
+                @php
+                    $badgeComplainmengajar =\App\Models\Complainmengajar::where('status',null)
+                @endphp
+                <li class="{{Request::routeIs('admin.complain.mengajar') ? 'active' :''}}">
+                    <a href="{{route('admin.complain.mengajar')}}" class="{{Request::routeIs('admin.complain.mengajar') ? 'active' :''}}">Complain Absen
+                        @if ($badgeComplainmengajar->count())
+                        <span class="badge badge-pill badge-primary float-right">{{$badgeComplainmengajar->count()}}
+                        </span>
+                        @endif
+                    </a>
                 </li>
             </ul>
         </li>
 
-        <li>
+        {{-- <li>
             <a href="/admin/complain-mengajar" class="waves-effect">
                 <i class="mdi mdi-comment"></i>
                 <span>
@@ -48,12 +55,11 @@
                     @endphp
                     @if ($badgeComplainmengajar->count())
                     <span class="badge badge-pill badge-primary float-right">{{$badgeComplainmengajar->count()}}
-                        
-                    @endif
                     </span>
+                    @endif
                 </span>
             </a>
-        </li>
+        </li> --}}
         @endrole
         
 
@@ -99,6 +105,14 @@
                 <li class="{{Request::routeIs('laporan.detail.personal') ? 'active' :''}}">
                     <a href="{{route('laporan.detail.personal')}}" class="{{Request::routeIs('laporan.detail.personal') ? 'active' :''}}">Detail Personal</a>
                 </li>
+                @php
+                    $sekolah= \App\Traits\ListSekolah::getData();
+                @endphp
+                @foreach ($sekolah as $item)
+                <li class="{{Request::is('/laporan/sekolah/'.$item->id) ? 'active' :''}}">
+                    <a href="{{route('laporan.sekolah',$item->id)}}" class="{{Request::is('/laporan/sekolah/'.$item->id) ? 'active' :''}}">{{$item->nama}}</a>
+                </li>
+                @endforeach
             </ul>
         </li>
         

@@ -26,7 +26,7 @@
                 <img src="{{asset('assets/images/favicon.ico')}}" alt="logo">
                 <span class="ml-3">
                     <h5 class="text-primary mb-0">ABSENSI DIGITAL</h5>
-                    <p class="mt-0">Pesantren Imam Syafi'i</p>
+                    <p class="mt-0">Pesantren {{config('app.name')}}</p>
                 </span>
             </div>
         </div>
