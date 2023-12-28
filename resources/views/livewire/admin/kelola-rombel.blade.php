@@ -93,7 +93,6 @@
                                         @if ($item->schedules->count() >0)
                                         <a href="{{route('pengajaran.detail.rombel',$item->id)}}" class="btn btn-sm btn-primary mr-3">Penjadwalan</a>
                                         @endif
-                                        @endif
                                         <div class="dropdown">
                                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Action

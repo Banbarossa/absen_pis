@@ -55,8 +55,8 @@
                                         <td scope="row">{{$pageNumber + $key + 1}}</td>
                                         <td>
                                             @if ($item->image)
-                                                <a href="{{asset('storage/images/'.$item->image)}}" class="thumbnail-link">
-                                                    <img src="{{asset('storage/images/'.$item->image)}}" alt="Thumbnail Image" class="thumbnail rounded-circle">
+                                                <a href="{{asset('storage/public/images/'.$item->image)}}" class="thumbnail-link">
+                                                    <img src="{{asset('storage/public/images/'.$item->image)}}" alt="Thumbnail Image" class="thumbnail rounded-circle">
                                                 </a>
                                             @endif
                                         </td>
