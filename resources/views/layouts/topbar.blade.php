@@ -23,7 +23,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg">
                     <div class="dropdown-item noti-title">
-                        <a href="/chat" target="_blank" rel="noopener noreferrer"><span class="badge badge-danger float-right" id="jumlah_pesan"></span>Perpesanan</a>
+                        <a href="/chatify" target="_blank" rel="noopener noreferrer"><span class="badge badge-danger float-right" id="jumlah_pesan"></span>Perpesanan</a>
                     </div>
                     {{-- Loping Pesan dengan javascrip --}}
                     <div id="looping_pesan"></div>
