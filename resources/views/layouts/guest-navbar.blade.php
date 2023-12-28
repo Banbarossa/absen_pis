@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm" style="height:4rem">
     <div class="container">
-        <a class="navbar-brand" href="https://pis.sch.id" target="blank">Pesantren <span class="text-warning">Imam Syafi'i</span></a>
+        <a class="navbar-brand" href="https://pis.sch.id" target="blank">Pesantren <span class="text-warning">{{config('app.name')}}</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
