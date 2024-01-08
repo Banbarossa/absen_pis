@@ -161,7 +161,7 @@
             <form wire:submit='create'>
             @endif
 
-            <x-text-input-livewire type="number" name="jam_ke" label="Jam Ke"></x-text-input-livewire>
+            <x-text-input-livewire type="text" name="jam_ke" label="Jam Ke"></x-text-input-livewire>
             <x-text-input-livewire type="time" name="mulai_kbm" label="Mulai KBM"></x-text-input-livewire>
             <x-text-input-livewire type="time" name="akhir_kbm" label="Akhir KBM"></x-text-input-livewire>
             <x-text-input-livewire type="number" name="jumlah_jam" label="Jumlah Jam"></x-text-input-livewire>
