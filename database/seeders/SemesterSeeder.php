@@ -13,26 +13,26 @@ class SemesterSeeder extends Seeder
     public function run(): void
     {
         $data = [
+            // [
+            //     'nama' => 'Ganjil',
+            //     'tahun' => '2023/2024',
+            //     'status' => true,
+            // ],
             [
-                'nama' => 'Ganjil',
+                'nama' => 'Genap',
                 'tahun' => '2023/2024',
                 'status' => true,
             ],
-            [
-                'nama' => 'Genap',
-                'tahun' => '2023/2024',
-                'status' => false,
-            ],
-            [
-                'nama' => 'Ganjil',
-                'tahun' => '2024/2025',
-                'status' => false,
-            ],
-            [
-                'nama' => 'Genap',
-                'tahun' => '2024/2025',
-                'status' => false,
-            ],
+            // [
+            //     'nama' => 'Ganjil',
+            //     'tahun' => '2024/2025',
+            //     'status' => false,
+            // ],
+            // [
+            //     'nama' => 'Genap',
+            //     'tahun' => '2024/2025',
+            //     'status' => false,
+            // ],
         ];
 
         foreach ($data as $item) {

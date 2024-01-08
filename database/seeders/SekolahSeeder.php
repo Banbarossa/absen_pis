@@ -13,21 +13,21 @@ class SekolahSeeder extends Seeder
     public function run(): void
     {
         $sekolah = [
-            [
-                'npsn' => 12345678,
-                'nama' => 'Marhalah Ibtidaiyyah',
-                'user_id' => 1,
-                'jenjang' => 'sd',
-            ],
+            // [
+            //     'npsn' => 12345678,
+            //     'nama' => 'Marhalah Ibtidaiyyah',
+            //     'user_id' => 1,
+            //     'jenjang' => 'sd',
+            // ],
             [
                 'npsn' => 12345679,
-                'nama' => 'Marhalah Mutawassithah',
+                'nama' => 'SMP Plus Imam Syafii',
                 'user_id' => 2,
                 'jenjang' => 'smp',
             ],
             [
                 'npsn' => 22345679,
-                'nama' => 'Marhalah Tsanawiyyah',
+                'nama' => 'MAS Imam Syafii',
                 'user_id' => 3,
                 'jenjang' => 'sma',
             ],

@@ -13,7 +13,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['musyrif halaqah', 'koordinator halaqah', 'guru', 'security', 'musyrif asrama', 'admin', 'hrd', 'piket', 'pengajaran'];
+        $roles = ['musyrif halaqah', 'koordinator halaqah', 'guru', 'security', 'admin', 'hrd', 'piket', 'pengajaran'];
 
         foreach ($roles as $role) {
             Role::create([
@@ -28,7 +28,7 @@ class RoleSeeder extends Seeder
         //     $item->assignRole('musyrif halaqah');
         // }
 
-        $admin = User::find(1)->first();
+        $admin = User::where('name', 'Khairuddin')->first();
         $admin->assignRole('admin');
 
         // $musyrifHalaqah = User::whereBetween('id', [11, 20])->get();

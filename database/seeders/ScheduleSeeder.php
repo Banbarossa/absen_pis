@@ -12,7 +12,7 @@ class ScheduleSeeder extends Seeder
      */
     public function run(): void
     {
-        $schedules = ['SD', 'SMP', 'MA'];
+        $schedules = ['SMP-MA'];
         foreach ($schedules as $item) {
             Schedule::create([
                 'name' => $item,
