@@ -45,6 +45,7 @@
                         <thead>
                             <tr>
                                 <th>Hari</th>
+                                <th>Rombel</th>
                                 <th>Jam Ke</th>
                                 <th>Mulai KBM</th>
                                 <th>Akhir KBM</th>
@@ -55,6 +56,7 @@
                             @foreach ($rosters as $roster)
                             <tr>
                                 <td>{{$hariMapping[$roster->jammengajar->hari]}}</td>
+                                <td>{{$roster->rombel ? $roster->rombel->nama_rombel :''}}</td>
                                 <td>{{$roster->jammengajar->jam_ke}}</td>
                                 <td>{{$roster->jammengajar->mulai_kbm}}</td>
                                 <td>{{$roster->jammengajar->akhir_kbm}}</td>
