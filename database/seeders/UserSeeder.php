@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Muhammad Isa',
-                'email' => 'muhammad@gmail.com',
+                'email' => 'isa@gmail.com',
                 'password_absen' => 'awwalul',
             ],
             [
@@ -178,7 +178,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Muhammad Al Kausar',
-                'email' => 'muhammad@gmail.com',
+                'email' => 'kausar@gmail.com',
                 'password_absen' => 'alkausar',
             ],
             [
