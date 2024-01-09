@@ -185,8 +185,8 @@
                     @enderror
                 </div>
 
-                <x-text-input-livewire type="number" name="latitude" label="Latitude"></x-text-input-livewire>
-                <x-text-input-livewire type="number" name="longitude" label="Longitude"></x-text-input-livewire>
+                <x-text-input-livewire type="text" name="latitude" label="Latitude"></x-text-input-livewire>
+                <x-text-input-livewire type="text" name="longitude" label="Longitude"></x-text-input-livewire>
                 <x-text-input-livewire type="number" name="radius" label="radius"></x-text-input-livewire>
                 
                 <div class="mt-4">
