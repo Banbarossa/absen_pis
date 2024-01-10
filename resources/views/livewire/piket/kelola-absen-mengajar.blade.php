@@ -75,11 +75,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if (is_Null($item->kehadiran))
+                                            @if (is_null($item->kehadiran))
                                                 <button class="btn btn-outline-warning" data-toggle="modal" data-target="#crudModal" wire:click='getAbsenSekolahId({{$item->id}})'>Aksi</button>
                                             @endif
                                             @role('admin')
-                                                <button class="btn btn-outline-warning" wire:click='destroy({{$item->id}})'><i class="fas fa-trash">Hapus</i></button>
+                                                <button class="btn btn-outline-danger" wire:confirm='Apakah Yakin Mengahapus Data?' wire:click='destroy({{$item->id}})' >Hapus</button>
                                             @endrole
                                         </td>
                                     </tr>
