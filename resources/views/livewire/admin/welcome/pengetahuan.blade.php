@@ -9,11 +9,11 @@
             <div class="col-lg-7">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        @if ($info)
                         <div class="d-flex justify-content-between">
-                            <h4 class="mt-0 header-title">Informasi</h4>
+                            <h4 class="mt-0 header-title">Pengetahuan</h4>
                             <a href="{{route('pengajaran.pengetahuan.create')}}" class="btn btn-primary">Tambah Data</a>
                         </div>
+                        @if ($info)
                         <h5>{{$info->title}}</h5>
                         <small class="text-muted">{{\Carbon\Carbon::parse($info->created_at)->diffForHumans()}}</small>
                         

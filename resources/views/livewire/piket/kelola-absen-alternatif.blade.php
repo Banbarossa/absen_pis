@@ -101,9 +101,9 @@
                                                     <small>{{$item->waktu_absen}}</small>
                                                 </td>
                                                 <td>
-                                                    @if ($item->approved === 1)
+                                                    @if ($item->approved == 1)
                                                         <button disabled class="btn btn-sm btn-outline-success rounded-pill">Sudah Di Approve</button>
-                                                    @elseif ($item->approved === null)
+                                                    @elseif ($item->approved == null)
                                                         <button disabled class="btn btn-sm btn-primary rounded-pill">Belum Di Proses</button>
                                                     @else
                                                         <button disabled class="btn btn-sm btn-outline-danger rounded-pill">Sudah Di tolak</button>

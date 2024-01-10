@@ -70,7 +70,7 @@
                 
                 <div class="form-group text-center row m-t-20">
                     <div class="col-12">
-                        <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Log In</button>
+                        <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Absen Sekarang</button>
                     </div>
                 </div>
 

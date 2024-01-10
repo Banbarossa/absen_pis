@@ -32,7 +32,7 @@ class KelolaAbsenMengajar extends Component
     {
         $now = Carbon::now();
 
-        $absens = Absensekolah::with('rombel', 'mapel', 'absenalternatif')
+        $absens = Absensekolah::with('rombel', 'mapel', 'absenalternatif', 'user')
             ->where('tanggal', $now->toDateString())
             ->where('mulai_kbm', '<=', $now->format('H:i:s'))
             ->paginate('15');
@@ -65,5 +65,11 @@ class KelolaAbsenMengajar extends Component
     {
         $absen = Absenalternatif::find($id);
         $this->alasan = $absen->alasan;
+    }
+
+    public function destroy($id)
+    {
+        Absensekolah::find($id)->delete();
+        $this->alert('success', 'Data berhasil dihapus');
     }
 }

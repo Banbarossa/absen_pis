@@ -24,6 +24,7 @@
                                         <th>Tanggal</th>
                                         <th>Rombel</th>
                                         <th>Mapel</th>
+                                        <th>Guru</th>
                                         <th>Status</th>
                                         <th>Waktu Absen</th>
                                         <th>Gambar</th>
@@ -51,6 +52,7 @@
                                         </td>
                                         <td>{{$item->rombel->nama_rombel}}</td>
                                         <td>{{$item->mapel ? $item->mapel->mata_pelajaran :''}}</td>
+                                        <td>{{$item->user ? $item->user->name :''}}</td>
                                         <td>
                                             @if ($item->kehadiran)
                                                 {{ucFirst($item->kehadiran)}}</td>
@@ -73,9 +75,12 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if (!$item->kehadiran)
+                                            @if (is_Null($item->kehadiran))
                                                 <button class="btn btn-outline-warning" data-toggle="modal" data-target="#crudModal" wire:click='getAbsenSekolahId({{$item->id}})'>Aksi</button>
                                             @endif
+                                            @role('admin')
+                                                <button class="btn btn-outline-warning" wire:click='destroy({{$item->id}})'><i class="fas fa-trash">Hapus</i></button>
+                                            @endrole
                                         </td>
                                     </tr>
                                     @empty

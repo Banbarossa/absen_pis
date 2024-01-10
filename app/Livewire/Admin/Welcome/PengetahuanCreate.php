@@ -32,7 +32,11 @@ class PengetahuanCreate extends Component
             'content' => 'required|min:10',
         ]);
 
-        Knowledge::create($validation);
+        Knowledge::create([
+            'title' => $this->title,
+            'content' => $this->content,
+            'image' => 'No Image',
+        ]);
         $this->alert('success', 'Data Berhasil ditambahkan');
         return redirect()->route('pengajaran.pengetahuan');
     }
