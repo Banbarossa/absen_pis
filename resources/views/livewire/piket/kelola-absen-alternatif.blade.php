@@ -148,8 +148,8 @@
                                 </div>
                                 @if ($singleAbsen)
                                     <div>
-                                        <a href="{{asset('/storage/images/'.$singleAbsen->image)}}" target="blank" class="thumbnail-link">
-                                            <img src="{{asset('/storage/images/'.$singleAbsen->image)}}" alt="Thumbnail Image" class="thumbnail">
+                                        <a href="{{asset('/storage/public/images/'.$singleAbsen->image)}}" target="blank" class="thumbnail-link">
+                                            <img src="{{asset('/storage/public/images/'.$singleAbsen->image)}}" alt="Thumbnail Image" class="thumbnail">
                                         </a>
                                     </div>
 
