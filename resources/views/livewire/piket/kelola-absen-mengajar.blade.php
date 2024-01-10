@@ -75,7 +75,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if (is_null($item->kehadiran))
+                                            @if ($item->kehadiran == 'alpa')
                                                 <button class="btn btn-outline-warning" data-toggle="modal" data-target="#crudModal" wire:click='getAbsenSekolahId({{$item->id}})'>Aksi</button>
                                             @endif
                                             @role('admin')
