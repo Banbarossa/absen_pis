@@ -54,17 +54,17 @@
 
                                     @forelse ($sortedSummaryData as $key=> $summary)
                                     <tr>
-                                        <td scope="row">{{$loop->iteration}}</td>
+                                        <td scope="row font-weight-light">{{$loop->iteration}}</td>
                                         <td>
                                             <a href="javascript:void(0)" data-toggle="modal" data-target="#detailPersonal" wire:click='getDetailTeacher({{$summary['user_id']}})' class="font-weight-light">{{$summary['user_name'] ==0 ?'':$summary['user_name']}}</a>
                                             {{-- {{$summary['user_name'] ==0 ?'':$summary['user_name']}} --}}
                                         </td>
-                                        <td>{{ $summary['total_hadir']  ==0 ?'':$summary['total_hadir'] .' jp'}}</td>
-                                        <td>{{ $summary['totalSakit']  ==0 ?'':$summary['totalSakit'] .' jp'}}</td>
-                                        <td>{{ $summary['totalIzinDinas']  ==0 ?'':$summary['totalIzinDinas'] .' jp'}}</td>
-                                        <td>{{ $summary['totalIzinPribadi']  ==0 ?'':$summary['totalIzinPribadi'] .' jp'}}</td>
-                                        <td>{{ $summary['total_alpa']  ==0 ?'':$summary['total_alpa'] .' jp'}}</td>
-                                        <td>{{ $summary['total_keterlambatan']  ==0 ?'':$summary['total_keterlambatan'] .' Menit'}}</td>
+                                        <td class="font-weight-light">{{ $summary['total_hadir']  ==0 ?'':$summary['total_hadir'] .' jp'}}</td>
+                                        <td class="font-weight-light">{{ $summary['totalSakit']  ==0 ?'':$summary['totalSakit'] .' jp'}}</td>
+                                        <td class="font-weight-light">{{ $summary['totalIzinDinas']  ==0 ?'':$summary['totalIzinDinas'] .' jp'}}</td>
+                                        <td class="font-weight-light">{{ $summary['totalIzinPribadi']  ==0 ?'':$summary['totalIzinPribadi'] .' jp'}}</td>
+                                        <td class="font-weight-light">{{ $summary['total_alpa']  ==0 ?'':$summary['total_alpa'] .' jp'}}</td>
+                                        <td class="font-weight-light">{{ $summary['total_keterlambatan']  ==0 ?'':$summary['total_keterlambatan'] .' Menit'}}</td>
                                        
                                     </tr>
                                     @empty
