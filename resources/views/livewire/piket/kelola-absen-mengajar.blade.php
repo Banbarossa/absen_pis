@@ -75,12 +75,13 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($item->kehadiran == 'alpa')
-                                                <button class="btn btn-outline-warning" data-toggle="modal" data-target="#crudModal" wire:click='getAbsenSekolahId({{$item->id}})'>Aksi</button>
-                                            @endif
+                                            
                                             @role('admin')
                                                 <button class="btn btn-outline-danger" wire:confirm='Apakah Yakin Mengahapus Data?' wire:click='destroy({{$item->id}})' >Hapus</button>
                                             @endrole
+                                            @if ($item->kehadiran == 'alpa')
+                                                <button class="btn btn-outline-warning" data-toggle="modal" data-target="#crudModal" wire:click='getAbsenSekolahId({{$item->id}})'>Aksi</button>
+                                            @endif
                                         </td>
                                     </tr>
                                     @empty
