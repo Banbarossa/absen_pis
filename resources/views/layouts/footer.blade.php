@@ -1,3 +1,3 @@
 <footer class="footer">
-    © 2018 Annex by Mannatthemes.
+    © <a href="https://pis.sch.id">Pesantren Imam Syafi'i</a> theme by: Annex by Mannatthemes.
 </footer>
