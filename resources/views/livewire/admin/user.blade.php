@@ -22,6 +22,7 @@
                                 <th>#</th>
                                 <th class="sort @if($sortColumn == 'name') {{$sortDirection}} @endif" wire:click="sort('name')">Nama User</th>
                                 <th class="sort @if($sortColumn == 'email') {{$sortDirection}} @endif" wire:click="sort('email')">Email</th>
+                                <th>Pw Absen</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -36,6 +37,7 @@
                                 <td scope="row">{{$pageNumber + $key + 1}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->email}}</td>
+                                <td>{{$item->password_absen}}</td>
                                 <td>
                                     @if ($item->status ==  1)
                                         <button class="btn btn-sm btn-outline-success rounded-pill" style="width: 100px" wire:confirm='Apakah Yakin untuk menonaktifkan user ini?' wire:click='nonAktifUser({{$item->id}})'>Aktif</button>

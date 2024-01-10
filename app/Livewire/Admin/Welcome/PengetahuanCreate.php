@@ -48,7 +48,7 @@ class PengetahuanCreate extends Component
             'content' => 'required|min:10',
         ]);
 
-        Knowledge::find($this->informasi_id)->update($validation);
+        Knowledge::find($this->pengetahuan_id)->update($validation);
         $this->alert('success', 'Data Berhasil diubah');
         return redirect()->route('pengajaran.pengetahuan');
     }

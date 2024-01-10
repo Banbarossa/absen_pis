@@ -15,6 +15,8 @@
                     <i class="mdi mdi-timetable noti-icon"></i>
                 </a>
             </li>
+            
+            @endrole
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
@@ -30,7 +32,6 @@
 
                 </div>
             </li>
-            @endrole
 
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button"

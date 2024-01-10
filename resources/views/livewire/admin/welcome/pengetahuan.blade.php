@@ -45,8 +45,17 @@
                         @forelse ($infos as $item)
                         <div class="card shadow mt-2">
                             <div class="card-body">
-                                <h6>{{$item->title}}</h6>
-                                <small class="text-muted">{{\Carbon\Carbon::parse($info->created_at)->diffForHumans()}}</small>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6>{{$item->title}}</h6>
+                                    <div>
+                                        <small class="text-muted">{{\Carbon\Carbon::parse($info->created_at)->diffForHumans()}}</small>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    {!!$item->content!!}
+                                </div>
+                                <a href="{{route('pengajaran.pengetahuan.update',$item->id)}}" class="btn btn-sm btn-outline-warning"><i class=" mdi mdi-pencil"></i></a>
+                                <button class="btn btn-sm btn-outline-danger" wire:click='destroy({{$item->id}})' wire:confirm='Apakah yakin untuk menghapus'><i class=" mdi mdi-delete"></i></button>
                             </div>
                         </div>
                         @empty
