@@ -12,16 +12,20 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="mt-0 header-title">Riwayat Absen</h4>
+                            <a href="{{route('user.absen.jadwal')}}" class="btn btn-primary mb-3">Cetak Jadwal Mengajar Anda</a>
                             
                         </div>
                         {{-- table header --}}
-                        <div class="d-flex align-items-center mb-1 justify-content-between">
-                            <a href="{{route('user.absen.jadwal')}}" class="btn btn-primary">Cetak Jadwal Mengajar Anda</a>
-                            <div class="d-flex">
+                        <div class="row">
+                            
+                            <div class="col-sm-6 col-md-4 col-lg-3">
                                 <div class="form-group mr-2">
                                     <label for="startDate">Tanggal Awal</label>
                                     <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
                                 </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                               
                                 <div class="form-group">
                                     <label for="startDate">Tanggal akhir</label>
                                     <input type="date" wire:model.live="endDate" id="endDate" class="form-control @error('endDate') is-invalid @enderror">

@@ -54,13 +54,13 @@
                                             <a href="javascript:void(0)" data-toggle="modal" data-target="#detailPersonal" wire:click='getDetailTeacher({{$summary['user_id']}})'>{{$summary['user_name'] ==0 ?'':$summary['user_name']}}</a>
                                             {{-- {{$summary['user_name'] ==0 ?'':$summary['user_name']}} --}}
                                         </td>
-                                        <td>{{ $summary['total_hadir']  ==0 ?'':$summary['total_hadir']}}</td>
-                                        <td>{{ $summary['totalSakit']  ==0 ?'':$summary['totalSakit']}}</td>
-                                        {{-- <td>{{ $summary['total_izin']  ==0 ?'':$summary['total_izin']}}</td> --}}
-                                        <td>{{ $summary['totalIzinDinas']  ==0 ?'':$summary['totalIzinDinas']}}</td>
-                                        <td>{{ $summary['totalIzinPribadi']  ==0 ?'':$summary['totalIzinPribadi']}}</td>
-                                        <td>{{ $summary['total_alpa']  ==0 ?'':$summary['total_alpa']}}</td>
-                                        <td>{{ $summary['total_keterlambatan']  ==0 ?'':$summary['total_keterlambatan']}}</td>
+                                        <td>{{ $summary['total_hadir']  ==0 ?'':$summary['total_hadir'].' jp'}}</td>
+                                        <td>{{ $summary['totalSakit']  ==0 ?'':$summary['totalSakit'].' jp'}}</td>
+                                        {{-- <td>{{ $summary['total_izin']  ==0 ?'':$summary['total_izin'].' jp'}}</td> --}}
+                                        <td>{{ $summary['totalIzinDinas']  ==0 ?'':$summary['totalIzinDinas'].' jp'}}</td>
+                                        <td>{{ $summary['totalIzinPribadi']  ==0 ?'':$summary['totalIzinPribadi'].' jp'}}</td>
+                                        <td>{{ $summary['total_alpa']  ==0 ?'':$summary['total_alpa'].' jp'}}</td>
+                                        <td>{{ $summary['total_keterlambatan']  ==0 ?'':$summary['total_keterlambatan'].' jp'}}</td>
                                        
                                     </tr>
                                     @empty
@@ -205,14 +205,14 @@
                                             @forelse ($sortedSummaryData as $key=> $summary)
                                             <tr>
                                                 <td scope="row">{{$loop->iteration}}</td>
-                                                <td>{{$summary['user_name'] ==0 ?'':$summary['user_name']}}</td>
-                                                <td>{{ $summary['total_hadir']  ==0 ?'':$summary['total_hadir']}}</td>
-                                                <td>{{ $summary['totalSakit']  ==0 ?'':$summary['totalSakit']}}</td>
-                                                {{-- <td>{{ $summary['total_izin']  ==0 ?'':$summary['total_izin']}}</td> --}}
-                                                <td>{{ $summary['totalIzinDinas']  ==0 ?'':$summary['totalIzinDinas']}}</td>
-                                                <td>{{ $summary['totalIzinPribadi']  ==0 ?'':$summary['totalIzinPribadi']}}</td>
-                                                <td>{{ $summary['total_alpa']  ==0 ?'':$summary['total_alpa']}}</td>
-                                                <td>{{ $summary['total_keterlambatan']  ==0 ?'':$summary['total_keterlambatan']}}</td>
+                                                <td>{{$summary['user_name'] ==0 ?'':$summary['user_name'].' jp'}}</td>
+                                                <td>{{ $summary['total_hadir']  ==0 ?'':$summary['total_hadir'].' jp'}}</td>
+                                                <td>{{ $summary['totalSakit']  ==0 ?'':$summary['totalSakit'].' jp'}}</td>
+                                                {{-- <td>{{ $summary['total_izin']  ==0 ?'':$summary['total_izin'].' jp'}}</td> --}}
+                                                <td>{{ $summary['totalIzinDinas']  ==0 ?'':$summary['totalIzinDinas'].' jp'}}</td>
+                                                <td>{{ $summary['totalIzinPribadi']  ==0 ?'':$summary['totalIzinPribadi'].' jp'}}</td>
+                                                <td>{{ $summary['total_alpa']  ==0 ?'':$summary['total_alpa'].' jp'}}</td>
+                                                <td>{{ $summary['total_keterlambatan']  ==0 ?'':$summary['total_keterlambatan'].'menit'}}</td>
                                                
                                             </tr>
                                             @empty

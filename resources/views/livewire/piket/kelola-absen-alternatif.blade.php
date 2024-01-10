@@ -111,6 +111,7 @@
                                                 </td>
                                                 <td>
                                                     @if ($item->image)
+                                                    
                                                     <a href="{{asset('/storage/public/images/'.$item->image)}}" target="blank" class="thumbnail-link">
                                                         <img src="{{asset('/storage/public/images/'.$item->image)}}" alt="Thumbnail Image" class="thumbnail">
                                                     </a>

@@ -108,28 +108,28 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Hadir Mengajar</td>
-                                                        <th>{{ $rekapSekolah['hadir_mengajar'] }} <small class="text-muted">JP</small></th>
+                                                        <th>{{ $rekapSekolah['hadir_mengajar'] }} <small class="text-muted ml-2">JP</small></th>
                                                         <td>........................................................</td>
                                                     </tr>
                                                     
                                                     <tr>
                                                         <td>Izin Dinas</td>
-                                                        <th>{{ $rekapSekolah['izin_dinas_mengajar'] }}<small class="text-muted">JP</small></th>
+                                                        <th>{{ $rekapSekolah['izin_dinas_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
                                                         <td>........................................................</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Izin Pribadi</td>
-                                                        <th>{{ $rekapSekolah['izin_pribadi_mengajar'] }}<small class="text-muted">JP</small></th>
+                                                        <th>{{ $rekapSekolah['izin_pribadi_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
                                                         <td></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Sakit</td>
-                                                        <th>{{ $rekapSekolah['sakit_mengajar'] }}<small class="text-muted">JP</small></th>
+                                                        <th>{{ $rekapSekolah['sakit_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
                                                         <td></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Alpa</td>
-                                                        <th>{{ $rekapSekolah['alpa_mengajar'] }}<small class="text-muted">JP</small></th>
+                                                        <th>{{ $rekapSekolah['alpa_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
                                                         <td></td>
                                                     </tr>
                                                     
@@ -155,7 +155,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>Jumlah hari Mengajar</td>
-                                                        <th>{{$jumlahHarihadir}}<small class="text-muted">Hari</small></th>
+                                                        <th>{{$jumlahHarihadir}}<small class="text-muted ml-2">Hari</small></th>
                                                         <td>........................................................</td>
                                                     </tr>
                                                 </tbody>
