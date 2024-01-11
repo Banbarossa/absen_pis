@@ -374,6 +374,8 @@
         
         var formattedTotalJumlah = formatRupiah(totalJumlah, 'Rp ');
 
+        console.log('total: '.formattedTotalJumlah)
+
         $('#totalJumlah').text(formattedTotalJumlah);
 
         function formatRupiah(angka, prefix){
