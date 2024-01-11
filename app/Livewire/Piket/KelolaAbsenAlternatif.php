@@ -49,6 +49,7 @@ class KelolaAbsenAlternatif extends Component
                     $userQuery->where('name', 'like', '%' . $this->search . '%');
                 });
             })
+            ->latest()
             ->paginate($this->perPage);
 
         return view('livewire.piket.kelola-absen-alternatif', [
