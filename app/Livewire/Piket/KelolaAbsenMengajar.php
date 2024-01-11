@@ -35,6 +35,8 @@ class KelolaAbsenMengajar extends Component
         $absens = Absensekolah::with('rombel', 'mapel', 'absenalternatif', 'user')
             ->where('tanggal', $now->toDateString())
             ->where('mulai_kbm', '<=', $now->format('H:i:s'))
+            ->orderBy('jam_ke', 'desc')
+            ->orderBy('rombel_id', 'desc')
             ->paginate('15');
 
         return view('livewire.piket.kelola-absen-mengajar', [
