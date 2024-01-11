@@ -12,7 +12,6 @@
                         <img src="{{asset('assets/images/logo.png')}}" height="60" alt="logo">
                         <h4 class="mt-0 header-title">DETAIL KEHADIRAN ASATIZAH</h4>
                         <h3 class="mt-0 header-title">PESANTREN IMAM SYAFI'I</h3>
-                        <h4 class="mt-0 header-title">JENJANG {{strToUpper($sekolah->nama)}}</h4>
                         
                     </div>
                      <div class="title mt-3">
