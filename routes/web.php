@@ -23,6 +23,7 @@ use App\Livewire\Admin\KelolaMataPelajaran;
 use App\Livewire\Admin\KelolaRombel;
 use App\Livewire\Admin\KelolaSchedule;
 use App\Livewire\Admin\KelolaSekolah;
+use App\Livewire\Admin\Laporan\LaporanAll;
 use App\Livewire\Admin\Laporan\LaporanPerSekolah;
 use App\Livewire\Admin\MusyrifHalaqah;
 use App\Livewire\Admin\PengaturanSemester;
@@ -123,6 +124,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['auth', 'role:hrd|admin'], 'prefix' => 'laporan', 'as' => 'laporan.'], function () {
         Route::get('detail/personal', LaporanBulanan::class)->name('detail.personal');
         Route::get('sekolah/{id}', LaporanPerSekolah::class)->name('sekolah');
+        Route::get('collective', LaporanAll::class)->name('semua');
         // Route::get('hrd-pengaturan-absen-karyawan', JamAbsenKaryawan::class);
         // Route::get('hrd-absen-karyawan', LaporanAbsenKaryawan::class);
         // Route::get('hrd-setting-absen', SettingJamKaryawan::class);

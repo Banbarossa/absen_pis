@@ -18,30 +18,32 @@
         </x-header>
 
         <div class="card m-b-30">
-            <div class="card-body">
+            <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <h4 class="mt-0 header-title">List Jadwal Halaqah</h4>
                     <div>
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <button type="button" class="btn btn-secondary mr-3" wire:click='exportExcel'>
-                                    Export
-                                </button>
-                            </div>
-                            <div class="form-group mr-2">
-                                <label for="startDate">Tanggal Awal</label>
-                                <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
-                            </div>
-                            <div class="form-group">
-                                <label for="startDate">Tanggal akhir</label>
-                                <input type="date" wire:model.live="endDate" id="endDate" class="form-control @error('endDate') is-invalid @enderror">
-                            </div>
+                        <button type="button" class="btn btn-secondary mr-3" wire:click='exportExcel'>
+                            Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <x-table-header/>
+                <div class="row">
+                    <div class="col-6 col-md-4 offset-md-4 col-lg-3 offset-lg-6">
+                        <div class="form-group mr-2">
+                            <label for="startDate">Tanggal Awal</label>
+                            <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            <label for="startDate">Tanggal akhir</label>
+                            <input type="date" wire:model.live="endDate" id="endDate" class="form-control @error('endDate') is-invalid @enderror">
                         </div>
                     </div>
                 </div>
-                
-                <x-table-header/>
-
 
                 <div class="table-responsive">
                     <table class="table table-sm table-bordered table-sortable">

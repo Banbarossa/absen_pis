@@ -51,7 +51,7 @@
                                 {{-- <td>{{$user_idMapping[$item->tanggal]}}</td> --}}
                                 <td>{{ucFirst($item->user->name)}}</td>
                                 <td>
-                                    <div>{{$item->tanggal}}</div>
+                                    <div>{{\Carbon\Carbon::parse($item->tanggal)->format('d-m-Y')}}</div>
                                     <div><small class="text-muted">{{ucFirst($item->jadwalhalaqah ? $item->jadwalhalaqah->nama_sesi :'')}}</small></div>
                                 </td>
                                 <td>{{$item->waktu_absen}}</td>

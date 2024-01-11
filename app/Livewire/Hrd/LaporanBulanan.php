@@ -52,11 +52,15 @@ class LaporanBulanan extends Component
                 ->whereBetween('tanggal', [$this->startDate, $this->endDate])
                 ->get();
 
+            $honorSekolah = $sekolah->honor;
+
             $this->rekapDataPerSekolah[$sekolah->nama]['hadir_mengajar'] = $mengajar->where('kehadiran', 'hadir')->sum('jumlah_jam') ?? 0;
             $this->rekapDataPerSekolah[$sekolah->nama]['sakit_mengajar'] = $mengajar->where('kehadiran', 'sakit')->sum('jumlah_jam') ?? 0;
             $this->rekapDataPerSekolah[$sekolah->nama]['izin_dinas_mengajar'] = $mengajar->where('kehadiran', 'izin dinas')->sum('jumlah_jam') ?? 0;
             $this->rekapDataPerSekolah[$sekolah->nama]['izin_pribadi_mengajar'] = $mengajar->where('kehadiran', 'izin pribadi')->sum('jumlah_jam') ?? 0;
             $this->rekapDataPerSekolah[$sekolah->nama]['alpa_mengajar'] = $mengajar->where('kehadiran', 'alpa')->sum('jumlah_jam') ?? 0;
+
+            $this->rekapDataPerSekolah[$sekolah->nama]['honor'] = $honorSekolah;
 
         }
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->foreignId('user_id')->nullable();
             $table->string('jenjang')->nullable();
+            $table->integer('honor')->nullable();
             $table->timestamps();
         });
     }

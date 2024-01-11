@@ -105,6 +105,9 @@
                 <li class="{{Request::routeIs('laporan.detail.personal') ? 'active' :''}}">
                     <a href="{{route('laporan.detail.personal')}}" class="{{Request::routeIs('laporan.detail.personal') ? 'active' :''}}">Detail Personal</a>
                 </li>
+                <li class="{{Request::routeIs('laporan.semua') ? 'active' :''}}">
+                    <a href="{{route('laporan.semua')}}" class="{{Request::routeIs('laporan.semua') ? 'active' :''}}">Semua Jenjang</a>
+                </li>
                 @php
                     $sekolah= \App\Traits\ListSekolah::getData();
                 @endphp
