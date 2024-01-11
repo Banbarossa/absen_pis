@@ -41,7 +41,7 @@
                                     <tr>
                                         <td scope="row">{{$pageNumber + $key + 1}}</td>
                                         <td>
-                                            {{$item->tanggal}}
+                                            {{\Carbon\Carbon::parse($item->tanggal)->format('d-m-Y')}}
                                             <div>
                                                 @if ($item->jam_ke == 'alternatif')
                                                     <small><a href="" wire:click='absenAlternatif({{$item->absenalternatif_id}})' data-toggle="modal" data-target="#alternatif">{{ucFirst($item->jam_ke)}}</a></small>
