@@ -18,9 +18,26 @@ class GuestAbsenHalaqahController extends Controller
 
         $now = Carbon::now();
 
+        // $kejam = Carbon::parse($now)->format("H:i:s");
+        // dd($kejam);
+
         $urutanHariDalamPekan = $now->isoWeekday();
 
+        $jadwalHalaqah = JadwalHalaqah::where('hari', $now->dayOfWeek)
+            ->where('mulai_absen', '<=', Carbon::parse($now)->format('H:i:s'))
+            ->where('akhir_absen', '>=', Carbon::parse($now)->format('H:i:s'))
+            ->first();
+
+        if (!$jadwalHalaqah) {
+            $jadwal = '';
+            return view('guest.absen-halaqah', [
+                // 'absen' => $absen,
+                'jadwal' => $jadwal,
+            ]);
+        }
+
         $absen_today = Absenhalaqah::where('tanggal', $now->toDateString())
+            ->where('jadwal_halaqah_id', $jadwalHalaqah->id)
             ->get();
 
         if ($absen_today->count() === 0) {
