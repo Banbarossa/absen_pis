@@ -131,15 +131,18 @@
                                                             <td>Izin Pribadi</td>
                                                             <th>{{ $rekapSekolah['izin_pribadi_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
                                                             <td></td>
+                                                            <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Sakit</td>
                                                             <th>{{ $rekapSekolah['sakit_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
                                                             <td></td>
+                                                            <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Alpa</td>
                                                             <th>{{ $rekapSekolah['alpa_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
+                                                            <td></td>
                                                             <td></td>
                                                         </tr>
                                                         
@@ -169,7 +172,8 @@
                                                         <tr>
                                                             <td>Jumlah hari Mengajar</td>
                                                             <th>{{$jumlahHarihadir}}<small class="text-muted ml-2">Hari</small></th>
-                                                            <td>........................................................</td>
+                                                            <td>10.000</td>
+                                                            <td>{{ number_format(10000 * $rekapSekolah['hadir_mengajar'], 0, ',', '.')}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -365,26 +369,26 @@
 
 
         $(document).ready(function(){
-        var totalJumlah = 0;
+            var totalJumlah = 0;
 
-        $('.jumlah').each(function(){
-            var nilai = $(this).text().replace(/\D/g,''); // Menghapus karakter non-digit
-            totalJumlah += parseInt(nilai);
-        });
+            $('.jumlah').each(function(){
+                var nilai = $(this).text().replace(/\D/g,''); // Menghapus karakter non-digit
+                totalJumlah += parseInt(nilai);
+            });
+            
+            var formattedTotalJumlah = formatRupiah(totalJumlah, 'Rp ');
+
+            console.log('total: '.totalJumlah)
+
+            $('#totalJumlah').text(totalJumlah);
+
+            function formatRupiah(angka, prefix){
+                var reverse = angka.toString().split('').reverse().join(''),
+                    ribuan = reverse.match(/\d{1,3}/g);
+                ribuan = ribuan.join('.').split('').reverse().join('');
+                return prefix + ribuan;
+            }
         
-        var formattedTotalJumlah = formatRupiah(totalJumlah, 'Rp ');
-
-        console.log('total: '.totalJumlah)
-
-        $('#totalJumlah').text(totalJumlah);
-
-        function formatRupiah(angka, prefix){
-            var reverse = angka.toString().split('').reverse().join(''),
-                ribuan = reverse.match(/\d{1,3}/g);
-            ribuan = ribuan.join('.').split('').reverse().join('');
-            return prefix + ribuan;
-        }
-       
     });
 
     </script>
