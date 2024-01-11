@@ -69,7 +69,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body" id="pdf">
-                            <div class="card m-b-30">
+                            <div class="card">
                                 <div class="text-center">
                                     <img src="{{asset('assets/images/logo.png')}}" height="60" alt="logo">
                                     <h4 class="mt-0 header-title">Rekap Kehadiran Mengajar Dan Halaqah</h4>
@@ -361,7 +361,7 @@
                 margin: 0.5,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' }
                 };
 
             html2pdf().set(opt).from(element).save();
