@@ -374,9 +374,9 @@
         
         var formattedTotalJumlah = formatRupiah(totalJumlah, 'Rp ');
 
-        console.log('total: '.formattedTotalJumlah)
+        console.log('total: '.totalJumlah)
 
-        $('#totalJumlah').text(formattedTotalJumlah);
+        $('#totalJumlah').text(totalJumlah);
 
         function formatRupiah(angka, prefix){
             var reverse = angka.toString().split('').reverse().join(''),
