@@ -67,9 +67,9 @@
                                         </td>
                                         <td>
                                             @if ($item->image)
-                                            <a href="{{asset('/storage/public/images'.$item->image)}}" class="thumbnail-link">
+                                            {{-- <a href="{{asset('/storage/public/images'.$item->image)}}" class="thumbnail-link">
                                                 <img src="{{asset('/storage/public/images/'.$item->image)}}" alt="Thumbnail Image" class="thumbnail">
-                                            </a>
+                                            </a> --}}
                                             <a href="{{asset('storage/public/images/'.$item->image)}}" class="thumbnail-link">
                                                 <img src="{{asset('storage/public/images/'.$item->image)}}" alt="Thumbnail Image" class="thumbnail rounded-circle">
                                             </a>
