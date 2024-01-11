@@ -54,6 +54,8 @@ class KelolaRombel extends Component
             $this->getJenjangSekolah = Sekolah::findOrFail($this->sekolah_id)->jenjang;
         }
 
+        dd($model);
+
         return view('livewire.admin.kelola-rombel', [
             'model' => $model,
             'sekolah' => $sekolah,
