@@ -57,7 +57,7 @@ class KelolaAbsenMengajar extends Component
     {
 
         Absensekolah::findOrFail($this->absensekolah_id)->update([
-            'kehadiran' => $this->kehadiran,
+            'kehadiran' => $this->change_to,
         ]);
 
         $this->alert('success', 'Data berhasil diubah');
