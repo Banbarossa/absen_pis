@@ -19,4 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('rombel', [RombelController::class, '__invoke']);
+// Route::get('rombel', [RombelController::class, '__invoke']);
+
+Route::get('rombel', [RombelController::class, 'getAllRombel']);
+Route::get('rombel/{id}', [RombelController::class, 'getRombel']);

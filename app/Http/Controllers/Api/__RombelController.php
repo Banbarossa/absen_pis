@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 
 class RombelController extends Controller
 {
-    public function getAllRombel(Request $request)
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(Request $request)
     {
 
         $data = Rombel::all();
@@ -16,15 +19,5 @@ class RombelController extends Controller
             'success' => true,
             'data' => $data,
         ], 200);
-    }
-
-    public function getRombel($id)
-    {
-        $data = Rombel::find($id);
-        return response()->json([
-            'success' => true,
-            'data' => $data,
-        ], 200);
-
     }
 }
