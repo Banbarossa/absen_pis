@@ -61,6 +61,7 @@ class KelolaAbsenMengajar extends Component
         ]);
 
         $this->alert('success', 'Data berhasil diubah');
+        $this->dispatch('close-modal');
     }
 
     public function absenAlternatif($id)
