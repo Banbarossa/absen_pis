@@ -15,11 +15,11 @@
                             
                         </div>
 
-                        <div class="row mb-5">
+                        <div class="row mb-3">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>Absen Hari Ini</h5>
+                                        <h6>Absen Hari Ini</h6>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">                   

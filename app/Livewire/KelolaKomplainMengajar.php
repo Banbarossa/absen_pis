@@ -43,7 +43,7 @@ class KelolaKomplainMengajar extends Component
             });
         }
 
-        $model = $model->orderBy($this->sortColumn, $this->sortDirection)->paginate($this->perPage);
+        $model = $model->latest()->paginate($this->perPage);
         return view('livewire.kelola-komplain-mengajar', [
             'model' => $model,
         ])->layout('layouts.app');

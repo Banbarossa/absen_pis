@@ -50,9 +50,8 @@
                                         <label class="custom-control-label" for="customCheck"></label>
                                     </div>
                                 </th>
-                                {{-- <th>#</th> --}}
-                                <th class="sort @if($sortColumn == 'name') {{$sortDirection}} @endif" wire:click="sort('name')">Nama</th>
-                                <th class="sort @if($sortColumn == 'tanggal') {{$sortDirection}} @endif" wire:click="sort('tanggal')">Tanggal</th>
+                                <th>Nama</th>
+                                <th>Tanggal</th>
                                 <th>Ubah Ke</th>
                                 <th>Alasan Perubahan</th>
                                 <th>Action</th>
