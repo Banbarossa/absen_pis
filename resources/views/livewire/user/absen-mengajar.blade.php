@@ -10,89 +10,177 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h4 class="mt-0 header-title">Riwayat Absen</h4>
+                        <div class="d-flex justify-content-end">
                             <a href="{{route('user.absen.jadwal')}}" class="btn btn-primary mb-3">Cetak Jadwal Mengajar Anda</a>
                             
                         </div>
-                        {{-- table header --}}
-                        <div class="row">
-                            
-                            <div class="col-sm-6 col-md-4 col-lg-3">
-                                <div class="form-group mr-2">
-                                    <label for="startDate">Tanggal Awal</label>
-                                    <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
+
+                        <div class="row mb-5">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Absen Hari Ini</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">                   
+                                            <table class="table table-sm table-bordered ">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Gambar</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Rombel</th>
+                                                        <th>Jam ke / Mapel</th>
+                                                        <th>Status</th>
+                                                        <th>Waktu Absen</th>
+                                                        <th>Keterlambatan</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                    
+                                                </thead>
+                                                <tbody>
+                                                    @php
+                                                    $pageNumber = ($absen_hari_ini->currentPage() - 1) * $absen_hari_ini->perPage();
+                                                    $now = \Carbon\Carbon::now()->format('H:i:s');
+                                                    @endphp
+                        
+                                                    @forelse ($absen_hari_ini as $key=> $item)
+                                                    <tr>
+                                                        <td scope="row">{{$pageNumber + $key + 1}}</td>
+                                                        <td>
+                                                            @if ($item->image)
+                                                                <a href="{{asset('storage/public/images/'.$item->image)}}" class="thumbnail-link">
+                                                                    <img src="{{asset('storage/public/images/'.$item->image)}}" alt="Thumbnail Image" class="thumbnail rounded-circle">
+                                                                </a>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{$item->tanggal}}</td>
+                                                        <td>{{$item->rombel->nama_rombel}}</td>
+                                                        <td>
+                                                            <div>{{$item->jam_ke}}</div>
+                                                            <div><small>{{$item->mapel ? $item->mapel->mata_pelajaran : '' }}</small></div>
+                                                            
+                                                        </td>
+                                                        <td>{{ucFirst($item->kehadiran)}}</td>
+                                                        <td>{{$item->waktu_absen}}</td>
+                                                        <td>{{$item->keterlambatan}}</td>
+                                                        
+                                                        <td>
+                                                            @if ($item->kehadiran == 'alpa' && !$item->complainmengajar && $item->akhir_kbm < $now)
+                                                            <button class="btn btn-warning" wire:click='complain({{$item->id}})' data-toggle="modal" data-target="#crudModal">Complain</button>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="9">No Data Found</td>
+                                                        </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            {{$absen_hari_ini->links()}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3">
-                               
-                                <div class="form-group">
-                                    <label for="startDate">Tanggal akhir</label>
-                                    <input type="date" wire:model.live="endDate" id="endDate" class="form-control @error('endDate') is-invalid @enderror">
+                        </div>
+                        {{-- table header --}}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-header">
+                                    <h6>Riwayat Absen</h6>
                                 </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-4 col-lg-3">
+                                            <div class="form-group mr-2">
+                                                <label for="startDate">Tanggal Awal</label>
+                                                <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-4 col-lg-3">
+                                           
+                                            <div class="form-group">
+                                                <label for="startDate">Tanggal akhir</label>
+                                                <input type="date" wire:model.live="endDate" id="endDate" class="form-control @error('endDate') is-invalid @enderror">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">                   
+                                        <table class="table table-sm table-bordered ">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Gambar</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Rombel</th>
+                                                    <th>Jam ke / Mapel</th>
+                                                    <th>Status</th>
+                                                    <th>Waktu Absen</th>
+                                                    <th>Keterlambatan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                                
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $pageNumber = ($absens->currentPage() - 1) * $absens->perPage();
+                                                @endphp
+                    
+                                                @forelse ($absens as $key=> $item)
+                                                <tr>
+                                                    <td scope="row">{{$pageNumber + $key + 1}}</td>
+                                                    <td>
+                                                        @if ($item->image)
+                                                            <a href="{{asset('storage/public/images/'.$item->image)}}" class="thumbnail-link">
+                                                                <img src="{{asset('storage/public/images/'.$item->image)}}" alt="Thumbnail Image" class="thumbnail rounded-circle">
+                                                            </a>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$item->tanggal}}</td>
+                                                    <td>{{$item->rombel->nama_rombel}}</td>
+                                                    <td>
+                                                        <div>{{$item->jam_ke}}</div>
+                                                        <div><small>{{$item->mapel ? $item->mapel->mata_pelajaran : '' }}</small></div>
+                                                        
+                                                    </td>
+                                                    <td>{{ucFirst($item->kehadiran)}}</td>
+                                                    <td>{{$item->waktu_absen}}</td>
+                                                    <td>{{$item->keterlambatan}}</td>
+                                                    
+                                                    <td>
+                                                        @if ($item->kehadiran == 'alpa' && !$item->complainmengajar)
+                                                        <button class="btn btn-warning" wire:click='complain({{$item->id}})' data-toggle="modal" data-target="#crudModal">Complain</button>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="9">No Data Found</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        {{$absens->links()}}
+                                    </div>
+                                   
+                                </div>
+        
+                                
+                                
+                                </div>
+
+
+                        
                             </div>
                         </div>
 
-                        <div class="table-responsive">                   
-                            <table class="table table-sm table-bordered ">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Gambar</th>
-                                        <th>Tanggal</th>
-                                        <th>Rombel</th>
-                                        <th>Jam ke / Mapel</th>
-                                        <th>Status</th>
-                                        <th>Waktu Absen</th>
-                                        <th>Keterlambatan</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                    
-                                </thead>
-                                <tbody>
-                                    @php
-                                    $pageNumber = ($absens->currentPage() - 1) * $absens->perPage();
-                                    @endphp
-        
-                                    @forelse ($absens as $key=> $item)
-                                    <tr>
-                                        <td scope="row">{{$pageNumber + $key + 1}}</td>
-                                        <td>
-                                            @if ($item->image)
-                                                <a href="{{asset('storage/public/images/'.$item->image)}}" class="thumbnail-link">
-                                                    <img src="{{asset('storage/public/images/'.$item->image)}}" alt="Thumbnail Image" class="thumbnail rounded-circle">
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>{{$item->tanggal}}</td>
-                                        <td>{{$item->rombel->nama_rombel}}</td>
-                                        <td>
-                                            <div>{{$item->jam_ke}}</div>
-                                            <div><small>{{$item->mapel ? $item->mapel->mata_pelajaran : '' }}</small></div>
-                                            
-                                        </td>
-                                        <td>{{ucFirst($item->kehadiran)}}</td>
-                                        <td>{{$item->waktu_absen}}</td>
-                                        <td>{{$item->keterlambatan}}</td>
-                                        
-                                        <td>
-                                            @if ($item->kehadiran == 'alpa' && !$item->complainmengajar)
-                                            <button class="btn btn-warning" wire:click='complain({{$item->id}})' data-toggle="modal" data-target="#crudModal">Complain</button>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="9">No Data Found</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                        <div>
-                            {{$absens->links()}}
-                        </div>
-                        
+                            
+                            
             
         
         

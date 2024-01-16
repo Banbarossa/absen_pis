@@ -24,38 +24,30 @@ class AbsenMengajar extends Component
     public function mount()
     {
         $this->startDate = Carbon::now()->startOfMonth()->toDateString();
-        $this->endDate = Carbon::now()->endOfMonth()->toDateString();
+        $this->endDate = Carbon::now()->subDay(1)->toDateString();
     }
 
     public function render()
     {
 
-        // $user = Auth::user();
-        // $hari_ini = Carbon::now()->toDateString();
-
-        // $absens = Absensekolah::with('complainmengajar', 'rombel', 'mapel')
-        //     ->where('user_id', $user->id)
-        //     ->where('tanggal', '>=', now()->startOfMonth()) // Awal bulan
-        //     ->where('tanggal', '<=', $hari_ini)
-        //     ->when($hari_ini == now()->toDateString(), function ($query) {
-        //         $query->where('mulai_kbm', '<=', now()->format('H:i:s'));
-        //     })
-        //     ->orderBy('tanggal', 'desc')
-        //     ->paginate(15);
+        $today = Carbon::now()->toDateString();
 
         $user = Auth::user();
-        $hari_ini = Carbon::now()->toDateString();
         $absens = Absensekolah::with('complainmengajar', 'rombel', 'mapel')->where('user_id', $user->id)
             ->where('tanggal', '>=', $this->startDate)
             ->where('tanggal', '<=', $this->endDate)
-            ->when('tanggal' == $hari_ini, function ($query) {
-                $query->where('mulai_kbm', '<=', Carbon::now()->format('H:i:s'));
-            })
             ->orderBy('tanggal', 'desc')
+            ->paginate('15');
+
+        $absen_hari_ini = Absensekolah::with('complainmengajar', 'rombel', 'mapel')->where('user_id', $user->id)
+            ->where('tanggal', '=', $today)
+            ->where('mulai_kbm', '<=', Carbon::now()->format('H:i:s'))
+            ->orderBy('jam_ke', 'desc')
             ->paginate('15');
 
         return view('livewire.user.absen-mengajar', [
             'absens' => $absens,
+            'absen_hari_ini' => $absen_hari_ini,
         ])->layout('layouts.app');
     }
 
