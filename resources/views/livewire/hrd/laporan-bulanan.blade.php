@@ -172,8 +172,8 @@
                                                         <tr>
                                                             <td>Jumlah hari Mengajar</td>
                                                             <th>{{$jumlahHarihadir}}<small class="text-muted ml-2">Hari</small></th>
-                                                            <td>10.000</td>
-                                                            <td>{{ number_format(10000 * $jumlahHarihadir, 0, ',', '.')}}</td>
+                                                            <td>20.000</td>
+                                                            <td>{{ number_format(20000 * $jumlahHarihadir, 0, ',', '.')}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
