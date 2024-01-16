@@ -41,7 +41,10 @@ class AbsenMengajar extends Component
 
         $absen_hari_ini = Absensekolah::with('complainmengajar', 'rombel', 'mapel')->where('user_id', $user->id)
             ->where('tanggal', '=', $today)
-            ->where('mulai_kbm', '<=', Carbon::now()->format('H:i:s'))
+            ->where(function ($query) {
+                $query->where('mulai_kbm', '<=', Carbon::now()->format('H:i:s'))
+                    ->orWhere('waktu_absen', '<=', Carbon::now()->format('H:i:s'));
+            })
             ->orderBy('jam_ke', 'desc')
             ->paginate('15');
 
