@@ -30,29 +30,29 @@ class AbsenMengajar extends Component
     public function render()
     {
 
-        $user = Auth::user();
-        $hari_ini = Carbon::now()->toDateString();
-
-        $absens = Absensekolah::with('complainmengajar', 'rombel', 'mapel')
-            ->where('user_id', $user->id)
-            ->where('tanggal', '>=', now()->startOfMonth()) // Awal bulan
-            ->where('tanggal', '<=', $hari_ini)
-            ->when($hari_ini == now()->toDateString(), function ($query) {
-                $query->where('mulai_kbm', '<=', now()->format('H:i:s'));
-            })
-            ->orderBy('tanggal', 'desc')
-            ->paginate(15);
-
         // $user = Auth::user();
         // $hari_ini = Carbon::now()->toDateString();
-        // $absens = Absensekolah::with('complainmengajar', 'rombel', 'mapel')->where('user_id', $user->id)
-        //     ->where('tanggal', '>=', $this->startDate)
-        //     ->where('tanggal', '<=', $this->endDate)
-        //     ->when('tanggal' == $hari_ini, function ($query) {
-        //         $query->where('mulai_kbm', '<=', Carbon::now()->format('H:i:s'));
+
+        // $absens = Absensekolah::with('complainmengajar', 'rombel', 'mapel')
+        //     ->where('user_id', $user->id)
+        //     ->where('tanggal', '>=', now()->startOfMonth()) // Awal bulan
+        //     ->where('tanggal', '<=', $hari_ini)
+        //     ->when($hari_ini == now()->toDateString(), function ($query) {
+        //         $query->where('mulai_kbm', '<=', now()->format('H:i:s'));
         //     })
         //     ->orderBy('tanggal', 'desc')
-        //     ->paginate('15');
+        //     ->paginate(15);
+
+        $user = Auth::user();
+        $hari_ini = Carbon::now()->toDateString();
+        $absens = Absensekolah::with('complainmengajar', 'rombel', 'mapel')->where('user_id', $user->id)
+            ->where('tanggal', '>=', $this->startDate)
+            ->where('tanggal', '<=', $this->endDate)
+            ->when('tanggal' == $hari_ini, function ($query) {
+                $query->where('mulai_kbm', '<=', Carbon::now()->format('H:i:s'));
+            })
+            ->orderBy('tanggal', 'desc')
+            ->paginate('15');
 
         return view('livewire.user.absen-mengajar', [
             'absens' => $absens,
