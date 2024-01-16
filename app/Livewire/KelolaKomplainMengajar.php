@@ -31,7 +31,6 @@ class KelolaKomplainMengajar extends Component
                 'complainmengajars.change_to',
                 'complainmengajars.reason',
                 'complainmengajars.status',
-                'complainmengajars.timestamps',
                 'absensekolahs.tanggal',
                 'users.name as user_name',
                 'approved_users.name as approved_by_name'
@@ -44,7 +43,7 @@ class KelolaKomplainMengajar extends Component
             });
         }
 
-        $model = $model->orderBy('complainmengajars.timestamps', 'desc')->paginate($this->perPage);
+        $model = $model->latest('complainmengajars.created_at')->paginate($this->perPage);
         return view('livewire.kelola-komplain-mengajar', [
             'model' => $model,
         ])->layout('layouts.app');
