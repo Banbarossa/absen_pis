@@ -115,7 +115,7 @@
                             
                             // console.log(unreadMessages);
 
-                            var chatLink = '/chat';
+                            var chatLink = '/chatify';
                             var chatDropdown = $('#looping_pesan');
 
                             

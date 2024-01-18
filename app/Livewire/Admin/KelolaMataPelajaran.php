@@ -100,4 +100,15 @@ class KelolaMataPelajaran extends Component
         $this->alert('success', 'Data Berhasil Dihapus');
 
     }
+
+    public function changeStatus($id)
+    {
+        $mapel = Mapel::findOrFail($id);
+        $mapel->status = !$mapel->status;
+        $mapel->save();
+        // $mapel->update([
+        //     'status' => !$mapel->status,
+        // ]);
+        $this->alert('success', 'Data Berhasil Dihapus');
+    }
 }

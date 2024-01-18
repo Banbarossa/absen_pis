@@ -34,6 +34,13 @@
                                 <td scope="row">{{$pageNumber + $key + 1}}</td>
                                 <td>{{$item->mata_pelajaran}}</td>
                                 <td>
+                                    @if ($item->status)
+                                        <button class="btn btn-sm btn-outline-success" wire:confirm='Yakin untuk me nonaktifkan Mata Pelajaran' wire:click='changeStatus({{$item->id}})'>Aktif</button>
+                                    @else
+                                        <button class="btn btn-sm btn-outline-danger" wire:confirm='Yakin untuk me nonaktifkan Mata Pelajaran' wire:click='changeStatus({{$item->id}})'>Tidak Aktif</button>
+                                    @endif
+                                </td>
+                                <td>
                                     <div class="dropdown">
                                         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Action
@@ -42,7 +49,7 @@
                                             <button type="button" class="dropdown-item" data-toggle="modal" data-target="#crudModal" wire:click='edit({{$item->id}})'>
                                                 Edit
                                             </button>
-                                            <button class="dropdown-item" wire:confirm="Are you sure you want to delete this post?" wire:click='destroy({{$item->id}})'>Delete</button>
+                                            {{-- <button class="dropdown-item" wire:confirm="Are you sure you want to delete this post?" wire:click='destroy({{$item->id}})'>Delete</button> --}}
 
                                         </div>
                                     </div>
