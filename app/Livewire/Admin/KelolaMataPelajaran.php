@@ -25,7 +25,7 @@ class KelolaMataPelajaran extends Component
 
     public function render()
     {
-        $model = Mapel::whereStatus(true)->orderBy($this->sortColumn, $this->sortDirection)->paginate($this->perPage);
+        $model = Mapel::orderBy($this->sortColumn, $this->sortDirection)->paginate($this->perPage);
         if ($this->search) {
             $model = Mapel::search($this->search)->paginate($this->perPage);
         }
