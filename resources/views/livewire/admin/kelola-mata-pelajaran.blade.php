@@ -21,6 +21,7 @@
                             <tr>
                                 <th>#</th>
                                 <th class="sort @if($sortColumn == 'nama') {{$sortDirection}} @endif" wire:click="sort('nama')">Nama mata Pelajaran</th>
+                                <th>Status</th>
                                 <th style="width: 110px">Action</th>
                             </tr>
                         </thead>
