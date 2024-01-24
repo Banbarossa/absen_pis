@@ -70,9 +70,9 @@ class KelolaRombel extends Component
     public function rules()
     {
         return [
-            'id_sekolah' => 'required',
-            'nama_rombel' => 'required|min:8',
-            'tingkat_kelas' => 'required|number',
+            'sekolah_id' => 'required',
+            'nama_rombel' => 'required',
+            'tingkat_kelas' => 'required|numeric',
         ];
 
     }
