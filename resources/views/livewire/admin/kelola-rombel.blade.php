@@ -93,7 +93,7 @@
                                         @if ($item->schedules->count() >0)
                                         <a href="{{route('pengajaran.detail.rombel',$item->id)}}" class="btn btn-sm btn-primary mr-3">Penjadwalan</a>
                                         @endif
-                                        <div class="dropdown">
+                                        {{-- <div class="dropdown">
                                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Action
                                             </button>
@@ -104,7 +104,7 @@
                                                 <button class="dropdown-item" wire:confirm="Are you sure you want to delete this post?" wire:click='destroy({{$item->id}})'>Delete</button>
 
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </td>
                             </tr>
@@ -131,7 +131,7 @@
 
          {{-- Modal create Update --}}
 
-        <x-crud-modal title="{{$sekolah_id ? 'Edit Data' :' Tambah Data'}}">
+        <x-crud-modal title="{{$rombel_id ? 'Edit Data' :' Tambah Data'}}">
             @if ($rombel_id)
             <form wire:submit='editData'>
             @else
