@@ -77,9 +77,9 @@
             <div class="alert alert-danger">
                 Saat ini tidak ada jadwal halaqah
             </div>
-            <div class="col-sm-7 m-t-20">
+            {{-- <div class="col-sm-7 m-t-20">
                 <a href="" class="text-muted"><i class="mdi mdi-barcode-scan"></i> <small>Absen dengan cara lain?</small></a>
-            </div>
+            </div> --}}
             @endif
 
             

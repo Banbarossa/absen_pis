@@ -12,7 +12,7 @@ class UserCetaksController extends Controller
     public function cetakJadwalHalaqah()
     {
         $jadwals = JadwalHalaqah::orderBy('hari', 'asc')
-            ->orderBy('nama_sesi', 'asc')
+            ->orderBy('nama_sesi', 'desc')
             ->get()
             ->groupBy('hari');
 
