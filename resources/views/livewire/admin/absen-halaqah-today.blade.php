@@ -35,7 +35,7 @@
                                 <th class="sort @if($sortColumn == 'tanggal') {{$sortDirection}} @endif" wire:click="sort('tanggal')">Tanggal</th>
                                 <th class="sort @if($sortColumn == 'waktu_absen') {{$sortDirection}} @endif" wire:click="sort('mulai_absen')">Waktu Absen</th>
                                 <th>Status</th>
-                                <th>Lokasi</th>
+                                {{-- <th>Lokasi</th> --}}
                                 <th>Foto</th>
                                 <th>Action</th>
                             </tr>
@@ -64,11 +64,11 @@
                                         </div>
                                     @endif
                                 </td>
-                                <td>
+                                {{-- <td>
                                     @if (!is_null($item->in_location))
                                         <a href="https://www.google.com/maps?q={{$item->latitude}},{{$item->longitude}}" target="_blank">{{$item->in_location ? 'Dalam Lokasi':'Luar Lokasi'}}</a>
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>
                                     @if ($item->image)
                                         <a href="{{asset('storage/public/images/'.$item->image)}}" class="thumbnail-link">
