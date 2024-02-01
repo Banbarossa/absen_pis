@@ -25,7 +25,7 @@ class UserCetaksController extends Controller
     {
         $semesterAktif = Semester::whereStatus(1)->first();
         $roster = Roster::with(['jammengajar' => function ($query) {
-            $query->orderBy('hari');
+            $query->orderBy('hari', 'asc');
         }, 'mapel', 'rombel'])
             ->where('user_id', Auth::user()->id)
             ->where('semester_id', $semesterAktif->id)
