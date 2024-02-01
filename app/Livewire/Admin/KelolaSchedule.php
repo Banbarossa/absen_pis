@@ -101,6 +101,7 @@ class KelolaSchedule extends Component
 
     public function clear()
     {
+        $this->schedule_id = '';
         $this->jam_ke = '';
         $this->mulai_kbm = '';
         $this->akhir_kbm = '';
