@@ -18,10 +18,10 @@
                 </div>
             @endif
             <div class="text-center mb-4">
-                <h4>Absen Alternatif</h4>
+                <h4>Absen Penganti Guru Utama</h4>
             </div>
 
-            <form class="form-horizontal m-t-20" method="POST" action="{{route('absen-alternatif.store',$id_rombel)}}">
+            <form class="form-horizontal m-t-20" method="POST" action="{{route('absen-pengganti.store',$id_rombel)}}">
             
                 @csrf
                 <div class="form-group text-center row m-t-20">
@@ -44,12 +44,13 @@
                 <input type="hidden" name="id_rombel" value="{{$id_rombel}}">
                 <input type="hidden" id="latitudeInput" name="latitude">
                 <input type="hidden" id="longitudeInput" name="longitude">
-                <x-text-input label="Jumlah Jam" name="jumlah_jam" type="number" value="2" />
+                <input type="hidden" id="absen_id" name="absen_id" value="{{$absen->id}}">
+                <input type="hidden" id="jumlah_jam" name="jumlah_jam" value="{{$absen->jumlah_jam}}">
                 <x-text-input label="Password Absen Anda" name="password_absen" type="text" />
                 <div class="form-group">
                     <label for="alasan">Alasan</label>
                     <div>
-                        <small class="text-muted">Tuliskan Alasan Menggunakan Absen Alternatif</small>
+                        <small class="text-muted">Tuliskan Alasan Menggantikan Guru Utama</small>
                     </div>
                     <textarea class="form-control @error('alasan') is-invalid @enderror" id="alasan" name="alasan" rows="3"></textarea>
                     @error('alasan')

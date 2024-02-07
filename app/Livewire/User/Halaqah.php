@@ -26,7 +26,7 @@ class Halaqah extends Component
     public function mount()
     {
         $this->startDate = Carbon::now()->startOfMonth()->toDateString();
-        $this->endDate = Carbon::now()->endOfMonth()->toDateString();
+        $this->endDate = Carbon::now()->subDays(1)->toDateString();
     }
 
     public function render()
@@ -39,10 +39,19 @@ class Halaqah extends Component
             ->orderBy('tanggal', 'desc')
             ->paginate('15');
 
+        $absen_hari_ini = Absenhalaqah::with('jadwalhalaqah')->where('user_id', $user->id)
+            ->where('tanggal', Carbon::now()->toDateString())
+            ->whereHas('jadwalhalaqah', function ($query) {
+                $query->where('mulai_absen', '<', Carbon::now()->format('H:i:s'));
+            })
+            ->orderBy('tanggal', 'desc')
+            ->paginate('15');
+
         $jadwalHalaqah = JadwalHalaqah::all();
 
         return view('livewire.user.halaqah', [
             'absens' => $absens,
+            'absen_hari_ini' => $absen_hari_ini,
             'jadwalHalaqah' => $jadwalHalaqah,
         ])->layout('layouts.app');
 

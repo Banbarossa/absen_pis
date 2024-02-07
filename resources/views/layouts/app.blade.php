@@ -81,7 +81,7 @@
 
         <script>
          window.addEventListener('close-modal',event=>{
-             $('#crudModal').modal('hide');
+             $('.modal').modal('hide');
          })
 
         </script>

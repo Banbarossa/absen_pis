@@ -27,7 +27,7 @@ class KelolaAbsenHalaqah extends Component
 
     public function mount()
     {
-        $this->startDate = Carbon::now()->subDays(7)->toDateString();
+        $this->startDate = Carbon::now()->subDays(4)->toDateString();
         $this->endDate = Carbon::now()->endOfMonth()->toDateString();
     }
 

@@ -15,7 +15,7 @@ class AbsenHalaqahToday extends Component
     use LivewireAlert;
     protected $paginationTheme = 'bootstrap';
     public $perPage = '15', $search;
-    public $sortColumn = 'tanggal';
+    public $sortColumn = 'jadwal_halaqahs.mulai_absen';
     public $sortDirection = 'desc';
     public $startDate, $endDate;
 
@@ -37,17 +37,18 @@ class AbsenHalaqahToday extends Component
                 $query->where('mulai_absen', '<=', Carbon::now()->format('H:i:s'));
             })
             ->where('tanggal', '=', $today->toDateString())
-            ->leftJoin('users', 'absenhalaqahs.user_id', '=', 'users.id');
+            ->leftJoin('users', 'absenhalaqahs.user_id', '=', 'users.id')
+            ->leftJoin('jadwal_halaqahs', 'absenhalaqahs.jadwal_halaqah_id', '=', 'jadwal_halaqahs.id');
+        // ->where('jumlah')
 
         if ($this->search) {
             $model->where(function ($query) {
-                $query->where('name', 'LIKE', '%' . $this->search . '%')
+                $query->where('users.name', 'LIKE', '%' . $this->search . '%')
                     ->orWhere('tanggal', 'LIKE', '%' . $this->search . '%');
             });
         }
 
-        $model = $model->orderBy($this->sortColumn, $this->sortDirection)
-            ->paginate($this->perPage);
+        $model = $model->orderBy($this->sortColumn, $this->sortDirection)->paginate($this->perPage);
 
         return view('livewire.admin.absen-halaqah-today', [
             'model' => $model,

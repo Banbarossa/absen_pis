@@ -24,11 +24,12 @@ class UserCetaksController extends Controller
     public function cetakJadwalMengajar()
     {
         $semesterAktif = Semester::whereStatus(1)->first();
-        $roster = Roster::with(['jammengajar' => function ($query) {
-            $query->orderBy('hari', 'asc');
-        }, 'mapel', 'rombel'])
+        $roster = Roster::with('jammengajar', 'mapel', 'rombel')
+            ->leftjoin('jammengajars', 'rosters.jammengajar_id', '=', 'jammengajars.id')
             ->where('user_id', Auth::user()->id)
             ->where('semester_id', $semesterAktif->id)
+            ->orderBy('jammengajars.hari', 'asc')
+            ->orderBy('jammengajars.jam_ke', 'asc')
             ->get();
 
         $userName = Auth::user()->name;

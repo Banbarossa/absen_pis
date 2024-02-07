@@ -175,11 +175,6 @@
         <li class="has_sub">
             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-printer"></i> <span>Cetak</span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="list-unstyled">
-                @role('musyrif halaqah')
-                <li class="{{Request::routeIs('absen.user.halaqah') ? 'active' :''}}">
-                    <a href="{{route('user.absen.halaqah')}}" class="{{Request::routeIs('user.absen.halaqah') ? 'active' :''}}">Halaqah</a>
-                </li>
-                @endrole
                 @role('guru')
                 <li class="{{Request::routeIs('user.absen.jadwal') ? 'active' :''}}">
                     <a href="{{route('user.absen.jadwal')}}" class="{{Request::routeIs('user.absen.jadwal') ? 'active' :''}}">Roster</a>

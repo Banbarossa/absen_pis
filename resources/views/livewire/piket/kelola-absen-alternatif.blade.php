@@ -13,36 +13,12 @@
         @endphp
      
         <x-header>
-            <h4 class="page-title">Laporan Kehadiran</h4>
+            <h4 class="page-title">Absen Alternatif</h4>
         </x-header>
-        <div class="row mb-3">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <h4 class="mt-0 header-title">Periode</h4>
-                            </div>
-                            
-                            {{-- <div class="d-flex">
-                                <div class="form-group mr-2">
-                                    <label for="startDate">Tanggal Awal</label>
-                                    <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
-                                </div>
-                                <div class="form-group">
-                                    <label for="startDate">Tanggal akhir</label>
-                                    <input type="date" wire:model.live="endDate" id="endDate" class="form-control @error('endDate') is-invalid @enderror">
-                                </div>
-                            </div> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
         <div class="row">
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-12">
                 <div class="card m-b-30">
                     <div class="card-body min-vh-50">
                         <div class="d-flex justify-content-between">
@@ -75,6 +51,7 @@
                                             <th>Nama</th>
                                             <th>Nama Rombel</th>
                                             <th>Tanggal/Waktu</th>
+                                            <th>Jumlah Jam</th>
                                             <th>Aproval</th>
                                             <th>Image</th>
                                             <th>Aksi</th>
@@ -100,13 +77,14 @@
                                                     </div>
                                                     <small>{{$item->waktu_absen}}</small>
                                                 </td>
+                                                <td>{{ $item->jumlah_jam }}</td>
                                                 <td>
                                                     @if ($item->approved == 1)
-                                                        <button disabled class="btn btn-sm btn-outline-success rounded-pill">Sudah Di Approve</button>
+                                                        <span class="text-success"> Sudah Di Approve</span>
                                                     @elseif ($item->approved == null)
-                                                        <button disabled class="btn btn-sm btn-primary rounded-pill">Belum Di Proses</button>
+                                                       <span class="text-warning">Belum Di Proses</span> 
                                                     @else
-                                                        <button disabled class="btn btn-sm btn-outline-danger rounded-pill">Sudah Di tolak</button>
+                                                       <span class="text-danger">Sudah Di tolak</span> 
                                                     @endif
                                                 </td>
                                                 <td>
@@ -120,7 +98,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                   <button class="btn" wire:click='getAbsen({{$item->id}})'><i class="fa fa-eye"></i></button>
+                                                   <button class="btn btn-secondary" wire:click='getAbsen({{$item->id}})' data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye mr-2"></i> Detail</button>
                                                     
                                                 </td>
                                             </tr>
@@ -139,7 +117,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4">
+            {{-- <div class="col-12 col-lg-4">
                 <div class="card m-b-30">
                     <div class="modal-content">
                         <div class="modal-body" id="pdf">
@@ -180,6 +158,11 @@
                                                     <td class="mx-2">{{$singleAbsen->waktu_absen}}</td>
                                                 </tr>
                                                 <tr>
+                                                    <td>Jumlah Jam</td>
+                                                    <td class="mx-2">:</td>
+                                                    <td class="mx-2">{{$singleAbsen->jumlah_jam}}</td>
+                                                </tr>
+                                                <tr>
                                                     <td>Alasan</td>
                                                     <td class="mx-2">:</td>
                                                     <td class="mx-2">{{$singleAbsen->alasan}}</td>
@@ -210,7 +193,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         {{-- Modal Penolakan --}}
@@ -232,6 +215,98 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </x-crud-modal>
+
+
+                {{-- Modal  --}}
+                <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <form action="" wire:submit='updateUser'>
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Absen Alternatif</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                    @if ($singleAbsen)
+                                    <div>
+                                        <a href="{{asset('/storage/public/images/'.$singleAbsen->image)}}" target="blank" class="thumbnail-link">
+                                            <img src="{{asset('/storage/public/images/'.$singleAbsen->image)}}" alt="Thumbnail Image" class="thumbnail">
+                                        </a>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <table class="table table-sm">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td>Nama</td>
+                                                    <td class="mx-2">:</td>
+                                                    <td class="mx-2">{{$singleAbsen->user->name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jam Rombel</td>
+                                                    <td class="mx-2">:</td>
+                                                    <td class="mx-2">{{$singleAbsen->rombel->nama_rombel}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tanggal</td>
+                                                    <td class="mx-2">:</td>
+                                                    <td class="mx-2">{{$singleAbsen->tanggal}} <small class="text-muted">{{$hariMapping[\Carbon\Carbon::parse($singleAbsen->tanggal)->dayOfWeek]}}</small></td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td>Jam Absen</td>
+                                                    <td class="mx-2">:</td>
+                                                    <td class="mx-2">{{$singleAbsen->waktu_absen}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jumlah Jam</td>
+                                                    <td class="mx-2">:</td>
+                                                    <td class="mx-2">{{$singleAbsen->jumlah_jam}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alasan</td>
+                                                    <td class="mx-2">:</td>
+                                                    <td class="mx-2 text-wrap">{{$singleAbsen->alasan}}</td>
+                                                </tr>
+                                            
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="form-group">
+                                        <label for="alasan_penolakan">Jika Menolak, Tuliskan Alasan Disini</label>
+                                        <textarea class="form-control @error('alasan_penolakan') is-invalid @enderror" id="alasan_penolakan" name="alasan_penolakan" rows="3"></textarea>
+                                        @error('alasan_penolakan')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                   
+                                    
+                                    
+                                @else
+                                    😎 Belum ada Data Yang dipilih
+                                @endif
+                                
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Close</button>
+                                @if ($singleAbsen)
+                                    @if (is_null($singleAbsen->approved))
+                                <button type="submit" wire:confirm='Yakin untuk menolak data?' wire:click='tolak' class="btn btn-warning">Tolak</button>
+                                <button class="btn btn-danger" wire:confirm='Yakin untuk menghapus data?' wire:click='destroy({{$singleAbsen->id}})'>Hapus</button>
+                                <button type="button" wire:click='close' class="btn btn-primary" wire:click='terima({{$singleAbsen->id}})'>Approve</button>
+                                    @endif
+                                @endif
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
     </x-content-area>
 

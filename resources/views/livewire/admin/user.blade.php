@@ -83,7 +83,7 @@
 
 
          {{-- Modal create --}}
-         <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <form action="" wire:submit='updateUser'>
@@ -107,13 +107,8 @@
                     </form>
                 </div>
             </div>
-          </div>
+        </div>
 
 
-          @push('script')
-                <script>
-                    console.log('test')
-                </script>
-          @endpush
     </x-content-area>
 </div>

@@ -176,9 +176,13 @@ Route::post('absen-kesantrian/', [GuestAbsenKaryawan::class, 'store'])->name('ab
 Route::get('absen-mengajar/{code}', [AbsenMengajarController::class, 'index'])->name('absen-mengajar.index'); //aksen absen mengajar
 Route::post('absen-mengajar/{id}', [AbsenMengajarController::class, 'store'])->name('absen-mengajar.store'); //simpan data absen mengajar
 
-// Absen Mengajar Alternatif
-Route::get('absen-alternatif/{code}', [AbsenAlternatifController::class, 'index'])->name('absen-alternatif.index'); //aksen absen alternatif
-Route::post('absen-alternatif/{code}', [AbsenAlternatifController::class, 'store'])->name('absen-alternatif.store'); //simpan data absen alternatif
+// Absen Mengajar Pengganti
+Route::get('absen-alternatif/{code}', [AbsenAlternatifController::class, 'alternatifIndex'])->name('absen-alternatif.index'); //aksen absen alternatif
+Route::post('absen-alternatif/{code}', [AbsenAlternatifController::class, 'alternatifStore'])->name('absen-alternatif.store'); //simpan data absen alternatif
+
+// Absen Mengajar Pengganti
+Route::get('absen-pengganti/{code}', [AbsenAlternatifController::class, 'penggantiIndex'])->name('absen-pengganti.index'); //aksen absen alternatif
+Route::post('absen-pengganti/{code}', [AbsenAlternatifController::class, 'penggantiStore'])->name('absen-pengganti.store'); //simpan data absen alternatif
 
 // Absen Halaqah
 Route::get('absen-halaqah', [GuestAbsenHalaqahController::class, 'index'])->name('absen-halaqah.index');

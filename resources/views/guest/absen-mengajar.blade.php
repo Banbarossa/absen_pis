@@ -17,7 +17,7 @@
                     </ul>
                 </div>
             @endif
-            @if ($absen)
+            @if ($absen &&$absen->kehadiran !== "hadir")
             <div class="text-center mb-4">
                 <h4>Konfirmasi Mengajar</h4>
             </div>
@@ -75,12 +75,20 @@
                 </div>
 
                 <div class="form-group m-t-10 mb-0 row">
-                    <div class="col-sm-7 m-t-20">
-                        <a href="{{route('absen-alternatif.index',$id_rombel)}}" class="text-muted"><i class="mdi mdi-barcode-scan"></i> <small>bukan saya, Absen Dengan Cara Lain?</small></a>
+                    {{-- <div class="col-12 m-t-20">
+                        <a href="{{route('absen-pengganti.index',$id_rombel)}}" class="text-muted"><i class="mdi mdi-barcode-scan"></i> <small>Saya Pengganti Guru Utama?</small></a>
+                    </div> --}}
+                    <div class="col-sm-12 m-t-20">
+                        <a href="{{route('absen-alternatif.index',$id_rombel)}}" class="text-muted"><i class="mdi mdi-barcode-scan"></i> <small>Absen dengan cara lain?</small></a>
                     </div>
                     
                 </div>
             </form>
+
+            @elseif ($absen && $absen->kehadiran == 'hadir')
+            <div class="text-center mb-4">
+                <h4>✍️Anda Sudah melakukan Absen pada jam {{$absen->waktu_absen ? $absen->waktu_absen :''}}</h4>
+            </div>
             @else
             <div class="alert alert-danger">
                 Tidak Ada Jadwal Pembelajaran yang ditemukan
@@ -88,6 +96,7 @@
             <div class="col-sm-7 m-t-20">
                 <a href="{{route('absen-alternatif.index',$id_rombel)}}" class="text-muted"><i class="mdi mdi-barcode-scan"></i> <small>Absen dengan cara lain?</small></a>
             </div>
+            
             @endif
 
             
@@ -96,7 +105,7 @@
     </x-form-card>
 
 
-    @if ($absen)
+    @if ($absen &&$absen->kehadiran !== "hadir")
          @push('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <script>

@@ -162,4 +162,9 @@ class KelolaAbsenAlternatif extends Component
     {
 
     }
+
+    public function close()
+    {
+        $this->dispatch('close-modal');
+    }
 }
