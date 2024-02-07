@@ -299,7 +299,7 @@
                                     @if (is_null($singleAbsen->approved))
                                 <button type="submit" wire:confirm='Yakin untuk menolak data?' wire:click='tolak' class="btn btn-warning">Tolak</button>
                                 <button class="btn btn-danger" wire:confirm='Yakin untuk menghapus data?' wire:click='destroy({{$singleAbsen->id}})'>Hapus</button>
-                                <button type="button" wire:click='close' class="btn btn-primary" wire:click='terima({{$singleAbsen->id}})'>Approve</button>
+                                <button type="button" class="btn btn-primary" wire:click='terima({{$singleAbsen->id}})'>Approve</button>
                                     @endif
                                 @endif
                                 </div>
