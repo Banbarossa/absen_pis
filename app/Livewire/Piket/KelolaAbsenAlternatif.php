@@ -100,6 +100,7 @@ class KelolaAbsenAlternatif extends Component
             'absenalternatif_id' => $absen->id,
             'image' => $absen->image,
         ]);
+        $this->dispatch('close-modal');
         $this->singleAbsen = '';
         $this->alert('success', 'Absen Alternatif Berhasil diterima');
     }
