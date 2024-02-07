@@ -90,7 +90,7 @@ class KelolaKomplainMengajar extends Component
         foreach ($this->dataToChange as $data) {
             $complain = Complainmengajar::find($data);
 
-            Absensekolah::find($complain->absenhalaqah_id)->update(['kehadiran' => $complain->change_to]);
+            Absensekolah::find($complain->absensekolah_id)->update(['kehadiran' => $complain->change_to]);
 
             $complain->update([
                 'status' => 1,
