@@ -68,7 +68,7 @@
                                                         <td>
                                                             @if ($item->kehadiran == 'alpa' && !$item->complainmengajar && $item->akhir_kbm < $now)
                                                             <button class="btn btn-warning" wire:click='complain({{$item->id}})' data-toggle="modal" data-target="#crudModal">Complain</button>
-                                                            @elseif ($item->kehadiran != 'alpa' && !$item->complainmengajar && $item->akhir_kbm < $now)
+                                                            @elseif ($item->kehadiran != 'alpa' && !$item->complainmengajar)
                                                             ✔️
                                                             @else
                                                             Belum Absen
