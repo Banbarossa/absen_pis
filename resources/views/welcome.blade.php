@@ -21,20 +21,20 @@
 <body class="fixed-left">
     @include('layouts.guest-navbar')
     <div class="container mt-4">
-        <div class="row mb-4" id="logo">
+        <div class="mb-4 row" id="logo">
             <div class="col-12 d-flex align-items-center">
-                <img src="{{asset('assets/images/favicon.ico')}}" alt="logo">
+                <img src="{{asset('assets/images/favicon.ico')}}" height="60" alt="logo">
                 <span class="ml-3">
-                    <h5 class="text-primary mb-0">ABSENSI DIGITAL</h5>
+                    <h5 class="mb-0 text-primary">ABSENSI DIGITAL</h5>
                     <p class="mt-0">Pesantren {{config('app.name')}}</p>
                 </span>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="mb-4 col-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <i class="mdi mdi-lock mr-3"></i>Login
+                        <i class="mr-3 mdi mdi-lock"></i>Login
                     </div>
                     <div class="card-body">
                         <div >
@@ -64,13 +64,13 @@
                                     </div>
                                 </div>
                 
-                                <div class="form-group text-center row m-t-20">
+                                <div class="text-center form-group row m-t-20">
                                     <div class="col-12">
                                         <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Log In</button>
                                     </div>
                                 </div>
                 
-                                <div class="form-group m-t-10 mb-0 row">
+                                <div class="mb-0 form-group m-t-10 row">
                                     @if (Route::has('password.request'))
                                     <div class="col-sm-7 m-t-20">
                                         <a href="{{ route('password.request') }}" class="text-muted"><i class="mdi mdi-lock"></i> <small>Lupa Password ?</small></a>
@@ -85,14 +85,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="mb-4 col-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <i class="mdi mdi-information mr-3"></i>Informasi
+                        <i class="mr-3 mdi mdi-information"></i>Informasi
                     </div>
                     <div class="card-body">
                         @if ($informasi)
-                        <p class="text-muted mb-0"><strong>{{$informasi->title}}</strong></p>
+                        <p class="mb-0 text-muted"><strong>{{$informasi->title}}</strong></p>
                         <small class="mt-0">{{\Carbon\Carbon::parse($informasi->created_at)->diffForHumans()}}</small>
                         <p class="mt-3">{!! $informasi->content !!}</p>
                         @else
@@ -101,14 +101,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="mb-4 col-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <i class="mdi mdi-help mr-3"></i>Pengetahuan
+                        <i class="mr-3 mdi mdi-help"></i>Pengetahuan
                     </div>
                     <div class="card-body">
                         @if ($pengetahuan)
-                        <p class="text-muted mb-0"><strong>{{$pengetahuan->title}}</strong></p>
+                        <p class="mb-0 text-muted"><strong>{{$pengetahuan->title}}</strong></p>
                         <small class="mt-0">{{\Carbon\Carbon::parse($pengetahuan->created_at)->diffForHumans()}}</small>
                         <p class="mt-3">{!! $pengetahuan->content !!}</p>
                         @else
@@ -146,13 +146,13 @@
                             <x-text-input label="Konfirmasi Password" name="password_confirmation" type="password" />
             
             
-                            <div class="form-group text-center row m-t-20">
+                            <div class="text-center form-group row m-t-20">
                                 <div class="col-12">
                                     <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Register Now</button>
                                 </div>
                             </div>
             
-                            <div class="form-group m-t-10 mb-0 row">
+                            <div class="mb-0 form-group m-t-10 row">
                                 
                             </div>
                         </form>
