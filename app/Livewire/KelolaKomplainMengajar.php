@@ -31,6 +31,7 @@ class KelolaKomplainMengajar extends Component
                 'complainmengajars.change_to',
                 'complainmengajars.reason',
                 'complainmengajars.status',
+                'complainmengajars.created_at',
                 'absensekolahs.tanggal',
                 'users.name as user_name',
                 'approved_users.name as approved_by_name'

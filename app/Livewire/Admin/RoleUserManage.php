@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\User;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
@@ -22,6 +23,7 @@ class RoleUserManage extends Component
         $role = Role::first();
         $this->roleName = $role->name;
     }
+    #[Layout('layouts.app')]
     public function render()
     {
         $roles = Role::all();
@@ -43,7 +45,7 @@ class RoleUserManage extends Component
             'roles' => $roles,
             'users' => $users,
             'userNotRole' => $userNotRole,
-        ])->layout('layouts.app');
+        ]);
     }
 
     public function changeRole($id)

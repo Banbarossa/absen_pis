@@ -21,19 +21,19 @@
 
 
         {{-- Jadwal Jam --}}
-        <div class="d-flex justify-content-between mb-4">
+        <div class="mb-4 d-flex justify-content-between">
             <button type="button" onclick="generatePdf()" class="btn btn-primary">
                 Cetak Jadwal
             </button>
         </div>
 
-        <div class="bg-secondary p-5 overflow-auto" style="height: 400px">
-            <div id='pdf' class="bg-white p-5">
+        <div class="p-5 overflow-auto bg-secondary" style="height: 400px">
+            <div id='pdf' class="p-5 bg-white">
                 <h3 class="text-center m-b-15">
                     <a href="https:/pis.sch.id" class="logo logo-admin"><img src="{{asset('assets/images/logo.png')}}" height="100" alt="logo"></a>
                 </h3>
-                <div class="text-center mb-5">
-                    <h5>JADWAL PELAJARAN PESANTREN IMAM SYAFI'I</h5>
+                <div class="mb-5 text-center">
+                    <h5>JADWAL PELAJARAN {{ strtoupper(config('app.instansi_name')) }}</h5>
                     <h5>{{$semester}} {{$tahun_ajaran}}</h5>
                 </div>
 

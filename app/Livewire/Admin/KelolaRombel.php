@@ -8,6 +8,7 @@ use App\Models\Sekolah;
 use App\Models\Semester;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -30,7 +31,7 @@ class KelolaRombel extends Component
     {
         $this->semesterAktif = Semester::whereStatus(1)->first()->id;
     }
-
+    #[Layout('layouts.app')]
     public function render()
     {
 
@@ -57,7 +58,7 @@ class KelolaRombel extends Component
         return view('livewire.admin.kelola-rombel', [
             'model' => $model,
             'sekolah' => $sekolah,
-        ])->layout('layouts.app');
+        ]);
     }
 
     public function sort($columnName)
@@ -125,7 +126,7 @@ class KelolaRombel extends Component
 
     public function editData()
     {
-        $sekolah = Rombel::findOrFail($this->sekolah_id);
+        $sekolah = Rombel::findOrFail($this->rombel_id);
         $sekolah->update([
             'sekolah_id' => $this->sekolah_id,
             'nama_rombel' => $this->nama_rombel,

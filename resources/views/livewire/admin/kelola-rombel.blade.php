@@ -45,7 +45,7 @@
                                 <td>{{$item->tingkat_kelas}}</td>
                                 <td>
                                     @forelse ($item->schedules as $schedule)
-                                        <button class="btn btn-sm btn-outline-primary rounded-pill px-4" wire:click='editSchedule({{$item->id}})'>{{$schedule->name}}</button>
+                                        <button class="px-4 btn btn-sm btn-outline-primary rounded-pill" wire:click='editSchedule({{$item->id}})'>{{$schedule->name}}</button>
 
                                         @if ($rombel_id === $item->id && $openFormEdit)
                                         <form action="" wire:submit.prevent='updateSchedules'>
@@ -66,7 +66,7 @@
 
                                     @empty
                                     <div class="{{$rombel_id === $item->id && $openForm ? 'd-none' :''}}">
-                                        <button class="btn btn-sm btn-outline-warning rounded-pill px-4" wire:click='pilihSchedule({{$item->id}})'>Pilih Jadwal</button>
+                                        <button class="px-4 btn btn-sm btn-outline-warning rounded-pill" wire:click='pilihSchedule({{$item->id}})'>Pilih Jadwal</button>
                                     </div>
                                     @endforelse
 
@@ -91,9 +91,9 @@
                                 <td>
                                     <div class="d-flex">
                                         @if ($item->schedules->count() >0)
-                                        <a href="{{route('pengajaran.detail.rombel',$item->id)}}" class="btn btn-sm btn-primary mr-3">Penjadwalan</a>
+                                        <a href="{{route('pengajaran.detail.rombel',$item->id)}}" class="mr-3 btn btn-sm btn-primary">Penjadwalan</a>
                                         @endif
-                                        {{-- <div class="dropdown">
+                                        <div class="dropdown">
                                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Action
                                             </button>
@@ -101,10 +101,10 @@
                                                 <button type="button" class="dropdown-item" data-toggle="modal" data-target="#crudModal" wire:click='edit({{$item->id}})'>
                                                     Edit
                                                 </button>
-                                                <button class="dropdown-item" wire:confirm="Are you sure you want to delete this post?" wire:click='destroy({{$item->id}})'>Delete</button>
+                                                {{-- <button class="dropdown-item" wire:confirm="Are you sure you want to delete this post?" wire:click='destroy({{$item->id}})'>Delete</button> --}}
 
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -203,7 +203,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        {{-- <h5 class="modal-title mt-0" id="myLargeModalLabel">Large modal</h5> --}}
+                        {{-- <h5 class="mt-0 modal-title" id="myLargeModalLabel">Large modal</h5> --}}
                         <button class="btn btn-primary" onclick="unduhRombel()">Unduh</button>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
@@ -221,10 +221,10 @@
                             </div>
                             
                             <div class="row" style="margin-top:8rem">
-                                <div class="col-5 text-center">
+                                <div class="text-center col-5">
                                     <img src="{{asset('assets/images/hero-img.png')}}" class="img-fluid" alt="">
                                 </div>
-                                <div class="col-7 align-middle">
+                                <div class="align-middle col-7">
                                     <div class="text-center">
                                         <div>
                                             {!! QrCode::size(150)->generate(url('/').'/absen-mengajar/'.$item->kode_rombel) !!}
@@ -234,7 +234,7 @@
                                             {{$item->nama_rombel}}
                                         </div>
                                     </div>
-                                   <h2 class="text-danger mt-5">Perhatian</h2>
+                                   <h2 class="mt-5 text-danger">Perhatian</h2>
                                    <ul>
                                         <li>Absen mula dapat diakses 10 Menit Sebelum mulai jam Pelajaran</li>
                                         <li>Absen berakhir 15 sebelum akhir jam Pelajaran</li>

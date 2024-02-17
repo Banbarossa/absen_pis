@@ -24,7 +24,7 @@
                     <div>
                         @if (!empty($dataToChange))
                         <div class="dropdown d-inline">
-                            <button class="btn btn-secondary btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -52,6 +52,7 @@
                                 </th>
                                 <th>Nama</th>
                                 <th>Tanggal</th>
+                                <th>Waktu Pengajuan</th>
                                 <th>Ubah Ke</th>
                                 <th>Alasan Perubahan</th>
                                 <th>Action</th>
@@ -76,6 +77,7 @@
                                 {{-- <td scope="row">{{$pageNumber + $key + 1}}</td> --}}
                                 <td>{{ucFirst($item->user_name)}}</td>
                                 <td>{{ucFirst($item->tanggal)}}</td>
+                                <td>{{$item->created_at}}</td>
                                 <td>{{ucFirst($item->change_to)}}</td>
                                 <td>{{$item->reason}}</td>
 

@@ -192,4 +192,6 @@ return [
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ])->toArray(),
 
+    'instansi_name' => env('INSTANSI', 'Pesantren Imam Syafii'),
+
 ];
