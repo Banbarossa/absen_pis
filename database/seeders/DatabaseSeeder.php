@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(RombelSeeder::class);
         // \App\Models\Rombel::factory(12)->create();
 
-        // $this->call(SemesterSeeder::class);
+        $this->call(SemesterSeeder::class);
         // $this->call(ScheduleSeeder::class);
 
         // \App\Models\Jammengajar::factory(100)->create();
