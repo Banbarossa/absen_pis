@@ -6,6 +6,7 @@ use App\Models\Jammengajar;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class KelolaSchedule extends Component
@@ -22,12 +23,17 @@ class KelolaSchedule extends Component
 
     public function mount()
     {
-        $this->schedule_id = Schedule::latest()->first()->id;
-    }
 
+        $schedule = Schedule::latest()->first();
+        if ($schedule) {
+
+            $this->schedule_id = $schedule->id;
+        }
+    }
+    #[Layout('layouts.app')]
     public function render()
     {
-        $model = Schedule::where('status', true)->get();
+        $model = Schedule::where('status', true)->latest();
 
         $jamMengajar = Jammengajar::where('hari', $this->hari)
             ->where('schedule_id', $this->schedule_id)
@@ -43,7 +49,7 @@ class KelolaSchedule extends Component
         return view('livewire.admin.kelola-schedule', [
             'model' => $model,
             'jamMengajar' => $jamMengajar,
-        ])->layout('layouts.app');
+        ]);
     }
 
     public function gantiHari($id)
