@@ -10,7 +10,7 @@
                 <div class="d-flex justify-content-between">
                     <h4 class="mt-0 header-title">List Sekolah</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crudModal">
-                        Tambah User
+                        Tambah
                     </button>
                 </div>
                 

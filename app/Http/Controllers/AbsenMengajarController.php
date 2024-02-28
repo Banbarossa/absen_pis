@@ -52,7 +52,7 @@ class AbsenMengajarController extends Controller
 
         $absen = Absensekolah::with('user', 'mapel', 'rombel')->where('tanggal', $now->toDateString())
             ->where('rombel_id', $rombel->id)
-            ->where('mulai_kbm', '<=', $now->addMinutes(10)->format('H:i:s'))->where('akhir_kbm', '>=', $now->addMinutes(15)->format('H:i:s'))
+            ->where('mulai_kbm', '<=', $now->addMinutes(10)->format('H:i:s'))->where('akhir_kbm', '>=', $now->addMinutes(12)->format('H:i:s'))
             ->first();
 
         return view('guest.absen-mengajar', [

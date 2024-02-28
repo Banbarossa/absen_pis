@@ -18,7 +18,7 @@
                 </div>
             @endif
             @if ($absen &&$absen->kehadiran !== "hadir")
-            <div class="text-center mb-4">
+            <div class="mb-4 text-center">
                 <h4>Konfirmasi Mengajar</h4>
             </div>
             <table class="table table-sm">
@@ -44,17 +44,17 @@
             <form class="form-horizontal m-t-20" method="POST" action="{{route('absen-mengajar.store',$absen->id)}}">
             
                 @csrf
-                <div class="form-group text-center row m-t-20">
+                <div class="text-center form-group row m-t-20">
                     <div class="col-6">
                         <div id="my_camera"></div>
                         
                         <input type="hidden" name="image" class="image-tag">
                     </div>
                     <div class="col-6">
-                        <div id="results" class="text-muted text-center">Hasil Capture</div>
+                        <div id="results" class="text-center text-muted">Hasil Capture</div>
                     </div>
                   
-                    <div class="col-12 mt-3">
+                    <div class="mt-3 col-12">
                         <input type=button class="btn btn-sm btn-outline-success" value="Take Snapshot" onClick="take_snapshot()">
                     </div>
                    
@@ -68,25 +68,25 @@
 
 
                 
-                <div class="form-group text-center row m-t-20">
+                <div class="text-center form-group row m-t-20">
                     <div class="col-12">
                         <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Absen Sekarang</button>
                     </div>
                 </div>
 
-                <div class="form-group m-t-10 mb-0 row">
-                    {{-- <div class="col-12 m-t-20">
+                <div class="mb-0 form-group m-t-10 row">
+                    <div class="col-12 m-t-20">
                         <a href="{{route('absen-pengganti.index',$id_rombel)}}" class="text-muted"><i class="mdi mdi-barcode-scan"></i> <small>Saya Pengganti Guru Utama?</small></a>
-                    </div> --}}
-                    <div class="col-sm-12 m-t-20">
-                        <a href="{{route('absen-alternatif.index',$id_rombel)}}" class="text-muted"><i class="mdi mdi-barcode-scan"></i> <small>Absen dengan cara lain?</small></a>
                     </div>
+                    {{-- <div class="col-sm-12 m-t-20">
+                        <a href="{{route('absen-alternatif.index',$id_rombel)}}" class="text-muted"><i class="mdi mdi-barcode-scan"></i> <small>Absen dengan cara lain?</small></a>
+                    </div> --}}
                     
                 </div>
             </form>
 
             @elseif ($absen && $absen->kehadiran == 'hadir')
-            <div class="text-center mb-4">
+            <div class="mb-4 text-center">
                 <h4>✍️Anda Sudah melakukan Absen pada jam {{$absen->waktu_absen ? $absen->waktu_absen :''}}</h4>
             </div>
             @else
