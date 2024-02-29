@@ -187,6 +187,8 @@ Route::post('absen-pengganti/{code}', [AbsenAlternatifController::class, 'pengga
 // Absen Halaqah
 Route::get('absen-halaqah', [GuestAbsenHalaqahController::class, 'index'])->name('absen-halaqah.index');
 Route::post('absen-halaqah', [GuestAbsenHalaqahController::class, 'store'])->name('absen-halaqah.store');
+Route::get('absen-halaqah-khusus', [GuestAbsenHalaqahController::class, 'khusus'])->name('absen-halaqah.khusus');
+Route::post('absen-halaqah-khusus', [GuestAbsenHalaqahController::class, 'storeKhusus'])->name('absen-halaqah.store-khusus');
 
 // Absen Karyawan
 Route::get('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'index'])->name('absen-security.index'); //aksen absen security lokasi

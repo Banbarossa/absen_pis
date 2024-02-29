@@ -20,7 +20,7 @@ class KelolaJadwalHalaqah extends Component
 
     public function render()
     {
-        $model = JadwalHalaqah::orderBy($this->sortColumn, $this->sortDirection)
+        $model = JadwalHalaqah::where('nama_sesi', '!=', 'khusus')->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate($this->perPage);
 
         if ($this->search) {

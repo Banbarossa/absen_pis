@@ -23,7 +23,7 @@ class GuestAbsenHalaqahController extends Controller
 
         $urutanHariDalamPekan = $now->isoWeekday();
 
-        $jadwalHalaqah = JadwalHalaqah::where('hari', $now->dayOfWeek)
+        $jadwalHalaqah = JadwalHalaqah::where('nama_sesi', '!=', 'khusus')->where('hari', $now->dayOfWeek)
             ->where('mulai_absen', '<=', Carbon::parse($now)->format('H:i:s'))
             ->where('akhir_absen', '>=', Carbon::parse($now)->format('H:i:s'))
             ->first();
@@ -31,7 +31,6 @@ class GuestAbsenHalaqahController extends Controller
         if (!$jadwalHalaqah) {
             $jadwal = '';
             return view('guest.absen-halaqah', [
-                // 'absen' => $absen,
                 'jadwal' => $jadwal,
             ]);
         }
@@ -137,6 +136,77 @@ class GuestAbsenHalaqahController extends Controller
 
             return redirect()->route('login')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
         }
+
+    }
+
+    public function khusus()
+    {
+        return view('guest.absen-halaqah-khusus');
+
+    }
+    public function storeKhusus(Request $request)
+    {
+
+        $request->validate([
+            'image' => 'required',
+            'password_absen' => 'required',
+        ], [
+            'image.required' => 'Foto wajib diambil',
+            'password_absen.required' => 'Password Absen Wajib Diisi',
+        ]);
+
+        $user = User::where('password_absen', $request->password_absen)->role('musyrif halaqah')->first();
+        $now = Carbon::now();
+
+        if ($user) {
+            $img = $request->image;
+            $folderPath = "public/images/";
+
+            $image_parts = explode(";base64,", $img);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+
+            $image_base64 = base64_decode($image_parts[1]);
+            $fileName = uniqid() . '.png';
+
+            $file = $folderPath . $fileName;
+            Storage::put($file, $image_base64);
+
+            //hitung radius
+            $allowedLatitude = 5.463151;
+            $allowedLongitude = 95.386354;
+            $maxDistance = 1000;
+
+            $earthRadius = 6371; // Radius Bumi dalam kilometer
+            $dLat = deg2rad($allowedLatitude - $request->latitude);
+            $dLon = deg2rad($allowedLongitude - $request->longitude);
+            $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($request->latitude)) * cos(deg2rad($allowedLatitude)) * sin($dLon / 2) * sin($dLon / 2);
+            $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+            $distance = $earthRadius * $c * $maxDistance; // Jarak dalam meter
+
+            if ($distance <= $maxDistance) {
+                $isInRadius = true;
+            } else {
+                $isInRadius = false;
+            }
+
+            $jadwal = JadwalHalaqah::where('nama_sesi', 'khusus')->first();
+
+            Absenhalaqah::create([
+
+                "jadwal_halaqah_id" => $jadwal->id,
+                "user_id" => $user->id,
+                "tanggal" => $now->toDateString(),
+                "kehadiran" => 'hadir',
+                'waktu_absen' => $now->format('H:i:s'),
+                'in_location' => $isInRadius,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'image' => $fileName,
+            ]);
+        }
+
+        return redirect()->route('login')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
 
     }
 }
