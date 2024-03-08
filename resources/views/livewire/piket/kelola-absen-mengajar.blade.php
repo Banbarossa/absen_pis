@@ -5,13 +5,26 @@
             <h4 class="page-title">Absen Mengajar</h4>
         </x-header>
 
+        <div class="row">
+            <div class="gap-3 col-12 col-lg-9 d-flex">
+                {{-- <button type="button" class="mr-2 btn btn-sm btn-primary waves-effect waves-light align-self-center" data-toggle="modal" data-animation="bounce" data-target=".bs-example-modal-lg">Unduh Rekap Kehadiran</button>
+                <button type="button" wire:click='export' class="btn btn-sm btn-secondary waves-effect waves-light align-self-center">Unduh Excel</button> --}}
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="form-group">
+                    <label for="startDate">Tanggal</label>
+                    <input type="date" wire:model.live="tanggal"  class="form-control @error('endDate') is-invalid @enderror">
+                </div>
+            </div>
+        </div>
+
 
         <div class="row">
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
                         {{-- table header --}}
-                        <div class="d-flex align-items-center mb-2 justify-content-between">
+                        <div class="mb-2 d-flex align-items-center justify-content-between">
                             <h4 class="mt-0 header-title">Daftar Absen Guru</h4>
                             
                         </div>
@@ -57,7 +70,7 @@
                                             @if ($item->kehadiran)
                                                 {{ucFirst($item->kehadiran)}}</td>
                                             @else
-                                                <span class="badge badge-warning py-2 px-3">Belum Absen</span>
+                                                <span class="px-3 py-2 badge badge-warning">Belum Absen</span>
                                             @endif
                                         <td>
                                             {{$item->waktu_absen}}

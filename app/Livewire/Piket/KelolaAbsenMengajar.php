@@ -22,12 +22,15 @@ class KelolaAbsenMengajar extends Component
     public $sortDirection = 'asc';
     public $change_to, $reason, $absensekolah_id;
     public $alasan;
+
+    public $tanggal;
     #[Layout('layouts.app')]
 
     public function mount()
     {
         $this->startDate = Carbon::now()->subDays(7)->toDateString();
         $this->endDate = Carbon::now()->toDateString();
+        $this->tanggal = Carbon::now()->toDateString();
     }
 
     public function render()
@@ -35,7 +38,12 @@ class KelolaAbsenMengajar extends Component
         $now = Carbon::now();
 
         $absens = Absensekolah::with('rombel', 'mapel', 'absenalternatif', 'user')
-            ->where('tanggal', $now->toDateString())
+            ->where('tanggal', $this->tanggal)
+        // ->when($this->tanggal !== $now->toDateString(), function ($query) {
+        //     return $query;
+        // }, function ($query) use ($now) {
+        //     return $query->where('mulai_kbm', '<=', $now->format('H:i:s'));
+        // })
             ->where('mulai_kbm', '<=', $now->format('H:i:s'))
             ->orderBy('jam_ke', 'desc')
             ->orderBy('rombel_id', 'desc')
