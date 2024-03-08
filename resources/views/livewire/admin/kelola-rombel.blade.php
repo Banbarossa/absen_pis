@@ -28,6 +28,7 @@
                                 <th class="sort @if($sortColumn == 'sekolah_id') {{$sortDirection}} @endif" wire:click="sort('sekolah_id')">Nama Sekolah</th>
                                 <th class="sort @if($sortColumn == 'nama_rombel') {{$sortDirection}} @endif" wire:click="sort('nama_rombel')">Nama Rombel</th>
                                 <th class="sort @if($sortColumn == 'tingkat_kelas') {{$sortDirection}} @endif" wire:click="sort('tingkat_kelas')">Tingkat Kelas</th>
+                                <th>Akses Absen</th>
                                 <th>Jadwal</th>
                                 <th >Action</th>
                             </tr>
@@ -43,6 +44,7 @@
                                 <td>{{$item->sekolah ? $item->sekolah->nama :''}}</td>
                                 <td>{{$item->nama_rombel}}</td>
                                 <td>{{$item->tingkat_kelas}}</td>
+                                <td><button class="btn btn-sm {{ $item->can_absen ?'btn-success':'btn-warning' }}" wire:comfirm='Apakh yakin untk mengubah izin aksen??' wire:click='canAbsen({{ $item->id }})'>{{ $item->can_absen ? 'Ya':'Tidak' }}</button></td>
                                 <td>
                                     @forelse ($item->schedules as $schedule)
                                         <button class="px-4 btn btn-sm btn-outline-primary rounded-pill" wire:click='editSchedule({{$item->id}})'>{{$schedule->name}}</button>

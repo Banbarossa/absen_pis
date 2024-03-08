@@ -6,6 +6,7 @@ use App\Models\Absenalternatif;
 use App\Models\Absensekolah;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,6 +22,7 @@ class KelolaAbsenMengajar extends Component
     public $sortDirection = 'asc';
     public $change_to, $reason, $absensekolah_id;
     public $alasan;
+    #[Layout('layouts.app')]
 
     public function mount()
     {
@@ -41,7 +43,7 @@ class KelolaAbsenMengajar extends Component
 
         return view('livewire.piket.kelola-absen-mengajar', [
             'absens' => $absens,
-        ])->layout('layouts.app');
+        ]);
     }
 
     public function clear()

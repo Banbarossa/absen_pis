@@ -20,6 +20,10 @@ class AbsenMengajarController extends Controller
 
         $now = Carbon::now();
         $rombel = Rombel::where('kode_rombel', $code)->first();
+        if (!$rombel->can_absen) {
+            return view('guest.absen-tanpa-jadwal');
+        }
+
         $countAbsen = Absensekolah::where('tanggal', $now->toDateString())->where('rombel_id', $rombel->id)->get();
         if ($countAbsen->count() === 0) {
             $rosterToday = Roster::with('jammengajar', 'rombel')

@@ -197,4 +197,13 @@ class KelolaRombel extends Component
 
     }
 
+    public function canAbsen($id)
+    {
+        $rombel = Rombel::findOrFail($id);
+        $rombel->can_absen = !$rombel->can_absen;
+        $rombel->save();
+
+        $this->alert('success', 'Data Berhasil ditambahakan');
+    }
+
 }
