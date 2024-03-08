@@ -37,7 +37,7 @@
                 <li class="{{Request::routeIs('admin.complain.mengajar') ? 'active' :''}}">
                     <a href="{{route('admin.complain.mengajar')}}" class="{{Request::routeIs('admin.complain.mengajar') ? 'active' :''}}">Complain Absen
                         @if ($badgeComplainmengajar->count())
-                        <span class="badge badge-pill badge-primary float-right">{{$badgeComplainmengajar->count()}}
+                        <span class="float-right badge badge-pill badge-primary">{{$badgeComplainmengajar->count()}}
                         </span>
                         @endif
                     </a>
@@ -54,7 +54,7 @@
                         $badgeComplainmengajar =\App\Models\Complainmengajar::where('status',null)
                     @endphp
                     @if ($badgeComplainmengajar->count())
-                    <span class="badge badge-pill badge-primary float-right">{{$badgeComplainmengajar->count()}}
+                    <span class="float-right badge badge-pill badge-primary">{{$badgeComplainmengajar->count()}}
                     </span>
                     @endif
                 </span>
@@ -116,6 +116,9 @@
                     <a href="{{route('laporan.sekolah',$item->id)}}" class="{{Request::is('/laporan/sekolah/'.$item->id) ? 'active' :''}}">{{$item->nama}}</a>
                 </li>
                 @endforeach
+                <li class="{{Request::is('/laporan/rombel') ? 'active' :''}}">
+                    <a href="{{route('laporan.rombel')}}" class="{{Request::is('/laporan/rombel') ? 'active' :''}}">Laporan Per Rombel</a>
+                </li>
             </ul>
         </li>
         
@@ -148,7 +151,7 @@
                         <span>
                             Complain Kehadiran
                             @if ($badgeComplain->count())
-                            <span class="badge badge-pill badge-primary float-right">{{$badgeComplain->count()}}
+                            <span class="float-right badge badge-pill badge-primary">{{$badgeComplain->count()}}
                             @endif
                         </span>
                     </a>
@@ -257,7 +260,7 @@
 
     </ul>
     <div class="mt-3 border-top">
-        <div class="py-3 text-center mb-5">
+        <div class="py-3 mb-5 text-center">
             <a href="#" target="_blank" rel="noopener noreferrer"><small>@Banbarossa</small></a>
         </div>
     </div>

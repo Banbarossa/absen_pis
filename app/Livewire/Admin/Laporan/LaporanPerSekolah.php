@@ -8,6 +8,7 @@ use App\Models\Sekolah;
 use App\Models\User;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,6 +24,8 @@ class LaporanPerSekolah extends Component
     public $sortDirection = 'asc';
     public $change_to, $reason, $absensekolah_id, $sekolah_id;
     public $user_id, $nama_guru;
+
+    #[Layout('layouts.app')]
 
     public function mount($id)
     {
@@ -106,7 +109,7 @@ class LaporanPerSekolah extends Component
             'counts' => $counts,
             'sekolah' => $sekolah,
             'details' => $detail,
-        ])->layout('layouts.app');
+        ]);
     }
 
     public function getDetailTeacher($id)
