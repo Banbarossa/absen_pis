@@ -39,12 +39,12 @@ class KelolaAbsenMengajar extends Component
 
         $absens = Absensekolah::with('rombel', 'mapel', 'absenalternatif', 'user')
             ->where('tanggal', $this->tanggal)
-        // ->when($this->tanggal !== $now->toDateString(), function ($query) {
-        //     return $query;
-        // }, function ($query) use ($now) {
-        //     return $query->where('mulai_kbm', '<=', $now->format('H:i:s'));
-        // })
-            ->where('mulai_kbm', '<=', $now->format('H:i:s'))
+            ->when($this->tanggal !== $now->toDateString(), function ($query) {
+                return $query;
+            }, function ($query) use ($now) {
+                return $query->where('mulai_kbm', '<=', $now->format('H:i:s'));
+            })
+        // ->where('mulai_kbm', '<=', $now->format('H:i:s'))
             ->orderBy('jam_ke', 'desc')
             ->orderBy('rombel_id', 'desc')
             ->paginate('15');
