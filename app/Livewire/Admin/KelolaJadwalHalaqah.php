@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use App\Models\JadwalHalaqah;
 use Illuminate\Console\View\Components\Alert;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,6 +19,7 @@ class KelolaJadwalHalaqah extends Component
     public $sortDirection = 'asc';
     public $jadwal_halaqah_id, $hari, $nama_sesi, $mulai_absen, $akhir_absen, $insentif;
 
+    #[Layout('layouts.app')]
     public function render()
     {
         $model = JadwalHalaqah::where('nama_sesi', '!=', 'khusus')->orderBy($this->sortColumn, $this->sortDirection)
@@ -30,7 +32,7 @@ class KelolaJadwalHalaqah extends Component
 
         return view('livewire.admin.kelola-jadwal-halaqah', [
             'model' => $model,
-        ])->layout('layouts.app');
+        ]);
     }
 
     public function sort($columnName)
@@ -113,5 +115,14 @@ class KelolaJadwalHalaqah extends Component
         $jadwal_halaqah->delete();
 
         $this->alert('success', 'Data Berhasil di hapus');
+    }
+
+    public function is_aktif($id)
+    {
+        $jadwal = JadwalHalaqah::findOrFail($id);
+        $jadwal->is_aktif = !$jadwal->is_aktif;
+        $jadwal->save();
+
+        $this->alert('success', 'Data Berhasil Dirubah');
     }
 }

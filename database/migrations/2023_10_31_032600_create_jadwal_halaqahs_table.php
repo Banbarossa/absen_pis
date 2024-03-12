@@ -18,6 +18,7 @@ return new class extends Migration
             $table->time('mulai_absen');
             $table->time('akhir_absen');
             $table->integer('insentif');
+            $table->boolean('is_aktif')->nullable()->default(true);
             $table->timestamps();
         });
     }

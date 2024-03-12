@@ -42,6 +42,7 @@
                                 <th class="sort @if($sortColumn == 'mulai_absen') {{$sortDirection}} @endif" wire:click="sort('mulai_absen')">Jam Mulai Absen</th>
                                 <th class="sort @if($sortColumn == 'akhir_absen') {{$sortDirection}} @endif" wire:click="sort('akhir_absen')">Jam Akhir Absen</th>
                                 {{-- <th class="sort @if($sortColumn == 'insentif') {{$sortDirection}} @endif" wire:click="sort('insentif')">Besaran Insentif</th> --}}
+                                <th>Active</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -57,6 +58,9 @@
                                 <td>{{ucFirst($item->nama_sesi)}}</td>
                                 <td>{{$item->mulai_absen}}</td>
                                 <td>{{$item->akhir_absen}}</td>
+                                <td>
+                                    <button class="btn btn-sm {{ $item->is_aktif ? 'btn-success':'btn-warning' }}" wire:confirm='Apakah Yakin untuk menruhah keaktifan?' wire:click='changeAktif({{ $item->id }})'>{{ $item->is_aktif ?'Aktif':'Tidak Aktif' }}</button>
+                                </td>
                                 {{-- <td>{{$item->insentif ? 'Rp '.number_format($item->insentif, 0, ',', '.') : ''}}</td> --}}
                                 <td>
                                     <div class="dropdown">
@@ -136,7 +140,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        {{-- <h5 class="modal-title mt-0" id="myLargeModalLabel">Large modal</h5> --}}
+                        {{-- <h5 class="mt-0 modal-title" id="myLargeModalLabel">Large modal</h5> --}}
                         <button class="btn btn-primary" onclick="unduhRombel()">Unduh</button>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
@@ -153,10 +157,10 @@
                             </div>
                             
                             <div class="row" style="margin-top:8rem">
-                                <div class="col-5 text-center">
+                                <div class="text-center col-5">
                                     <img src="{{asset('assets/images/hero-img.png')}}" class="img-fluid" alt="">
                                 </div>
-                                <div class="col-7 align-middle">
+                                <div class="align-middle col-7">
                                     <div class="text-center">
                                         <div>
                                             {!! QrCode::size(150)->generate(url('/absen-halaqah')) !!}
@@ -166,7 +170,7 @@
                                             Absen Halaqah
                                         </div>
                                     </div>
-                                   <h2 class="text-danger mt-5">Perhatian</h2>
+                                   <h2 class="mt-5 text-danger">Perhatian</h2>
                                    <ul>
                                         <li>Absen dapat dilakukan sesuai dengan waktu yang telah ditentukan</li>
                                         <li class="fw-bold">Aktifkan Gps sebelum absen</li>
