@@ -39,35 +39,33 @@ class GuestAbsenHalaqahController extends Controller
             ->where('jadwal_halaqah_id', $jadwalHalaqah->id)
             ->get();
 
-        // if ($absen_today->count() === 0) {
-        $jadwalHalaqah = JadwalHalaqah::where('hari', $now->dayOfWeek)->get();
+        if ($absen_today->count() === 0) {
+            $jadwalHalaqah = JadwalHalaqah::where('hari', $now->dayOfWeek)->get();
 
-        foreach ($jadwalHalaqah as $jadwal) {
-            foreach ($userWithAksesHalaqah as $user) {
-                Absenhalaqah::firstOrCreate([
-                    "jadwal_halaqah_id" => $jadwal->id,
-                    "user_id" => $user->id,
-                    "tanggal" => $now->toDateString(),
-                ], [
-                    "kehadiran" => 'alpa',
-                ]);
+            // foreach ($jadwalHalaqah as $jadwal) {
+            //     foreach ($userWithAksesHalaqah as $user) {
+            //         Absenhalaqah::firstOrCreate([
+            //             "jadwal_halaqah_id" => $jadwal->id,
+            //             "user_id" => $user->id,
+            //             "tanggal" => $now->toDateString(),
+            //         ], [
+            //             "kehadiran" => 'alpa',
+            //         ]);
+            //     }
+            // }
+
+            foreach ($jadwalHalaqah as $jadwal) {
+                foreach ($userWithAksesHalaqah as $user) {
+                    Absenhalaqah::firstOrCreate([
+                        "jadwal_halaqah_id" => $jadwal->id,
+                        "user_id" => $user->id,
+                        "tanggal" => $now->toDateString(),
+                        "kehadiran" => 'alpa',
+                    ]);
+                }
+
             }
         }
-
-        dd(Absenhalaqah::where('tanggal', $now->toDateString())->pluck('jadwal_halaqah_id'));
-
-        // foreach ($jadwalHalaqah as $jadwal) {
-        //     foreach ($userWithAksesHalaqah as $user) {
-        //         Absenhalaqah::firstOrCreate([
-        //             "jadwal_halaqah_id" => $jadwal->id,
-        //             "user_id" => $user->id,
-        //             "tanggal" => $now->toDateString(),
-        //             "kehadiran" => 'alpa',
-        //         ]);
-        //     }
-
-        // }
-        // }
 
         $jadwal = JadwalHalaqah::where('hari', $urutanHariDalamPekan)
             ->where('mulai_absen', '<=', $now->format('H:i:s'))
