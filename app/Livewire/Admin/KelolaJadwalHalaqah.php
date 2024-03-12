@@ -117,7 +117,7 @@ class KelolaJadwalHalaqah extends Component
         $this->alert('success', 'Data Berhasil di hapus');
     }
 
-    public function is_aktif($id)
+    public function changeAktif($id)
     {
         $jadwal = JadwalHalaqah::findOrFail($id);
         $jadwal->is_aktif = !$jadwal->is_aktif;
