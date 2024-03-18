@@ -22,7 +22,7 @@
                 <div class="d-flex justify-content-between">
                     <h4 class="mt-0 header-title">List Jadwal Halaqah</h4>
                     <div>
-                        <button type="button" class="btn btn-secondary mr-3" wire:click='exportExcel'>
+                        <button type="button" class="mr-3 btn btn-secondary" wire:click='exportExcel'>
                             Export
                         </button>
                     </div>
@@ -32,7 +32,7 @@
                 <x-table-header/>
                 <div class="row">
                     <div class="col-6 col-md-4 offset-md-4 col-lg-3 offset-lg-6">
-                        <div class="form-group mr-2">
+                        <div class="mr-2 form-group">
                             <label for="startDate">Tanggal Awal</label>
                             <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
                         </div>
@@ -68,17 +68,17 @@
                             <tr>
                                 <td scope="row">{{$pageNumber + $key + 1}}</td>
                                 {{-- <td>{{$user_idMapping[$item->tanggal]}}</td> --}}
-                                <td>{{ucFirst($item->user->name)}}</td>
+                                <td>{{ucFirst($item->user_name)}}</td>
                                 <td>
                                     <div>{{$item->tanggal}}</div>
-                                    <div><small class="text-muted">{{ucFirst($item->jadwalhalaqah ? $item->jadwalhalaqah->nama_sesi :'')}}</small></div>
+                                    <div><small class="text-muted">{{ucFirst($item->nama_sesi ? $item->nama_sesi :'')}}</small></div>
                                 </td>
                                 <td>{{$item->waktu_absen}}</td>
                                 <td>
                                     @if ($item->kehadiran)
                                         {{ucFirst($item->kehadiran)}}
                                     @else
-                                        <div class="badge bg-warning py-1 px-3 text-white">
+                                        <div class="px-3 py-1 text-white badge bg-warning">
                                             Belum Absen
                                         </div>
                                     @endif
@@ -103,6 +103,9 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                                             <button type="button" class="dropdown-item" data-toggle="modal" data-target="#crudModal" wire:click='edit({{$item->id}})'>
                                                 Edit
+                                            </button>
+                                            <button type="button" class="dropdown-item" wire:click='destroy({{$item->id}})'>
+                                                Hapus
                                             </button>
 
                                         </div>

@@ -104,5 +104,10 @@ class KelolaAbsenHalaqah extends Component
         $this->kehadiran = '';
 
     }
+    public function destroy($id)
+    {
+        Absenhalaqah::findOrFail($id)->delete();
+        $this->alert('success', 'data berhasil hapus');
+    }
 
 }
