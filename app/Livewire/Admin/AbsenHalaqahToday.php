@@ -66,8 +66,6 @@ class AbsenHalaqahToday extends Component
     public function edit($id)
     {
         $absenHalaqah = Absenhalaqah::find($id);
-        dd($absenHalaqah);
-
         $this->absenHalaqah_id = $id;
         $this->user_id = $absenHalaqah->user_id;
         $this->jadwal_halaqah_id = $absenHalaqah->jadwal_halaqah_id;
