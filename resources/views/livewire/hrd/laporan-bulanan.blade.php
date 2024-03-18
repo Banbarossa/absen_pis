@@ -15,7 +15,7 @@
         <x-header>
             <h4 class="page-title">Laporan Kehadiran</h4>
         </x-header>
-        <div class="row mb-3">
+        <div class="mb-3 row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -24,7 +24,7 @@
                                 <h4 class="mt-0 header-title">Periode</h4>
                             </div>
                             <div class="col-6 col-md-4 col-lg-3">
-                                <div class="form-group mr-2">
+                                <div class="mr-2 form-group">
                                     <label for="startDate">Tanggal Awal</label>
                                     <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
                                 </div>
@@ -49,9 +49,9 @@
                         <div class="d-flex justify-content-between">
                             <h4 class="mt-0 header-title">User</h4>
                         </div>
-                        <div class="form-group text-center row m-t-20">
+                        <div class="text-center form-group row m-t-20">
                             @foreach ($users as $item)
-                            <div class="col-12 mt-2 d-flex">
+                            <div class="mt-2 col-12 d-flex">
                                 <button class="btn btn-{{$user_id == $item->id ? 'primary':'outline-secondary'}} btn-block waves-effect waves-light" wire:click='rekap({{$item->id}})'>{{ucFirst($item->name)}}</button>
 
                             </div>
@@ -64,7 +64,7 @@
                 <div class="card m-b-30">
                     <div class="modal-content">
                         <div class="modal-header">
-                            {{-- <h5 class="modal-title mt-0" id="myLargeModalLabel">Large modal</h5> --}}
+                            {{-- <h5 class="mt-0 modal-title" id="myLargeModalLabel">Large modal</h5> --}}
                             <button class="btn btn-primary" onclick="generatePdf()">Unduh</button>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
@@ -74,7 +74,7 @@
                                     <img src="{{asset('assets/images/logo.png')}}" height="60" alt="logo">
                                     <h4 class="mt-0 header-title">Rekap Kehadiran Mengajar Dan Halaqah</h4>
                                 </div>
-                                 <div class="title mt-3">
+                                 <div class="mt-3 title">
                                     <table>
                                         <tbody>
                                             <tr>
@@ -116,32 +116,32 @@
                                                         </tr>
                                                         <tr>
                                                             <td>Hadir Mengajar</td>
-                                                            <th>{{ $rekapSekolah['hadir_mengajar'] }} <small class="text-muted ml-2">JP</small></th>
+                                                            <th>{{ $rekapSekolah['hadir_mengajar'] }} <small class="ml-2 text-muted">JP</small></th>
                                                             <td>{{ number_format($rekapSekolah['honor'],0,',','.') }}</td>
                                                             <td class="jumlah">{{ number_format($rekapSekolah['honor'] * $rekapSekolah['hadir_mengajar'], 0, ',', '.')}}</td>
                                                         </tr>
                                                         
                                                         <tr>
                                                             <td>Izin Dinas</td>
-                                                            <th>{{ $rekapSekolah['izin_dinas_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
+                                                            <th>{{ $rekapSekolah['izin_dinas_mengajar'] }}<small class="ml-2 text-muted">JP</small></th>
                                                             <td>{{ number_format($rekapSekolah['honor'],0,',','.') }}</td>
                                                             <td class="jumlah">{{ number_format($rekapSekolah['honor'] * $rekapSekolah['izin_dinas_mengajar'], 0, ',', '.')}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Izin Pribadi</td>
-                                                            <th>{{ $rekapSekolah['izin_pribadi_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
+                                                            <th>{{ $rekapSekolah['izin_pribadi_mengajar'] }}<small class="ml-2 text-muted">JP</small></th>
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Sakit</td>
-                                                            <th>{{ $rekapSekolah['sakit_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
+                                                            <th>{{ $rekapSekolah['sakit_mengajar'] }}<small class="ml-2 text-muted">JP</small></th>
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Alpa</td>
-                                                            <th>{{ $rekapSekolah['alpa_mengajar'] }}<small class="text-muted ml-2">JP</small></th>
+                                                            <th>{{ $rekapSekolah['alpa_mengajar'] }}<small class="ml-2 text-muted">JP</small></th>
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
@@ -171,7 +171,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>Jumlah hari Mengajar</td>
-                                                            <th>{{$jumlahHarihadir}}<small class="text-muted ml-2">Hari</small></th>
+                                                            <th>{{$jumlahHarihadir}}<small class="ml-2 text-muted">Hari</small></th>
                                                             <td>20.000</td>
                                                             <td>{{ number_format(20000 * $jumlahHarihadir, 0, ',', '.')}}</td>
                                                         </tr>
@@ -205,27 +205,27 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>Hadir</td>
-                                                            <th>{{ $hadir_halaqah}} <small class="text-muted ml-3"> X - Tatap Muka</small></th>
+                                                            <th>{{ $hadir_halaqah}} <small class="ml-3 text-muted"> X - Tatap Muka</small></th>
                                                             <td>........................................................</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Izin Dinas</td>
-                                                            <th>{{ $izin_dinas_halaqah}} <small class="text-muted ml-3"> X - Tatap Muka</small></th>
+                                                            <th>{{ $izin_dinas_halaqah}} <small class="ml-3 text-muted"> X - Tatap Muka</small></th>
                                                             <td>........................................................</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Izin Pribadi</td>
-                                                            <th>{{ $izin_pribadi_halaqah}} <small class="text-muted ml-3"> X - Tatap Muka</small></th>
+                                                            <th>{{ $izin_pribadi_halaqah}} <small class="ml-3 text-muted"> X - Tatap Muka</small></th>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Sakit</td>
-                                                            <th>{{ $sakit_halaqah}} <small class="text-muted ml-3"> X - Tatap Muka</small></th>
+                                                            <th>{{ $sakit_halaqah}} <small class="ml-3 text-muted"> X - Tatap Muka</small></th>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Alpa</td>
-                                                            <th>{{ $alpa_halaqah}} <small class="text-muted ml-3"> X - Tatap Muka</small></th>
+                                                            <th>{{ $alpa_halaqah}} <small class="ml-3 text-muted"> X - Tatap Muka</small></th>
                                                             <td></td>
                                                         </tr>
                                                         
@@ -292,7 +292,7 @@
                             @endif
                             
                             {{-- Detail Halaqah --}}
-                            @if ($guru && $guru->hasRole('guru'))
+                            @if ($guru && $guru->hasRole('musyrif halaqah'))
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="mt-0 header-title">B. Detail Kehadiran</h4>
