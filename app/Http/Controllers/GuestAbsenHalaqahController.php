@@ -18,9 +18,6 @@ class GuestAbsenHalaqahController extends Controller
 
         $now = Carbon::now();
 
-        // $kejam = Carbon::parse($now)->format("H:i:s");
-        // dd($kejam);
-
         $urutanHariDalamPekan = $now->isoWeekday();
 
         $jadwalHalaqah = JadwalHalaqah::where('nama_sesi', '!=', 'khusus')->where('hari', $now->dayOfWeek)
@@ -41,7 +38,7 @@ class GuestAbsenHalaqahController extends Controller
             ->get();
 
         if ($absen_today->count() === 0) {
-            $jadwalHalaqah = JadwalHalaqah::where('hari', $now->dayOfWeek)->where('is_aktif', 1)->get();
+            $jadwalHalaqah = JadwalHalaqah::where('hari', $now->dayOfWeek)->where('nama_sesi', '!=', 'khusus')->where('is_aktif', 1)->get();
 
             // foreach ($jadwalHalaqah as $jadwal) {
             //     foreach ($userWithAksesHalaqah as $user) {
