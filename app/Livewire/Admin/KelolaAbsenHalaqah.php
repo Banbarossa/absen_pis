@@ -37,6 +37,7 @@ class KelolaAbsenHalaqah extends Component
             ->where('tanggal', '>=', $this->startDate)
             ->where('tanggal', '<=', $this->endDate)
             ->leftJoin('users', 'absenhalaqahs.user_id', '=', 'users.id')
+            ->leftJoin('jadwal_halaqahs', 'absenhalaqahs.jadwal_halaqah_id', '=', 'jadwal_halaqahs.id')
             ->select('absenhalaqahs.*', 'users.name as user_name', 'jadwal_halaqahs.nama_sesi');
 
         if ($this->search) {
