@@ -38,7 +38,8 @@ class AbsenHalaqahToday extends Component
             })
             ->where('tanggal', '=', $today->toDateString())
             ->leftJoin('users', 'absenhalaqahs.user_id', '=', 'users.id')
-            ->leftJoin('jadwal_halaqahs', 'absenhalaqahs.jadwal_halaqah_id', '=', 'jadwal_halaqahs.id');
+            ->leftJoin('jadwal_halaqahs', 'absenhalaqahs.jadwal_halaqah_id', '=', 'jadwal_halaqahs.id')
+            ->select('absenhalaqahs.*', 'users.name as user_name', 'jadwal_halaqahs.nama_sesi');
         // ->where('jumlah')
 
         if ($this->search) {
@@ -64,8 +65,8 @@ class AbsenHalaqahToday extends Component
 
     public function edit($id)
     {
-        dd($id);
         $absenHalaqah = Absenhalaqah::find($id);
+        dd($absenHalaqah);
 
         $this->absenHalaqah_id = $id;
         $this->user_id = $absenHalaqah->user_id;

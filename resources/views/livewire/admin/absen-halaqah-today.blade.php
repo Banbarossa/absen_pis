@@ -49,10 +49,10 @@
                             <tr>
                                 <td scope="row">{{$pageNumber + $key + 1}}</td>
                                 {{-- <td>{{$user_idMapping[$item->tanggal]}}</td> --}}
-                                <td>{{ucFirst($item->user->name)}}</td>
+                                <td>{{ucFirst($item->user_name)}}</td>
                                 <td>
                                     <div>{{\Carbon\Carbon::parse($item->tanggal)->format('d-m-Y')}}</div>
-                                    <div><small class="text-muted">{{ucFirst($item->jadwalhalaqah ? $item->jadwalhalaqah->nama_sesi :'')}}</small></div>
+                                    <div><small class="text-muted">{{ucFirst($item->nama_sesi ? $item->nama_sesi :'')}}</small></div>
                                 </td>
                                 <td>{{$item->waktu_absen}}</td>
                                 <td>
