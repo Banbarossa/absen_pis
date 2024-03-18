@@ -100,4 +100,10 @@ class AbsenHalaqahToday extends Component
         $this->kehadiran = '';
 
     }
+
+    public function destroy($id)
+    {
+        Absenhalaqah::find($id)->delete();
+        $this->alert('success', 'data berhasil hapus');
+    }
 }

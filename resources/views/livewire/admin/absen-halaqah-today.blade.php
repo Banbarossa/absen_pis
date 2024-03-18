@@ -59,7 +59,7 @@
                                     @if ($item->kehadiran)
                                         {{ucFirst($item->kehadiran)}}
                                     @else
-                                        <div class="badge bg-warning py-1 px-3 text-white">
+                                        <div class="px-3 py-1 text-white badge bg-warning">
                                             Belum Absen
                                         </div>
                                     @endif
@@ -84,6 +84,9 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                                             <button type="button" class="dropdown-item" data-toggle="modal" data-target="#crudModal" wire:click='edit({{$item->id}})'>
                                                 Edit
+                                            </button>
+                                            <button type="button" class="dropdown-item" wire:click='destroy({{$item->id}})'>
+                                                Hapus
                                             </button>
 
                                         </div>
