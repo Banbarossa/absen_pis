@@ -38,6 +38,8 @@ class LaporanBulanan extends Component
             ->where('tanggal', '<=', $this->endDate)
             ->get();
 
+        dd($halaqah);
+
         $this->hadir_halaqah = $halaqah->where('kehadiran', 'hadir')->count();
         $this->sakit_halaqah = $halaqah->where('kehadiran', 'sakit')->count();
         $this->izin_dinas_halaqah = $halaqah->where('kehadiran', 'izin dinas')->count();
