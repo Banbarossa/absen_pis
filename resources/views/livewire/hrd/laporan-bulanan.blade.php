@@ -302,7 +302,6 @@
                                         <table class="table table-sm table-bordered ">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>jadwal Halaqah</th>
                                                     <th>Tanggal</th>
                                                     <th>Hari</th>
@@ -314,10 +313,9 @@
                                             <tbody>
                                              
             
-                                                @forelse ($absenPerMusyrif as $key=> $item)
+                                                @forelse ($absenPerMusyrif as  $item)
                                                 <tr>
                                                    
-                                                    <td scope="row">{{$loop->iteration}}</td>
                                                     <td>{{ucFirst($item->jadwalhalaqah ? $item->jadwalhalaqah->nama_sesi :'')}}</td>
                                                     <td>{{$item->tanggal}}</td>
                                                     <td>{{$hariMapping[\Carbon\Carbon::parse($item->tanggal)->dayOfWeek]}}</td>
