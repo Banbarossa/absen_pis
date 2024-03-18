@@ -33,11 +33,9 @@ class LaporanBulanan extends Component
     {
         // halaqah
         $halaqah = Absenhalaqah::with('jadwalhalaqah')
-        // ->where('user_id', $this->user_id)
+            ->where('user_id', $this->user_id)
             ->whereBetween('tanggal', [$this->startDate, $this->endDate])
             ->get();
-
-        dd($this->user_id);
 
         $this->hadir_halaqah = $halaqah->where('kehadiran', 'hadir')->count();
         $this->sakit_halaqah = $halaqah->where('kehadiran', 'sakit')->count();
