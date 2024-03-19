@@ -32,8 +32,7 @@ class LaporanBulanan extends Component
     public function render()
     {
         // halaqah
-        $halaqah = Absenhalaqah::with('jadwalhalaqah')
-            ->where('user_id', $this->user_id)
+        $halaqah = Absenhalaqah::where('user_id', $this->user_id)
             ->whereBetween('tanggal', [$this->startDate, $this->endDate])
             ->get();
 
