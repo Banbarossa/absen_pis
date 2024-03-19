@@ -313,7 +313,7 @@
                                             <tbody>
                                              
             
-                                                @forelse ($absenPerMusyrif as  $item)
+                                                @forelse ($halaqah as  $item)
                                                 <tr>
                                                    
                                                     <td>{{ucFirst($item->jadwalhalaqah ? $item->jadwalhalaqah->nama_sesi :'')}}</td>

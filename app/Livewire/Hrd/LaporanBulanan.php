@@ -12,7 +12,7 @@ use Livewire\Component;
 class LaporanBulanan extends Component
 {
     public $startDate, $endDate;
-    public $user_id = 8;
+    public $user_id;
     public $hadir_halaqah, $sakit_halaqah, $izin_dinas_halaqah, $izin_pribadi_halaqah, $alpa_halaqah;
     public $rekapDataPerSekolah = [];
     public $guru;
@@ -32,7 +32,8 @@ class LaporanBulanan extends Component
     public function render()
     {
         // halaqah
-        $halaqah = Absenhalaqah::where('user_id', $this->user_id)
+        $halaqah = Absenhalaqah::with('jadwalhalaqah')
+            ->where('user_id', $this->user_id)
             ->whereBetween('tanggal', [$this->startDate, $this->endDate])
             ->get();
 
@@ -77,9 +78,11 @@ class LaporanBulanan extends Component
                 });
             })->get();
 
+        // return $halaqah;
+
         return view('livewire.hrd.laporan-bulanan', [
             'users' => $users,
-            'absenPerMusyrif' => $halaqah,
+            'halaqah' => $halaqah,
             'absen_mengajar' => $absen_mengajar,
             'jumlahHarihadir' => $jumlahHarihadir,
         ])->layout('layouts.app');
