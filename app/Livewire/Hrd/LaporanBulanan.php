@@ -12,7 +12,7 @@ use Livewire\Component;
 class LaporanBulanan extends Component
 {
     public $startDate, $endDate;
-    public $user_id;
+    public $user_id = 8;
     public $hadir_halaqah, $sakit_halaqah, $izin_dinas_halaqah, $izin_pribadi_halaqah, $alpa_halaqah;
     public $rekapDataPerSekolah = [];
     public $guru;
