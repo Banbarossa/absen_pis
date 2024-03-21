@@ -8,6 +8,7 @@ use App\Models\JadwalHalaqah;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,6 +24,7 @@ class Halaqah extends Component
     public $sortDirection = 'asc';
     public $change_to, $reason, $absenhalaqah_id;
 
+    #[Layout('layouts.app')]
     public function mount()
     {
         $this->startDate = Carbon::now()->startOfMonth()->toDateString();
@@ -53,7 +55,7 @@ class Halaqah extends Component
             'absens' => $absens,
             'absen_hari_ini' => $absen_hari_ini,
             'jadwalHalaqah' => $jadwalHalaqah,
-        ])->layout('layouts.app');
+        ]);
 
     }
 

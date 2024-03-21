@@ -43,7 +43,15 @@ class KelolaComplainHalaqah extends Component
 
         // $model = $model->take(15)->paginate($this->perPage);
 
-        $model = Complainhalaqah::with(['absenhalaqah.jadwalhalaqah', 'absenhalaqah.user'])->latest()->limit(150)->paginate($this->perPage);
+        $limitedIds = Complainhalaqah::latest()
+            ->take(150)
+            ->pluck('id');
+
+        $model = Complainhalaqah::with(['absenhalaqah.jadwalhalaqah', 'absenhalaqah.user'])
+            ->whereIn('id', $limitedIds)
+            ->paginate($this->perPage);
+
+        // dd($model);
 
         return view('livewire.admin.kelola-complain-halaqah', [
             'model' => $model,

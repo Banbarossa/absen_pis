@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 
-                <x-table-header/>
+                {{-- <x-table-header/> --}}
                 <div class="table-responsive">
                     <table class="table table-sm table-bordered table-sortable">
                         <thead>
@@ -51,8 +51,10 @@
                                     </div>
                                 </th>
                                 <th>No</th>
-                                <th class="sort @if($sortColumn == 'name') {{$sortDirection}} @endif" wire:click="sort('name')">Nama</th>
-                                <th class="sort @if($sortColumn == 'tanggal') {{$sortDirection}} @endif" wire:click="sort('tanggal')">Tanggal</th>
+                                <th>Nama</th>
+                                {{-- <th class="sort @if($sortColumn == 'name') {{$sortDirection}} @endif" wire:click="sort('name')">Nama</th> --}}
+                                {{-- <th class="sort @if($sortColumn == 'tanggal') {{$sortDirection}} @endif" wire:click="sort('tanggal')">Tanggal</th> --}}
+                                <th>Tanggal</th>
                                 <th>Ubah Ke</th>
                                 <th>Alasan Complain</th>
                                 <th>Action</th>
@@ -77,8 +79,8 @@
                                 <td scope="row">{{$pageNumber + $key + 1}}</td>
                                 <td>{{ucFirst($item->absenhalaqah->user?$item->absenhalaqah->user->name:'')}}</td>
                                 <td>
-                                    <p>{{ucFirst($item->absenhalaqah? $item->absenhalaqah->tanggal:'')}}</p>
-                                    <small>{{ $item->absenhalaqah && $item->absenhalaqah->jadwal_halaqah ? $item->absenhalaqah->jadwal_halaqah->nama_sesi : '' }}</small>
+                                    <div>{{ucFirst($item->absenhalaqah? $item->absenhalaqah->tanggal:'')}}</div>
+                                    <small>{{ $item->absenhalaqah && $item->absenhalaqah->jadwalhalaqah ? $item->absenhalaqah->jadwalhalaqah->nama_sesi : '' }}</small>
                                 </td>
                                 <td>{{ucFirst($item->change_to)}}</td>
                                 <td>{{$item->reason}}</td>

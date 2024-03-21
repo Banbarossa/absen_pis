@@ -11,6 +11,16 @@ class JadwalHalaqah extends Model
     use HasFactory;
     protected $guarded = [''];
 
+    public function absenhalaqahs()
+    {
+        return $this->hasMany(Absenhalaqah::class, 'absen_halaqah_id', 'id');
+    }
+
+    // public function absenhalaqahs()
+    // {
+    //     return $this->hasMany(Absenhalaqah::class, 'absen_halaqah_id', "id");
+    // }
+
     public function scopeSearch($query, $term)
     {
         $columns = ['nama_sesi', 'insentif', 'mulai_absen', 'akhir_absen'];
@@ -18,11 +28,6 @@ class JadwalHalaqah extends Model
             $query->orWhere($column, 'like', "%{$term}%");
         }
         return $query;
-    }
-
-    public function absenhalaqahs()
-    {
-        return $this->hasMany(Absenhalaqah::class);
     }
 
 }

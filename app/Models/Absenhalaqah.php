@@ -12,9 +12,14 @@ class Absenhalaqah extends Model
     use HasFactory;
     protected $guarded = [''];
 
+    // public function jadwalhalaqah()
+    // {
+    //     return $this->belongsTo(JadwalHalaqah::class, 'absen_halaqah_id', 'id');
+    // }
+
     public function jadwalhalaqah()
     {
-        return $this->belongsTo(JadwalHalaqah::class, 'jadwal_halaqah_id');
+        return $this->belongsTo(JadwalHalaqah::class, 'jadwal_halaqah_id', 'id');
     }
     public function user()
     {
