@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use App\Models\Absenhalaqah;
 use App\Models\Complainhalaqah;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,25 +20,34 @@ class KelolaComplainHalaqah extends Component
     public $dataToChange = [];
     public $selectSemua;
 
+    #[Layout('layouts.app')]
     public function render()
     {
-        $model = Complainhalaqah::with('absenhalaqah')
-            ->join('absenhalaqahs', 'complainhalaqahs.absenhalaqah_id', '=', 'absenhalaqahs.id')
-            ->join('users', 'absenhalaqahs.user_id', '=', 'users.id')
-            ->select('complainhalaqahs.id', 'complainhalaqahs.change_to', 'complainhalaqahs.reason', 'complainhalaqahs.status', 'absenhalaqahs.tanggal', 'users.name');
+        // $model = Complainhalaqah::with([
+        //     'absenhalaqah.jadwalhalaqah' => function ($query) {
+        //         $query->select('id', 'nama_sesi');
+        //     },
+        // ])
+        //     ->join('absenhalaqahs', 'complainhalaqahs.absenhalaqah_id', '=', 'absenhalaqahs.id')
+        //     ->join('users', 'absenhalaqahs.user_id', '=', 'users.id')
+        //     ->select('complainhalaqahs.id', 'complainhalaqahs.change_to', 'complainhalaqahs.reason', 'complainhalaqahs.status', 'absenhalaqahs.tanggal', 'users.name');
 
-        if ($this->search) {
-            $model->where(function ($query) {
-                $query->where('tanggal', 'like', '%' . $this->search . '%')
-                    ->orwhere('name', 'like', '%' . $this->search . '%');
-            });
-        }
+        // $model = Complainhalaqah::with(['absenhalaqah.jadwalhalaqah', 'absenhalaqah.user'])->latest()->limit(10)->paginate(5);
 
-        $model = $model->orderBy($this->sortColumn, $this->sortDirection)->paginate($this->perPage);
+        // if ($this->search) {
+        //     $model->where(function ($query) {
+        //         $query->where('tanggal', 'like', '%' . $this->search . '%');
+        //         // ->orwhere('name', 'like', '%' . $this->search . '%');
+        //     });
+        // }
+
+        // $model = $model->take(15)->paginate($this->perPage);
+
+        $model = Complainhalaqah::with(['absenhalaqah.jadwalhalaqah', 'absenhalaqah.user'])->latest()->limit(150)->paginate($this->perPage);
 
         return view('livewire.admin.kelola-complain-halaqah', [
             'model' => $model,
-        ])->layout('layouts.app');
+        ]);
     }
 
     public function terimaComplain($id)

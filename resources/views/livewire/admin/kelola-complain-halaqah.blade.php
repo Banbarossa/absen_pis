@@ -24,7 +24,7 @@
                     <div>
                         @if (!empty($dataToChange))
                         <div class="dropdown d-inline">
-                            <button class="btn btn-secondary btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -50,7 +50,7 @@
                                         <label class="custom-control-label" for="customCheck"></label>
                                     </div>
                                 </th>
-                                {{-- <th>#</th> --}}
+                                <th>No</th>
                                 <th class="sort @if($sortColumn == 'name') {{$sortDirection}} @endif" wire:click="sort('name')">Nama</th>
                                 <th class="sort @if($sortColumn == 'tanggal') {{$sortDirection}} @endif" wire:click="sort('tanggal')">Tanggal</th>
                                 <th>Ubah Ke</th>
@@ -74,9 +74,12 @@
                                     @endif
                                     
                                 </td>
-                                {{-- <td scope="row">{{$pageNumber + $key + 1}}</td> --}}
-                                <td>{{ucFirst($item->name)}}</td>
-                                <td>{{ucFirst($item->tanggal)}}</td>
+                                <td scope="row">{{$pageNumber + $key + 1}}</td>
+                                <td>{{ucFirst($item->absenhalaqah->user?$item->absenhalaqah->user->name:'')}}</td>
+                                <td>
+                                    <p>{{ucFirst($item->absenhalaqah? $item->absenhalaqah->tanggal:'')}}</p>
+                                    <small>{{ $item->absenhalaqah && $item->absenhalaqah->jadwal_halaqah ? $item->absenhalaqah->jadwal_halaqah->nama_sesi : '' }}</small>
+                                </td>
                                 <td>{{ucFirst($item->change_to)}}</td>
                                 <td>{{$item->reason}}</td>
 

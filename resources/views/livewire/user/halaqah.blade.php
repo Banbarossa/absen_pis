@@ -5,7 +5,7 @@
             <h4 class="page-title">Absen Halaqah</h4>
         </x-header>
 
-        <div class="row mb-3">
+        <div class="mb-3 row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
@@ -96,7 +96,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6 col-md-4 col-lg-3">
-                                <div class="form-group mr-2">
+                                <div class="mr-2 form-group">
                                     <label for="startDate">Tanggal Awal</label>
                                     <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
                                 </div>
@@ -197,7 +197,7 @@
                     <label for="change_to">Permohonan Ubah Ke</label>
                     <select wire:model='change_to' id="change_to" class="select2 form-control mb-3 custom-select select2-hidden-accessible @error('change_to') is-invalid @enderror"  tabindex="-1" aria-hidden="true">
                         <option>Perubahan Ke</option>
-                        <option value="hadir">Hadir</option>
+                        {{-- <option value="hadir">Hadir</option> --}}
                         <option value="sakit">Sakit</option>
                         <option value="izin dinas">Izin Dinas</option>
                         <option value="izin pribadi">Izin Pribadi</option>
