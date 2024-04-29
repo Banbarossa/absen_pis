@@ -80,23 +80,22 @@ class AbsenLuarJadwal extends Component
             'jumlah_jam' => $this->jumlah_jam,
         ]);
 
+        $this->clear();
+
         $this->alert('success', 'Data Berhasil ditambahkan');
 
-        // $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-        // $table->date('tanggal');
-        // $table->string('jam_ke')->nullable();
-        // $table->time('mulai_kbm')->nullable();
-        // $table->time('akhir_kbm')->nullable();
-        // $table->foreignId('rombel_id')->nullable()->constrained();
-        // $table->foreignId('sekolah_id')->nullable()->constrained();
-        // $table->foreignId('mapel_id')->nullable()->constrained();
-        // $table->time('waktu_absen')->nullable();
-        // $table->integer('keterlambatan')->nullable();
-        // $table->string('kehadiran')->nullable();
-        // $table->integer('jumlah_jam')->nullable();
-        // $table->boolean('in_location')->nullable();
-        // $table->decimal('latitude', 10, 6)->nullable();
-        // $table->decimal('longitude', 10, 6)->nullable();
-        // $table->string('image')->nullable();
+    }
+
+    public function clear()
+    {
+
+        $this->user_id = '';
+        $this->jam_ke = '';
+        $this->mulai_kbm = '';
+        $this->akhir_kbm = '';
+        $this->rombel_id = '';
+        $this->sekolah_id = '';
+        $this->mapel_id = '';
+        $this->waktu_absen = '';
     }
 }
