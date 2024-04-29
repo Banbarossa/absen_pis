@@ -201,6 +201,12 @@
                 <span>Absen Alternatif</span>
             </a>
         </li>
+        <li>
+            <a href="/piket/absen-luarjadwal" class="waves-effect">
+                <i class="mdi mdi-cellphone"></i>
+                <span>Absen Luar Jadwal</span>
+            </a>
+        </li>
         @endrole
 
         @can('access-school-menu')

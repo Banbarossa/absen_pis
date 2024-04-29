@@ -26,6 +26,7 @@ use App\Livewire\Admin\KelolaSekolah;
 use App\Livewire\Admin\Laporan\LaporanAll;
 use App\Livewire\Admin\Laporan\LaporanPerRombel;
 use App\Livewire\Admin\Laporan\LaporanPerSekolah;
+use App\Livewire\Admin\LuarJadwal\AbsenLuarJadwal;
 use App\Livewire\Admin\MusyrifHalaqah;
 use App\Livewire\Admin\PengaturanSemester;
 use App\Livewire\Admin\RekapHalaqahMonthly;
@@ -152,6 +153,7 @@ Route::middleware('auth')->group(function () {
     // piket
     Route::group(['middleware' => ['role:piket']], function () {
         Route::get('piket/absen', KelolaAbsenMengajar::class)->name('piket.absen');
+        Route::get('piket/absen-luarjadwal', AbsenLuarJadwal::class)->name('piket.luarjadwal');
         Route::get('piket/absen-alternatif', KelolaAbsenAlternatif::class)->name('pike.absen.alternatif');
 
     });
