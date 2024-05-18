@@ -80,4 +80,12 @@ class User extends Component
         $user->delete();
         $this->alert('success', 'User Berhasil dihapus');
     }
+
+    public function changeIsKaryawan($id)
+    {
+        $user = UserModel::find($id);
+        $user->is_karyawan = !$user->is_karyawan;
+        $user->save();
+        $this->alert('success', 'Status berhasil diganti');
+    }
 }

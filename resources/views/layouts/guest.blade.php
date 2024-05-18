@@ -39,6 +39,7 @@
             }
 
         </style>
+        @stack('style')
 
     </head>
 
@@ -49,7 +50,7 @@
             <div class="d-none d-lg-block col-lg-8 accountbg" id="ripple"></div>
             <div class="col-12 col-lg-4" style="padding-top:1rem; padding-bottom:4rem">
                 {{$slot}}
-                <div class="nav-bottom p-1 bg-primary">
+                <div class="p-1 nav-bottom bg-primary">
                     <div class="nav-wrapper">
                         <a class="nav-link {{Request::is('/') ? 'active' :''}}" href="/">Home <span class="sr-only">(current)</span></a>
                         <a class="nav-link {{Request::routeIs('login') ? 'active' :''}}" href="{{route('login')}}">Login</a>

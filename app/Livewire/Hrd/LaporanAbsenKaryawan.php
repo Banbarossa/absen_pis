@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Hrd;
 
-use App\Exports\KaryawanReport;
+use App\Exports\LaporanAbsenKaryawanexport;
 use App\Models\Absenkaryawan;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,27 +21,31 @@ class LaporanAbsenKaryawan extends Component
 
     public $startDate, $endDate;
 
+    #[Layout('layouts.app')]
+    #[Title('Laporan Absen Karyawan')]
     public function mount()
     {
         $today = Carbon::now();
 
-        $this->startDate = $today->startOfMonth()->toDateString();
+        $this->startDate = $today->copy()->startOfMonth()->toDateString();
         $this->endDate = $today->toDateString();
+
     }
 
     public function render()
     {
+        // $absens = Absenkaryawan::all();
 
-        $absens = Absenkaryawan::whereBetween('tanggal', [$this->startDate, $this->endDate])->paginate($this->perPage);
-
+        $absens = Absenkaryawan::with('absenkaryawandetails')->whereBetween('tanggal', [$this->startDate, $this->endDate])->paginate($this->perPage);
         return view('livewire.hrd.laporan-absen-karyawan', [
             'absens' => $absens,
-        ])->layout('layouts.app');
+        ]);
 
     }
 
     public function unduhExcel()
     {
-        return Excel::download(new KaryawanReport($this->startDate, $this->endDate), 'Laporan karyawan.xlsx');
+        $filename = 'Absen Karyawan ' . date('Y-m-d H_i_s') . '.xls';
+        return Excel::download(new LaporanAbsenKaryawanexport($this->startDate, $this->endDate), $filename);
     }
 }

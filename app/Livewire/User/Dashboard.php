@@ -8,6 +8,8 @@ use App\Models\JadwalHalaqah;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -22,6 +24,9 @@ class Dashboard extends Component
     public $sortColumn = 'jam_ke';
     public $sortDirection = 'asc';
     public $change_to, $reason, $absenhalaqah_id;
+
+    #[Layout('layouts.app')]
+    #[Title('Dashboard')]
 
     public function mount()
     {
@@ -77,37 +82,7 @@ class Dashboard extends Component
             'countHalaqah' => $countHalaqah,
             // 'chart' => $chart->build($user->id, $this->startDate, $this->endDate),
             'jadwalHalaqah' => $jadwalHalaqah,
-        ])->layout('layouts.app');
+        ]);
     }
-
-    // public function complain($id)
-    // {
-    //     $this->absenhalaqah_id = $id;
-    // }
-
-    // public function storeComplain()
-    // {
-    //     $this->validate([
-    //         'change_to' => 'required',
-    //         'reason' => 'required',
-    //     ]);
-
-    //     Complainhalaqah::create([
-    //         'absenhalaqah_id' => $this->absenhalaqah_id,
-    //         'change_to' => $this->change_to,
-    //         'reason' => $this->reason,
-
-    //     ]);
-    //     $this->clear();
-    //     $this->alert('success', 'Complain Berhasil diajaukan');
-    //     $this->dispatch('close-modal');
-    // }
-
-    // public function clear()
-    // {
-    //     $this->absenhalaqah_id = '';
-    //     $this->change_to = '';
-    //     $this->reason = '';
-    // }
 
 }

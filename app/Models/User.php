@@ -113,4 +113,9 @@ class User extends Authenticatable
         return $this->hasMany(Absenkaryawan::class);
     }
 
+    public function bagianuser()
+    {
+        return $this->belongsTo(Bagianuser::class);
+    }
+
 }

@@ -3,15 +3,22 @@
 
         <div class="p-3">
             @if (session('success'))
-                <div class="alert alert-success">
-                    {{session('success')}}
-                </div>
+                <div id="success-message" data-message="{{ session('success') }}"></div>
             @endif
+
             @if (session('error'))
-                <div class="alert alert-danger">
-                    {{session('error')}}
-                </div>
+                <div id="error-message" data-message="{{ session('error') }}"></div>
             @endif
+
+            <audio id="notif-error">
+                <source src="{{ asset('assets/voice/gagal.mp3') }}" type="audio/mpeg">
+            </audio>
+            
+            <audio id="notif-success">
+                <source src="{{ asset('assets/voice/berhasil.mp3') }}" type="audio/mpeg">
+            </audio>
+
+
             <form class="form-horizontal m-t-20" method="POST" action="{{ route('login') }}">
                 @csrf
 
@@ -28,13 +35,13 @@
                     </div>
                 </div>
 
-                <div class="form-group text-center row m-t-20">
+                <div class="text-center form-group row m-t-20">
                     <div class="col-12">
                         <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Log In</button>
                     </div>
                 </div>
 
-                <div class="form-group m-t-10 mb-0 row">
+                <div class="mb-0 form-group m-t-10 row">
                     @if (Route::has('password.request'))
                     <div class="col-sm-7 m-t-20">
                         <a href="{{ route('password.request') }}" class="text-muted"><i class="mdi mdi-lock"></i> <small>Forgot your password ?</small></a>
@@ -48,5 +55,40 @@
         </div>
 
     </x-form-card>
+
+    @push('script')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                let successMessageElement = document.getElementById('success-message');
+                let errorMessageElement = document.getElementById('error-message');
+
+                if (successMessageElement) {
+                    let message = successMessageElement.getAttribute('data-message');
+                    let notifSuccess = document.getElementById('notif-success');
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: message,
+                        icon: 'success',
+                        confirmButtonText: 'close',
+                    })
+                    notifSuccess.play();
+                }
+
+                if (errorMessageElement) {
+                    let message = errorMessageElement.getAttribute('data-message');
+                    let notifError = document.getElementById('notif-error');
+                    Swal.fire({
+                        title: 'Error!',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'close',
+                    })
+
+                    notifError.play();
+                }
+            });
+        </script>
+    @endpush
 
 </x-guest-layout>

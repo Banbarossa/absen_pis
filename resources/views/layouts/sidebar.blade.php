@@ -2,7 +2,7 @@
     <ul>
         <li class="menu-title">Main Menu</li>
         <li>
-            <a href="/dashboard" class="waves-effect">
+            <a href="{{ route('dashboard') }}" class="waves-effect">
                 <i class="mdi mdi-home"></i>
                 <span> Dashboard </span>
             </a>
@@ -102,6 +102,9 @@
         <li class="has_sub">
             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-poll"></i> <span> Laporan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="list-unstyled">
+                {{-- <li class="{{Request::routeIs('laporan.karyawan') ? 'active' :''}}">
+                    <a href="{{route('laporan.karyawan')}}" class="{{Request::routeIs('laporan.karyawan') ? 'active' :''}}">Absen Karyawan</a>
+                </li> --}}
                 <li class="{{Request::routeIs('laporan.detail.personal') ? 'active' :''}}">
                     <a href="{{route('laporan.detail.personal')}}" class="{{Request::routeIs('laporan.detail.personal') ? 'active' :''}}">Detail Personal</a>
                 </li>
@@ -118,6 +121,17 @@
                 @endforeach
                 <li class="{{Request::is('/laporan/rombel') ? 'active' :''}}">
                     <a href="{{route('laporan.rombel')}}" class="{{Request::is('/laporan/rombel') ? 'active' :''}}">Laporan Per Rombel</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has_sub">
+            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-clock"></i> <span> Pengaturan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+            <ul class="list-unstyled">
+                <li class="{{Request::routeIs('admin.pengaturan.jam-karyawan') ? 'active' :''}}">
+                    <a href="{{route('admin.pengaturan.jam-karyawan')}}" class="{{Request::routeIs('admin.pengaturan.jam-karyawan') ? 'active' :''}}">Jam Karyawan</a>
+                </li>
+                <li class="{{Request::routeIs('admin.pengaturan.grouping-user') ? 'active' :''}}">
+                    <a href="{{route('admin.pengaturan.grouping-user')}}" class="{{Request::routeIs('admin.pengaturan.grouping-user') ? 'active' :''}}">Bagian</a>
                 </li>
             </ul>
         </li>

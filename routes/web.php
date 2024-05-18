@@ -3,9 +3,7 @@
 use App\Http\Controllers\AbsenAlternatifController;
 use App\Http\Controllers\AbsenHalaqahController;
 use App\Http\Controllers\AbsenMengajarController;
-use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ChatifyController;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\GuestAbsenHalaqahController;
 use App\Http\Controllers\GuestAbsenKaryawan;
 use App\Http\Controllers\GuestAbsenSecurityCekLokasi;
@@ -38,7 +36,12 @@ use App\Livewire\Admin\Welcome\Informasi;
 use App\Livewire\Admin\Welcome\InformasiCreate;
 use App\Livewire\Admin\Welcome\Pengetahuan;
 use App\Livewire\Admin\Welcome\PengetahuanCreate;
+use App\Livewire\Hrd\CreateJadwalKaryawan;
+use App\Livewire\Hrd\GroupingUserToBagian;
+use App\Livewire\Hrd\JamAbsenKaryawan;
+use App\Livewire\Hrd\LaporanAbsenKaryawan;
 use App\Livewire\Hrd\LaporanBulanan;
+use App\Livewire\Hrd\UpdateJadwalKaryawan;
 use App\Livewire\KelolaKomplainMengajar;
 use App\Livewire\Kepsek\AbsenMengajarGuru;
 use App\Livewire\Kepsek\RekapMengajar;
@@ -76,7 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('user/cetak-jadwal-halaqah', [UserCetaksController::class, 'cetakJadwalHalaqah'])->name('cetak.jadwal-halaqah');
-    Route::get('/dashboard', Dashboard::class);
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
     // Route::get('user-dashboard', [UserDashboard::class, 'index']);
 
     Route::get('user-profile', UserProfile::class); //user update Profile
@@ -128,7 +131,16 @@ Route::middleware('auth')->group(function () {
         Route::get('sekolah/{id}', LaporanPerSekolah::class)->name('sekolah');
         Route::get('rombel', LaporanPerRombel::class)->name('rombel');
         Route::get('collective', LaporanAll::class)->name('semua');
+        Route::get('laporan-absen-karyawan', LaporanAbsenKaryawan::class)->name('karyawan');
         // Route::get('hrd-pengaturan-absen-karyawan', JamAbsenKaryawan::class);
+        // Route::get('hrd-setting-absen', SettingJamKaryawan::class);
+
+    });
+    Route::group(['middleware' => ['auth', 'role:hrd|admin'], 'prefix' => 'admin/pengaturan', 'as' => 'admin.pengaturan.'], function () {
+        Route::get('jam-karyawan', JamAbsenKaryawan::class)->name('jam-karyawan');
+        Route::get('jam-karyawan/create/{id}', CreateJadwalKaryawan::class)->name('jam-karyawan.create');
+        Route::get('jam-karyawan/edit/{id}', UpdateJadwalKaryawan::class)->name('jam-karyawan.update');
+        Route::get('grouping-karyawan', GroupingUserToBagian::class)->name('grouping-user');
         // Route::get('hrd-absen-karyawan', LaporanAbsenKaryawan::class);
         // Route::get('hrd-setting-absen', SettingJamKaryawan::class);
 
@@ -173,8 +185,8 @@ Route::get('user-absen', [AbsenHalaqahController::class, 'userAbsen']); //sudah 
 Route::get('absen-mengajar-barcode/{id}', AbsenMengajarBarcode::class); //absen mengajar oleh guest
 
 // Absen Karyawan
-Route::get('absen-kesantrian/', [GuestAbsenKaryawan::class, 'index'])->name('absen-karyawan.index'); //aksen absen karyawan
-Route::post('absen-kesantrian/', [GuestAbsenKaryawan::class, 'store'])->name('absen-karyawan.store'); //simpan data absen karyawan
+Route::get('absen-karyawan/{name}', [GuestAbsenKaryawan::class, 'index'])->name('absen-karyawan.index'); //aksen absen karyawan
+Route::post('absen-karyawan/', [GuestAbsenKaryawan::class, 'store'])->name('absen-karyawan.store'); //simpan data absen karyawan
 
 // Absen Mengajar Kelas
 Route::get('absen-mengajar/{code}', [AbsenMengajarController::class, 'index'])->name('absen-mengajar.index'); //aksen absen mengajar
@@ -199,9 +211,9 @@ Route::get('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'index'
 Route::post('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'store'])->name('absen-security.store'); //simpan data absen security lokasi
 
 // calender
-Route::get('calendar-event', [CalendarController::class, 'index']);
-Route::post('calendar-crud-ajax', [CalendarController::class, 'calendarEvents']);
+// Route::get('calendar-event', [CalendarController::class, 'index']);
+// Route::post('calendar-crud-ajax', [CalendarController::class, 'calendarEvents']);
 
-Route::get('events', [EventController::class, 'eventList'])->name('event.list');
+// Route::get('events', [EventController::class, 'eventList'])->name('event.list');
 
-Route::resource('coba', EventController::class);
+// Route::resource('coba', EventController::class);

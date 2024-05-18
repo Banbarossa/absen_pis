@@ -14,11 +14,11 @@
                             
                         </div>
                         {{-- table header --}}
-                        <div class="d-flex align-items-center mb-1 justify-content-between">
+                        <div class="mb-1 d-flex align-items-center justify-content-between">
                             <button class="btn btn-primary" wire:click='unduhExcel'>Unduh Excel</button>
                             {{-- <a href="/user-unduh-jadwal-mengajar" class="btn btn-primary">Cetak Jadwal Mengajar Anda</a> --}}
                             <div class="d-flex">
-                                <div class="form-group mr-2">
+                                <div class="mr-2 form-group">
                                     <label for="startDate">Tanggal Awal</label>
                                     <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
                                 </div>
@@ -34,16 +34,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Gambar</th>
                                         <th>Tanggal</th>
-                                        <th>jam_masuk</th>
-                                        <th>jam_pulang</th>
-                                        <th>scan_masuk</th>
-                                        <th>scan_masuk</th>
-                                        <th>scan_pulang</th>
-                                        <th>terlambat</th>
-                                        <th>selisih_waktu</th>
-                                        <th>lokasi</th>
+                                        <th>Nama</th>
+                                        <th>Masuk 1</th>
+                                        <th>Masuk 2</th>
+                                        <th>Pulang</th>
                                     </tr>
                                     
                                 </thead>
@@ -55,29 +50,100 @@
                                     @forelse ($absens as $key=> $item)
                                     <tr>
                                         <td scope="row">{{$pageNumber + $key + 1}}</td>
+                                        <td>{{$item->tanggal}}</td>
                                         <td>
-                                            @if ($item->image)
-                                                <a href="{{asset('storage/public/images/'.$item->image)}}" class="thumbnail-link">
-                                                    <img src="{{asset('storage/public/images/'.$item->image)}}" alt="Thumbnail Image" class="thumbnail rounded-circle">
-                                                </a>
+                                            <div>{{ $item->user ? $item->user->name :'' }}</div>
+                                            <small>Bagian <span class="fw-bold text-primary">{{ $item->bagianuser ? $item->bagianuser->name : 'Undefined' }}</span></small>
+                                        </td>
+                                        <td >
+                                            @if ($item->absenkaryawandetails->where('type','masuk_1')->first())
+                                            <div class="d-flex">
+                                                <div class="mr-2">
+                                                    @php
+                                                        $imageName = $item->absenkaryawandetails->where('type','masuk_1')->first()->jam
+                                                    @endphp
+                                                    <a href="{{asset('storage/public/images/karyawan/'. $imageName)}}" class="thumbnail-link">
+                                                        <img src="{{asset('storage/public/images/karyawan/'. $imageName)}}" alt="Image" class="thumbnail rounded-circle">
+                                                    </a>
+                                                    
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        {{ $item->absenkaryawandetails->where('type','masuk_1')->first() ? $item->absenkaryawandetails->where('type','masuk_1')->first()->jam :'' }}
+                                                    </div>
+                                                    <small>
+                                                        terlambat :
+                                                        {{ $item->absenkaryawandetails->where('type','masuk_1')->first() ? $item->absenkaryawandetails->where('type','masuk_1')->first()->selisih_waktu .' Menit' :'' }}
+                                                    </small>
+                                                    <small>
+                                                        Lokasi :
+                                                        <div><a href="https://www.google.com/maps?q={{ $item->absenkaryawandetails->where('type','masuk_1')->first() ? $item->absenkaryawandetails->where('type','masuk_1')->first()->lokasi :'' }}" target="blank">Lihat Lokasi</a></div>
+                                                    </small>
+                                                </div>
+                                            </div>
                                             @endif
                                         </td>
-                                        <td>{{$item->tanggal}}</td>
-                                        <td>{{$item->jam_masuk}}</td>
-                                        <td>{{$item->jam_pulang}}</td>
-                                        <td>{{$item->scan_masuk}}</td>
-                                        <td>{{$item->scan_pulang}}</td>
-                                        <td>{{$item->terlambat}}</td>
-                                        <td>{{$item->selisih_waktu}}</td>
                                         <td>
-                                            <div>{{$item->in_location}}</div>
-                                            <div><a href="https://www.google.com/maps?q={{$item->latitude}},{{$item->longitude}}" target="blank">Lihat Lokasi</a></div>
+                                            @if ($item->absenkaryawandetails->where('type','masuk_2')->first())
+                                            <div class="d-flex">
+                                                <div class="mr-2">
+                                                    @php
+                                                        $imageName = $item->absenkaryawandetails->where('type','masuk_2')->first()->jam
+                                                    @endphp
+                                                    <a href="{{asset('storage/public/images/karyawan/'. $imageName)}}" class="thumbnail-link">
+                                                        <img src="{{asset('storage/public/images/karyawan/'. $imageName)}}" alt="Image" class="thumbnail rounded-circle">
+                                                    </a>
+                                                    
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        {{ $item->absenkaryawandetails->where('type','masuk_2')->first() ? $item->absenkaryawandetails->where('type','masuk_2')->first()->jam :'' }}
+                                                    </div>
+                                                    <small>
+                                                        terlambat :
+                                                        {{ $item->absenkaryawandetails->where('type','masuk_2')->first() ? $item->absenkaryawandetails->where('type','masuk_2')->first()->selisih_waktu .' Menit' :'' }}
+                                                    </small>
+                                                    <small>
+                                                        Lokasi :
+                                                        <div><a href="https://www.google.com/maps?q={{ $item->absenkaryawandetails->where('type','masuk_2')->first() ? $item->absenkaryawandetails->where('type','masuk_2')->first()->lokasi :'' }}" target="blank">Lihat Lokasi</a></div>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($item->absenkaryawandetails->where('type','pulang')->first())
+                                            <div class="d-flex">
+                                                <div class="mr-2">
+                                                    @php
+                                                        $imageName = $item->absenkaryawandetails->where('type','pulang')->first()->jam
+                                                    @endphp
+                                                    <a href="{{asset('storage/public/images/karyawan/'. $imageName)}}" class="thumbnail-link">
+                                                        <img src="{{asset('storage/public/images/karyawan/'. $imageName)}}" alt="Image" class="thumbnail rounded-circle">
+                                                    </a>
+                                                    
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        {{ $item->absenkaryawandetails->where('type','pulang')->first() ? $item->absenkaryawandetails->where('type','pulang')->first()->jam :'' }}
+                                                    </div>
+                                                    <small>
+                                                        terlambat :
+                                                        {{ $item->absenkaryawandetails->where('type','pulang')->first() ? $item->absenkaryawandetails->where('type','pulang')->first()->selisih_waktu .' Menit' :'' }}
+                                                    </small>
+                                                    <small>
+                                                        Lokasi :
+                                                        <div><a href="https://www.google.com/maps?q={{ $item->absenkaryawandetails->where('type','pulang')->first() ? $item->absenkaryawandetails->where('type','pulang')->first()->lokasi :'' }}" target="blank">Lihat Lokasi</a></div>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            @endif
                                         </td>
                                         
                                     </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="11">No Data Found</td>
+                                            <td colspan="6">No Data Found</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

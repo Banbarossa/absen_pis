@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('jadwal_halaqahs', function (Blueprint $table) {
-            $table->boolean('is_aktif')->nullable()->default(true);
+            // $table->boolean('is_aktif')->nullable()->default(true);
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('jadwal_halaqahs', function (Blueprint $table) {
-            $table->dropColumn('is_aktif');
+            // $table->dropColumn('is_aktif');
         });
     }
 };

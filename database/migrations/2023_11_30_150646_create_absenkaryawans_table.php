@@ -15,25 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('jamkaryawan_id')->nullable();
+            $table->foreignId('bagianuser_id')->nullable();
             $table->date('tanggal');
-            $table->time('jam_masuk');
-            $table->time('jam_pulang');
-            $table->time('scan_masuk');
-            $table->time('scan_pulang');
-            $table->integer('terlambat')->nullable();
-            $table->integer('pulang_cepat')->nullable();
-            $table->integer('selisih_waktu')->nullable();
-
-            $table->boolean('masuk_in_location')->nullable();
-            $table->decimal('masuk_latitude', 10, 6)->nullable();
-            $table->decimal('masuk_longitude', 10, 6)->nullable();
-
-            $table->boolean('pulang_in_location')->nullable();
-            $table->decimal('pulang_latitude', 10, 6)->nullable();
-            $table->decimal('pulang_longitude', 10, 6)->nullable();
-
-            $table->string('masuk_image')->nullable();
-            $table->string('pulang_image')->nullable();
             $table->timestamps();
         });
     }

@@ -23,6 +23,7 @@
                                 <th class="sort @if($sortColumn == 'name') {{$sortDirection}} @endif" wire:click="sort('name')">Nama User</th>
                                 <th class="sort @if($sortColumn == 'email') {{$sortDirection}} @endif" wire:click="sort('email')">Email</th>
                                 <th>Pw Absen</th>
+                                <th>Karyawan</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -38,6 +39,9 @@
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->email}}</td>
                                 <td>{{$item->password_absen}}</td>
+                                <td>
+                                    <button class=" btn btn-sm btn-outline-{{ $item->is_karyawan ?'success' :'warning' }} rounded-pill" style="width: 100px" wire:confirm='Apakah Yakin untuk mengubah status' wire:click='changeIsKaryawan({{$item->id}})'>{{ $item->is_karyawan ?'Ya' :'Bukan' }}</button>                          
+                                </td>
                                 <td>
                                     @if ($item->status ==  1)
                                         <button class="btn btn-sm btn-outline-success rounded-pill" style="width: 100px" wire:confirm='Apakah Yakin untuk menonaktifkan user ini?' wire:click='nonAktifUser({{$item->id}})'>Aktif</button>
