@@ -111,6 +111,7 @@ class GuestAbsenKaryawan extends Controller
             return redirect()->back()->with('error', 'Password Salah, Atau Anda Tidak Punya Akses');
         }
 
+        dd($user);
         $absen = Absenkaryawan::firstOrNew([
             'user_id' => $user->id,
             'tanggal' => $now,
