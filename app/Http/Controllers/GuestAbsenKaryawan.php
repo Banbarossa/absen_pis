@@ -106,12 +106,12 @@ class GuestAbsenKaryawan extends Controller
             ->where('status', true)
             ->where('bagianuser_id', $request->bagianuser_id)
             ->first();
+        dd($user, $request->all());
 
         if (!$user) {
             return redirect()->back()->with('error', 'Password Salah, Atau Anda Tidak Punya Akses');
         }
 
-        dd($user);
         $absen = Absenkaryawan::firstOrNew([
             'user_id' => $user->id,
             'tanggal' => $now,
