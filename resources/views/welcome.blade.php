@@ -24,7 +24,7 @@
                     <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                 </svg>
             </div>
-            <input type="email" name="email" value="{{ old('email') ?? '' }}" id="input-group-1" class="bg-gray-50 bg-opacity-60 border border-red-600  text-gray-900 rounded-xl focus:ring-red-500 focus:border-red-500 focus:ring-1 focus:ring-offset-2 block w-full  px-2.5  py-2 dark:bg-gray-700 text-center dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Email">
+            <input type="email" name="email" value="{{ old('email') ?? '' }}" id="email" class="bg-gray-50 bg-opacity-60 border border-red-600  text-gray-900 rounded-xl focus:ring-red-500 focus:border-red-500 focus:ring-1 focus:ring-offset-2 block w-full  px-2.5  py-2 dark:bg-gray-700 text-center dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Email">
         </div>
         <div x-data="{show:false}">
             <div class="relative" >
@@ -33,7 +33,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14v3m4-6V7a3 3 0 1 1 6 0v4M5 11h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"/>
                     </svg>
                 </div>
-                <input x-bind:type="show ? 'text':'password'" name="password" id="input-group-1" class="bg-gray-50 bg-opacity-60 border border-red-600  text-gray-900 rounded-xl focus:ring-red-500 focus:border-red-500 focus:ring-1 focus:ring-offset-2 block w-full  px-2.5  py-2 dark:bg-gray-700 text-center dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Password">
+                <input x-bind:type="show ? 'text':'password'" name="password" id="password" class="bg-gray-50 bg-opacity-60 border border-red-600  text-gray-900 rounded-xl focus:ring-red-500 focus:border-red-500 focus:ring-1 focus:ring-offset-2 block w-full  px-2.5  py-2 dark:bg-gray-700 text-center dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Password">
             </div>
             <button type="button" x-on:click="show = !show" >
                 <span class="text-xs" x-text="show ? 'Sembunyikan Password' : 'Tampilkan Password'"></span>
@@ -53,7 +53,7 @@
         </div>
         @endif
         <div class="col-sm-5 m-t-20">
-            <a href="javascript:void(0)" class="text-muted" data-toggle="modal" data-target="#exampleModalLong-1"><i class="mdi mdi-account-circle"></i> <small>Buat Akun ?</small></a>
+            <a href="{{ route('register') }}" class="text-muted"> <small>Buat Akun</small></a>
         </div>
     </div>
     

@@ -19,7 +19,7 @@
     <body class="font-sans antialiased text-gray-900">
         <div class="flex items-start bg-gray-100 sm:justify-center">
 
-            <div class="relative w-full min-h-screen overflow-hidden bg-white sm:max-w-md">
+            <div class="relative w-full min-h-screen bg-white sm:max-w-md">
                 <div class="flex gap-3 px-5 pt-8 pb-32 bg-red-900">
                     <a href="/" class="p-1 bg-white rounded-lg bg-opacity-70 "><img src="{{asset('assets/images/logo.png')}}" class="w-10"  alt="logo"></a>
                     <div>
@@ -29,7 +29,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="px-5 py-6 -mt-24 bg-white md:mb-0 rounded-t-3xl">
+                <div class="px-5 pt-6 mb-20 -mt-24 bg-white rounded-t-3xl">
                     {{ $slot }}
                 </div>
             </div>

@@ -9,7 +9,6 @@ use App\Http\Controllers\GuestAbsenKaryawan;
 use App\Http\Controllers\GuestAbsenSecurityCekLokasi;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserCetaksController;
-use App\Http\Controllers\WelcomeController;
 use App\Livewire\AbsenMengajarBarcode;
 use App\Livewire\Admin\AbsenHalaqahToday;
 use App\Livewire\Admin\DetailRombel;
@@ -63,8 +62,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
-
-Route::get('/', [WelcomeController::class, 'index'])->middleware('guest')->name('welcome');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

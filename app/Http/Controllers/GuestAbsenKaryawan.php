@@ -144,7 +144,7 @@ class GuestAbsenKaryawan extends Controller
 
             ]);
 
-        return redirect()->route('login')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
+        return redirect()->back()->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
 
     }
 
