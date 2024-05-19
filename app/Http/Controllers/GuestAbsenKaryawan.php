@@ -7,6 +7,7 @@ use App\Models\Absenkaryawandetail;
 use App\Models\Bagianuser;
 use App\Models\Jamkaryawan;
 use App\Models\User;
+use App\Traits\CekJarak;
 use App\Traits\PengasuhanImage;
 use App\Traits\PengasuhanLocation;
 use Carbon\Carbon;
@@ -16,6 +17,7 @@ class GuestAbsenKaryawan extends Controller
 {
     use PengasuhanLocation;
     use PengasuhanImage;
+    use CekJarak;
 
     public function index($name)
     {
@@ -59,14 +61,15 @@ class GuestAbsenKaryawan extends Controller
             $absen_type = null;
             return view('halaman-error', [
                 'judul' => 'Tidak ditemukan Jadwal',
-                'content' => 'Tidak ditemkan jadwal yang valid, silahkan hubungi admin',
+                'content' => 'Tidak ditemukan jadwal yang valid, silahkan hubungi admin',
             ]);
 
         }
 
         $now = Carbon::now();
         $title = 'Absen Karyawan';
-        return view('guest.tailwind.absen-karyawan', compact('title', 'jam_karyawan', 'now', 'absen_type', 'bagianuser', 'latitude', 'longitude'));
+        $radius = $bagianuser->radius;
+        return view('guest.tailwind.absen-karyawan', compact('radius', 'title', 'jam_karyawan', 'now', 'absen_type', 'bagianuser', 'latitude', 'longitude'));
     }
 
     public function store(Request $request)
@@ -89,18 +92,20 @@ class GuestAbsenKaryawan extends Controller
         $longKantor = 95.386380;
 
         // cekLokasi
+
         $jarak = $this->distance($latKantor, $longKantor, $latUser, $longUser);
         if ($jarak['meters'] > 20) {
             return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
         };
 
         $jamKaryawan = Jamkaryawan::findOrFail($request->jamkaryawan_id);
-        $now = Carbon::now()->toDateString();
+        $now = Carbon::now();
 
         if ($request->absen_type == 'pulang' && $jamKaryawan->ischeckouttomorrow) {
-            $now = Carbon::now()->subDays(1)->toDateString();
+            $now = Carbon::now()->subDays(1);
         }
 
+        // Cek User
         $user = User::where('password_absen', $request->password_absen)
             ->where('is_karyawan', true)
             ->where('status', true)
@@ -111,9 +116,12 @@ class GuestAbsenKaryawan extends Controller
             return redirect()->back()->with('error', 'Password Salah, Atau Anda Tidak Punya Akses');
         }
 
+        // Cek Terlambat Atau Pulang Cepat
+        $getSelisih = $this->selisihWaktu($jamKaryawan, $request->absen_type);
+
         $absen = Absenkaryawan::firstOrNew([
             'user_id' => $user->id,
-            'tanggal' => $now,
+            'tanggal' => $now->toDateString(),
             'jamkaryawan_id' => $request->jamkaryawan_id,
             'bagianuser_id' => $request->bagianuser_id,
         ]);
@@ -121,8 +129,8 @@ class GuestAbsenKaryawan extends Controller
         $absen->save();
 
         if ($request->image) {
-            $imageName = $this->storeImage($request->image);
-
+            $folderPath = "public/images/karyawan/";
+            $imageName = $this->storeImage($request->image, $folderPath);
         }
 
         $existingDetail = Absenkaryawandetail::where('absenkaryawan_id', $absen->id)
@@ -138,28 +146,14 @@ class GuestAbsenKaryawan extends Controller
                 'absenkaryawan_id' => $absen->id,
                 'type' => $request->absen_type,
                 'jam' => Carbon::now()->format('H:i:s'),
-                'selisih_waktu' => 0,
+                'selisih_waktu' => $getSelisih,
                 'lokasi' => $request->lokasi,
                 'image' => $imageName,
 
             ]);
 
-        return redirect()->back()->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
+        return redirect()->route('success.page')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
 
-    }
-
-    public function distance($lat1, $lon1, $lat2, $lon2)
-    {
-        $theta = $lon1 - $lon2;
-        $miles = (sin(deg2rad($lat1)) * sin(deg2rad($lat2))) + (cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta)));
-        $miles = acos($miles);
-        $miles = rad2deg($miles);
-        $miles = $miles * 60 * 1.1515;
-        $feet = $miles * 5280;
-        $yards = $feet / 3;
-        $kilometers = $miles * 1.609344;
-        $meters = $kilometers * 1000;
-        return compact('meters');
     }
 
     public function isSunday()
@@ -167,4 +161,38 @@ class GuestAbsenKaryawan extends Controller
         $is_sunday = Carbon::now()->isSunday();
         return $is_sunday;
     }
+
+    public function selisihWaktu($jamKaryawan, $typeAbsen)
+    {
+        $now = Carbon::now();
+        $toleransi = $jamKaryawan->toleransi;
+        $selisih_waktu = 0;
+        $getSelisih = 0;
+
+        if ($typeAbsen == 'masuk_1') {
+
+            $waktuAbsen = Carbon::parse($jamKaryawan->jam_masuk_1);
+
+            if ($now > $waktuAbsen) {
+                $selisih_waktu = $waktuAbsen->diffInMinutes($now);
+            }
+            $getSelisih = $selisih_waktu > $toleransi ? $selisih_waktu : 0;
+
+        } elseif ($typeAbsen == 'masuk_2') {
+            $waktuAbsen = Carbon::parse($jamKaryawan->jam_masuk_2);
+            if ($now > $waktuAbsen) {
+                $selisih_waktu = $waktuAbsen->diffInMinutes($now);
+            }
+            $getSelisih = $selisih_waktu > $toleransi ? $selisih_waktu : 0;
+
+        } else {
+            $waktuAbsen = Carbon::parse($jamKaryawan->jam_pulang);
+            if ($now < $waktuAbsen) {
+                $selisih_waktu = $now->diffInMinutes($waktuAbsen);
+            }
+            $getSelisih = $selisih_waktu;
+        }
+        return $getSelisih;
+    }
+
 }

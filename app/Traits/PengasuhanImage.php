@@ -6,11 +6,10 @@ use Illuminate\Support\Facades\Storage;
 trait PengasuhanImage
 {
 
-    public function storeImage($img)
+    public function storeImage($img, $folderPath)
     {
         // simpan image
-        // $img = $request->image;
-        $folderPath = "public/images/karyawan";
+        $folderPath = $folderPath;
 
         $image_parts = explode(";base64,", $img);
         $image_type_aux = explode("image/", $image_parts[0]);

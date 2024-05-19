@@ -6,22 +6,26 @@ use App\Models\Absensekolah;
 use App\Models\Rombel;
 use App\Models\Roster;
 use App\Models\User;
+use App\Traits\PengasuhanImage;
 use App\Traits\SemesterAktif;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AbsenMengajarController extends Controller
 {
 
     use SemesterAktif;
+    use PengasuhanImage;
     public function index($code)
     {
 
         $now = Carbon::now();
         $rombel = Rombel::where('kode_rombel', $code)->first();
         if (!$rombel->can_absen) {
-            return view('guest.absen-tanpa-jadwal');
+            return view('halaman-error', [
+                'judul' => 'Tidak Memiliki Access',
+                'content' => 'Kelas ini tidak memiliki akses absen, silahkan hubungi admin',
+            ]);
         }
 
         $countAbsen = Absensekolah::where('tanggal', $now->toDateString())->where('rombel_id', $rombel->id)->get();
@@ -80,6 +84,7 @@ class AbsenMengajarController extends Controller
         // pengecekan password
         $absenSekolah = Absensekolah::find($id);
         $user = User::find($absenSekolah->user_id);
+
         if ($user->password_absen != $request->password_absen) {
             return redirect()->back()->with('error', 'Password Tidak Tepat');
         }
@@ -114,18 +119,9 @@ class AbsenMengajarController extends Controller
         }
 
         // simpan image
-        $img = $request->image;
+
         $folderPath = "public/images/";
-
-        $image_parts = explode(";base64,", $img);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-
-        $image_base64 = base64_decode($image_parts[1]);
-        $fileName = uniqid() . '.png';
-
-        $file = $folderPath . $fileName;
-        Storage::put($file, $image_base64);
+        $fileName = $this->storeImage($request->image, $folderPath);
 
         // store to data base
         $absenSekolah->update([
@@ -139,6 +135,6 @@ class AbsenMengajarController extends Controller
 
         ]);
 
-        return redirect()->route('login')->with('success', 'Terima Kasih Anda telah Melakukan Absen. untuk melihat transaksi Absen silahkan Login');
+        return redirect()->route('success.page')->with('success', 'Terima Kasih Anda telah Melakukan Absen. Silahkan Lanjutkan Aktifitas Anda');
     }
 }

@@ -6,7 +6,7 @@
     <x-jam-absen></x-jam-absen>
 
     <div class="py-6">
-        Belun Ada Info
+        Belum Ada Info
     </div>
 
 </x-absen>

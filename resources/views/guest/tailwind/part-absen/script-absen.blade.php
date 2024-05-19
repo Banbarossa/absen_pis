@@ -26,14 +26,20 @@
         var lokasi =document.getElementById('lokasi');
 
         if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 500
+            };
+            
+            navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options)
         }else{
             alert("Browser Anda tidak mendukung geolokasi.");
         }
 
         function successCallback(position){
-            let latKantor = document.getElementById('latKantor').getAttribute('data-lokasi');
-            let longKantor = document.getElementById('longKantor').getAttribute('data-lokasi');
+            let latKantor = parseFloat(document.getElementById('latKantor').getAttribute('data-lokasi'));
+            let longKantor = parseFloat(document.getElementById('longKantor').getAttribute('data-lokasi'));
 
             posisi =position.coords.latitude +','+ position.coords.longitude;
             lokasi.value = posisi;
@@ -46,12 +52,29 @@
 
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
 
+            const radius = {{ $radius }};
+
             var circle = L.circle([latKantor, longKantor], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: {{ $bagianuser->radius }}
+                radius: radius,
             }).addTo(map);
+
+
+            const jarak = distance(latKantor, longKantor, position.coords.latitude, position.coords.longitude);
+            if (jarak > radius){
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Browser mendeteksi anda Berada diluar Radius',
+                    icon: 'warning',
+                    toast:true,
+                    timer:2500,
+                    timerProgressBar:true,
+                    confirmButtonText: 'close',
+                })
+            }
+
 
         }
         function errorCallback(){
@@ -69,6 +92,8 @@
                     title: 'Berhasil!',
                     text: message,
                     icon: 'success',
+                    timer:2500,
+                    toast:true,
                     confirmButtonText: 'close',
                 })
                 notifSuccess.play();
@@ -81,6 +106,8 @@
                     title: 'Error!',
                     text: message,
                     icon: 'error',
+                    timer:2500,
+                    toast:true,
                     confirmButtonText: 'close',
                 })
 
@@ -88,6 +115,34 @@
             }
         });
 
+
+        function distance(lat1, lon1, lat2, lon2) {
+            function deg2rad(deg) {
+                return deg * (Math.PI / 180);
+            }
+
+            const theta = lon1 - lon2;
+            let miles = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + 
+                        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+                        Math.cos(deg2rad(theta));
+            
+            miles = Math.acos(miles);
+            miles = rad2deg(miles);
+            miles = miles * 60 * 1.1515;
+            
+            const feet = miles * 5280;
+            const yards = feet / 3;
+            const kilometers = miles * 1.609344;
+            const meters = kilometers * 1000;
+            
+            return Math.round(meters);
+        }
+
+        function rad2deg(rad) {
+            return rad * (180 / Math.PI);
+        }
+
+        
         
     </script>
     @endpush

@@ -5,20 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Absenhalaqah;
 use App\Models\JadwalHalaqah;
 use App\Models\User;
+use App\Traits\CekJarak;
+use App\Traits\PengasuhanImage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class GuestAbsenHalaqahController extends Controller
 {
+
+    use PengasuhanImage;
+    use CekJarak;
     public function index()
     {
 
         $userWithAksesHalaqah = User::role('musyrif halaqah')->get();
 
         $now = Carbon::now();
-
-        $urutanHariDalamPekan = $now->isoWeekday();
 
         $jadwalHalaqah = JadwalHalaqah::where('nama_sesi', '!=', 'khusus')->where('hari', $now->dayOfWeek)
             ->where('is_aktif', 1)
@@ -28,8 +30,9 @@ class GuestAbsenHalaqahController extends Controller
 
         if (!$jadwalHalaqah) {
             $jadwal = '';
-            return view('guest.absen-halaqah', [
-                'jadwal' => $jadwal,
+            return view('halaman-error', [
+                'judul' => 'Tidak ditemukan Jadwal',
+                'content' => 'Tidak ditemukan jadwal yang valid, silahkan hubungi admin',
             ]);
         }
 
@@ -39,18 +42,6 @@ class GuestAbsenHalaqahController extends Controller
 
         if ($absen_today->count() === 0) {
             $jadwalHalaqah = JadwalHalaqah::where('hari', $now->dayOfWeek)->where('nama_sesi', '!=', 'khusus')->where('is_aktif', 1)->get();
-
-            // foreach ($jadwalHalaqah as $jadwal) {
-            //     foreach ($userWithAksesHalaqah as $user) {
-            //         Absenhalaqah::firstOrCreate([
-            //             "jadwal_halaqah_id" => $jadwal->id,
-            //             "user_id" => $user->id,
-            //             "tanggal" => $now->toDateString(),
-            //         ], [
-            //             "kehadiran" => 'alpa',
-            //         ]);
-            //     }
-            // }
 
             foreach ($jadwalHalaqah as $jadwal) {
                 foreach ($userWithAksesHalaqah as $user) {
@@ -65,14 +56,12 @@ class GuestAbsenHalaqahController extends Controller
             }
         }
 
-        $jadwal = JadwalHalaqah::where('hari', $urutanHariDalamPekan)
-            ->where('mulai_absen', '<=', $now->format('H:i:s'))
-            ->where('akhir_absen', '>=', $now->format('H:i:s'))
-            ->first();
-
         return view('guest.absen-halaqah', [
-            // 'absen' => $absen,
-            'jadwal' => $jadwal,
+            'title' => 'Absen Halaqah',
+            'jadwal' => $jadwalHalaqah,
+            'latitude' => 5.463451583675343,
+            'longitude' => 95.3861015036581,
+            'radius' => 30,
         ]);
     }
 
@@ -81,9 +70,12 @@ class GuestAbsenHalaqahController extends Controller
         $request->validate([
             'image' => 'required',
             'password_absen' => 'required',
+            'lokasi' => 'required',
         ], [
             'image.required' => 'Foto wajib diambil',
             'password_absen.required' => 'Password Absen Wajib Diisi',
+            'lokasi.required' => 'Gunakan Browser yang support Geo Location Seperti Chrome dan Mozilla. dan berikan akses menggunakan lokasi',
+
         ]);
         $now = Carbon::now();
         $user = User::where('password_absen', $request->password_absen)->first();
@@ -102,37 +94,27 @@ class GuestAbsenHalaqahController extends Controller
         if (!$absen) {
             return redirect()->back()->with('error', 'Data Absen tidak ditemukan');
         } else {
-            // simpan image
-            $img = $request->image;
+
+            // Simpan Image
             $folderPath = "public/images/";
-
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-
-            $image_base64 = base64_decode($image_parts[1]);
-            $fileName = uniqid() . '.png';
-
-            $file = $folderPath . $fileName;
-            Storage::put($file, $image_base64);
+            $fileName = $this->storeImage($request->image, $folderPath);
 
             //hitung radius
-            $allowedLatitude = 5.463151;
-            $allowedLongitude = 95.386354;
-            $maxDistance = 1000;
 
-            $earthRadius = 6371; // Radius Bumi dalam kilometer
-            $dLat = deg2rad($allowedLatitude - $request->latitude);
-            $dLon = deg2rad($allowedLongitude - $request->longitude);
-            $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($request->latitude)) * cos(deg2rad($allowedLatitude)) * sin($dLon / 2) * sin($dLon / 2);
-            $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-            $distance = $earthRadius * $c * $maxDistance; // Jarak dalam meter
+            $latmesjid = 5.463451583675343;
+            $lonmesjid = 95.3861015036581;
 
-            if ($distance <= $maxDistance) {
-                $isInRadius = true;
-            } else {
+            $lokasiuser = explode(',', $request->lokasi);
+
+            $jarak = $this->distance($latmesjid, $lonmesjid, $lokasiuser[0], $lokasiuser[1]);
+
+            $isInRadius = true;
+
+            if ($jarak['meters'] > 20) {
+
                 $isInRadius = false;
-            }
+                // return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
+            };
 
             // Update Data absen
             $absen->update([
@@ -140,18 +122,23 @@ class GuestAbsenHalaqahController extends Controller
                 'kehadiran' => 'hadir',
                 'image' => $fileName,
                 'in_location' => $isInRadius,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
+                'latitude' => $lokasiuser[0],
+                'longitude' => $lokasiuser[1],
             ]);
 
-            return redirect()->route('login')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
+            return redirect()->route('success.page')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
         }
 
     }
 
     public function khusus()
     {
-        return view('guest.absen-halaqah-khusus');
+        return view('guest.absen-halaqah-khusus', [
+            'title' => 'Absen Halaqah Khusus',
+            'latitude' => 5.463451583675343,
+            'longitude' => 95.3861015036581,
+            'radius' => 30,
+        ]);
 
     }
     public function storeKhusus(Request $request)
@@ -160,45 +147,37 @@ class GuestAbsenHalaqahController extends Controller
         $request->validate([
             'image' => 'required',
             'password_absen' => 'required',
+            'lokasi' => 'required',
         ], [
             'image.required' => 'Foto wajib diambil',
             'password_absen.required' => 'Password Absen Wajib Diisi',
+            'lokasi.required' => 'Silahkan Menggunakan Browser Yang mendukung Geolocation, dan memberikan izin akses',
         ]);
 
         $user = User::where('password_absen', $request->password_absen)->role('musyrif halaqah')->first();
         $now = Carbon::now();
 
         if ($user) {
-            $img = $request->image;
+
             $folderPath = "public/images/";
-
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-
-            $image_base64 = base64_decode($image_parts[1]);
-            $fileName = uniqid() . '.png';
-
-            $file = $folderPath . $fileName;
-            Storage::put($file, $image_base64);
+            $fileName = $this->storeImage($request->image, $folderPath);
 
             //hitung radius
-            $allowedLatitude = 5.463151;
-            $allowedLongitude = 95.386354;
-            $maxDistance = 1000;
 
-            $earthRadius = 6371; // Radius Bumi dalam kilometer
-            $dLat = deg2rad($allowedLatitude - $request->latitude);
-            $dLon = deg2rad($allowedLongitude - $request->longitude);
-            $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($request->latitude)) * cos(deg2rad($allowedLatitude)) * sin($dLon / 2) * sin($dLon / 2);
-            $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-            $distance = $earthRadius * $c * $maxDistance; // Jarak dalam meter
+            $latmesjid = 5.463451583675343;
+            $lonmesjid = 95.3861015036581;
 
-            if ($distance <= $maxDistance) {
-                $isInRadius = true;
-            } else {
+            $lokasiuser = explode(',', $request->lokasi);
+
+            $jarak = $this->distance($latmesjid, $lonmesjid, $lokasiuser[0], $lokasiuser[1]);
+
+            $isInRadius = true;
+
+            if ($jarak['meters'] > 20) {
+
                 $isInRadius = false;
-            }
+                // return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
+            };
 
             $jadwal = JadwalHalaqah::where('nama_sesi', 'khusus')->first();
 
@@ -210,13 +189,13 @@ class GuestAbsenHalaqahController extends Controller
                 "kehadiran" => 'hadir',
                 'waktu_absen' => $now->format('H:i:s'),
                 'in_location' => $isInRadius,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
+                'latitude' => $lokasiuser[0],
+                'longitude' => $lokasiuser[1],
                 'image' => $fileName,
             ]);
         }
 
-        return redirect()->route('login')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
+        return redirect()->route('success.page')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
 
     }
 }

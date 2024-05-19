@@ -9,6 +9,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
+
         $informasi = Informasi::latest()->first();
         $pengetahuan = Knowledge::inRandomOrder()->first();
         return view('welcome', [
