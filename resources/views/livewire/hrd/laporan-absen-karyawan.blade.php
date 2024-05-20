@@ -60,7 +60,7 @@
                                             <div class="d-flex">
                                                 <div class="mr-2">
                                                     @php
-                                                        $imageName = $item->absenkaryawandetails->where('type','masuk_1')->first()->jam
+                                                        $imageName = $item->absenkaryawandetails->where('type','masuk_1')->first()->image
                                                     @endphp
                                                     <a href="{{asset('storage/public/images/karyawan/'. $imageName)}}" class="thumbnail-link">
                                                         <img src="{{asset('storage/public/images/karyawan/'. $imageName)}}" alt="Image" class="thumbnail rounded-circle">
@@ -88,7 +88,7 @@
                                             <div class="d-flex">
                                                 <div class="mr-2">
                                                     @php
-                                                        $imageName = $item->absenkaryawandetails->where('type','masuk_2')->first()->jam
+                                                        $imageName = $item->absenkaryawandetails->where('type','masuk_2')->first()->image
                                                     @endphp
                                                     <a href="{{asset('storage/public/images/karyawan/'. $imageName)}}" class="thumbnail-link">
                                                         <img src="{{asset('storage/public/images/karyawan/'. $imageName)}}" alt="Image" class="thumbnail rounded-circle">
@@ -116,7 +116,7 @@
                                             <div class="d-flex">
                                                 <div class="mr-2">
                                                     @php
-                                                        $imageName = $item->absenkaryawandetails->where('type','pulang')->first()->jam
+                                                        $imageName = $item->absenkaryawandetails->where('type','pulang')->first()->image
                                                     @endphp
                                                     <a href="{{asset('storage/public/images/karyawan/'. $imageName)}}" class="thumbnail-link">
                                                         <img src="{{asset('storage/public/images/karyawan/'. $imageName)}}" alt="Image" class="thumbnail rounded-circle">

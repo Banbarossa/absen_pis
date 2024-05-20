@@ -36,7 +36,7 @@ class LaporanAbsenKaryawan extends Component
     {
         // $absens = Absenkaryawan::all();
 
-        $absens = Absenkaryawan::with('absenkaryawandetails')->whereBetween('tanggal', [$this->startDate, $this->endDate])->paginate($this->perPage);
+        $absens = Absenkaryawan::with('absenkaryawandetails')->whereBetween('tanggal', [$this->startDate, $this->endDate])->orderBy('tanggal', 'desc')->paginate($this->perPage);
         return view('livewire.hrd.laporan-absen-karyawan', [
             'absens' => $absens,
         ]);
