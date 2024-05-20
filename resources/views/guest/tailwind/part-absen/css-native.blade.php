@@ -6,7 +6,7 @@
                 width: 100% !important;
                 border-radius: 20px;
                 overflow: hidden;
-                height: 100% !important;
+                height: 300px !important;
             }
             #map{
                 height: 300px;
