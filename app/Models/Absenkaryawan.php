@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bagianuser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,7 +24,7 @@ class Absenkaryawan extends Model
 
     public function bagianuser()
     {
-        return $this->belongsTo(bagianuser::class);
+        return $this->belongsTo(Bagianuser::class);
     }
 
     public function absenkaryawandetails(): HasMany
