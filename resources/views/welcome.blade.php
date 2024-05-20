@@ -5,7 +5,13 @@
 
     <x-jam-absen></x-jam-absen>
 
-    <x-notif-absen></x-notif-absen>
+    @if (session('success'))
+        <div id="success-message" data-message="{{ session('success') }}"></div>
+    @endif
+
+    @if (session('error'))
+        <div id="error-message" data-message="{{ session('error') }}"></div>
+    @endif
 
     <figure>
         <img src="{{ asset('assets/images/worker.png') }}" class="w-1/3 mx-auto" alt="worker">

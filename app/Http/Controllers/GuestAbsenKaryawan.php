@@ -93,10 +93,10 @@ class GuestAbsenKaryawan extends Controller
 
         // cekLokasi
 
-        $jarak = $this->distance($latKantor, $longKantor, $latUser, $longUser);
-        if ($jarak['meters'] > 20) {
-            return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
-        };
+        // $jarak = $this->distance($latKantor, $longKantor, $latUser, $longUser);
+        // if ($jarak['meters'] > 20) {
+        //     return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
+        // };
 
         $jamKaryawan = Jamkaryawan::findOrFail($request->jamkaryawan_id);
         $now = Carbon::now();
