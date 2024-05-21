@@ -33,7 +33,7 @@ class KelolaSchedule extends Component
     #[Layout('layouts.app')]
     public function render()
     {
-        $model = Schedule::where('status', true)->latest();
+        $model = Schedule::where('status', true)->latest()->get();
 
         $jamMengajar = Jammengajar::where('hari', $this->hari)
             ->where('schedule_id', $this->schedule_id)

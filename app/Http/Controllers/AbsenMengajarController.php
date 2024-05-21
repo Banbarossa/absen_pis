@@ -6,6 +6,7 @@ use App\Models\Absensekolah;
 use App\Models\Rombel;
 use App\Models\Roster;
 use App\Models\User;
+use App\Traits\CekJarak;
 use App\Traits\PengasuhanImage;
 use App\Traits\SemesterAktif;
 use Carbon\Carbon;
@@ -16,6 +17,7 @@ class AbsenMengajarController extends Controller
 
     use SemesterAktif;
     use PengasuhanImage;
+    use CekJarak;
     public function index($code)
     {
 
@@ -64,8 +66,12 @@ class AbsenMengajarController extends Controller
             ->first();
 
         return view('guest.absen-mengajar', [
+            'title' => 'Absen Mengajar',
             'id_rombel' => $code,
             'absen' => $absen,
+            'latitude' => 5.4630899676613875,
+            'longitude' => 95.38699315801608,
+            'radius' => 40,
         ]);
 
     }
@@ -90,33 +96,23 @@ class AbsenMengajarController extends Controller
         }
 
         // Perhitungan keterlambatan
-        $now = Carbon::now();
-        $waktuDispensasi = intval(env('MENIT_DISPENSASI', 10));
-        $dispensasiTime = Carbon::parse($absenSekolah->mulai_kbm)->addMinutes($waktuDispensasi);
 
-        $keterlambatan = 0;
-        if ($now > $dispensasiTime) {
-            $keterlambatan = $keterlambatanInterval = $now->diff($dispensasiTime);
-            $keterlambatan = $keterlambatanInterval->h * 60 + $keterlambatanInterval->i + $keterlambatanInterval->s / 60;
-        }
+        $keterlambatan = $this->terlambat($absenSekolah->mulai_kbm, 10, );
 
         //hitung radius
-        $allowedLatitude = 5.463151;
-        $allowedLongitude = 95.386354;
-        $maxDistance = 1000;
+        $latSekolah = 5.4630899676613875;
+        $lonsekolah = 95.38699315801608;
 
-        $earthRadius = 6371; // Radius Bumi dalam kilometer
-        $dLat = deg2rad($allowedLatitude - $request->latitude);
-        $dLon = deg2rad($allowedLongitude - $request->longitude);
-        $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($request->latitude)) * cos(deg2rad($allowedLatitude)) * sin($dLon / 2) * sin($dLon / 2);
-        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        $distance = $earthRadius * $c * $maxDistance; // Jarak dalam meter
+        $lokasiuser = explode(',', $request->lokasi);
 
-        if ($distance <= $maxDistance) {
-            $isInRadius = true;
-        } else {
+        $isInRadius = true;
+        $jarak = $this->distance($latSekolah, $lonsekolah, $lokasiuser[0], $lokasiuser[1]);
+
+        if ($jarak['meters'] > 40) {
+
             $isInRadius = false;
-        }
+            // return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
+        };
 
         // simpan image
 
@@ -125,16 +121,30 @@ class AbsenMengajarController extends Controller
 
         // store to data base
         $absenSekolah->update([
-            'waktu_absen' => $now->format('H:i:s'),
+            'waktu_absen' => Carbon::now()->format('H:i:s'),
             'kehadiran' => 'hadir',
             'keterlambatan' => $keterlambatan,
             'image' => $fileName,
             'in_location' => $isInRadius,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'latitude' => $lokasiuser[0],
+            'longitude' => $lokasiuser[0],
 
         ]);
 
         return redirect()->route('success.page')->with('success', 'Terima Kasih Anda telah Melakukan Absen. Silahkan Lanjutkan Aktifitas Anda');
+    }
+
+    public function terlambat($waktuMasuk, $toleransi)
+    {
+
+        $now = Carbon::now();
+        $dispensasiWaktu = Carbon::parse($waktuMasuk)->addMinutes($toleransi);
+        $toleransi = $toleransi;
+        $terlambat = 0;
+
+        if ($now > $dispensasiWaktu) {
+            $terlambat = $dispensasiWaktu->diffInMinutes($now);
+        }
+        return $terlambat;
     }
 }
