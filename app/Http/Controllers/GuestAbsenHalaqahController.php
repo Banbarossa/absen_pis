@@ -70,11 +70,11 @@ class GuestAbsenHalaqahController extends Controller
         $request->validate([
             'image' => 'required',
             'password_absen' => 'required',
-            'lokasi' => 'required',
+            // 'lokasi' => 'required',
         ], [
             'image.required' => 'Foto wajib diambil',
             'password_absen.required' => 'Password Absen Wajib Diisi',
-            'lokasi.required' => 'Gunakan Browser yang support Geo Location Seperti Chrome dan Mozilla. dan berikan akses menggunakan lokasi',
+            // 'lokasi.required' => 'Gunakan Browser yang support Geo Location Seperti Chrome dan Mozilla. dan berikan akses menggunakan lokasi',
 
         ]);
         $now = Carbon::now();
@@ -147,11 +147,11 @@ class GuestAbsenHalaqahController extends Controller
         $request->validate([
             'image' => 'required',
             'password_absen' => 'required',
-            'lokasi' => 'required',
+            // 'lokasi' => 'required',
         ], [
             'image.required' => 'Foto wajib diambil',
             'password_absen.required' => 'Password Absen Wajib Diisi',
-            'lokasi.required' => 'Silahkan Menggunakan Browser Yang mendukung Geolocation, dan memberikan izin akses',
+            // 'lokasi.required' => 'Silahkan Menggunakan Browser Yang mendukung Geolocation, dan memberikan izin akses',
         ]);
 
         $user = User::where('password_absen', $request->password_absen)->role('musyrif halaqah')->first();

@@ -7,6 +7,8 @@ use App\Models\Absensekolah;
 use App\Models\Sekolah;
 use App\Models\User;
 use Carbon\Carbon;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class LaporanBulanan extends Component
@@ -18,6 +20,9 @@ class LaporanBulanan extends Component
     public $guru;
     // public $absen_mengajar, $absen_halaqah;
     public $absenPerMusyrif = [];
+
+    #[Layout('layouts.app')]
+    #[Title('laporan Personal')]
 
     public function mount()
     {
@@ -85,13 +90,23 @@ class LaporanBulanan extends Component
             'halaqah' => $halaqah,
             'absen_mengajar' => $absen_mengajar,
             'jumlahHarihadir' => $jumlahHarihadir,
-        ])->layout('layouts.app');
+        ]);
+    }
+
+    public function updatedStartDate()
+    {
+        $this->dispatch('startdateChange', startDate: $this->startDate);
+    }
+
+    public function updatedendDate()
+    {
+        $this->dispatch('enddateChange', endDate: $this->endDate);
     }
 
     public function rekap($id)
     {
         $this->user_id = $id;
-
+        $this->dispatch('useridChange', userId: $id);
         $this->guru = User::find($id);
 
         // //halaqah

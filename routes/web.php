@@ -67,10 +67,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('guest')->group(function () {
-
-});
-
 Route::view('success', 'halaman-success-absen')->name('success.page');
 
 Route::middleware('auth')->group(function () {
@@ -216,3 +212,7 @@ Route::post('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'store
 // Route::get('events', [EventController::class, 'eventList'])->name('event.list');
 
 // Route::resource('coba', EventController::class);
+
+Route::group(['prefix' => 'baru', 'as' => 'baru.'], function (
+
+) {});
