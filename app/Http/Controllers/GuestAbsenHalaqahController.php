@@ -104,17 +104,18 @@ class GuestAbsenHalaqahController extends Controller
             $latmesjid = 5.463451583675343;
             $lonmesjid = 95.3861015036581;
 
-            $lokasiuser = explode(',', $request->lokasi);
+            $isInRadius = false;
+            if ($request->lokasi) {
+                $lokasiuser = explode(',', $request->lokasi);
 
-            $jarak = $this->distance($latmesjid, $lonmesjid, $lokasiuser[0], $lokasiuser[1]);
+                $jarak = $this->distance($latmesjid, $lonmesjid, $lokasiuser[0], $lokasiuser[1]);
 
-            $isInRadius = true;
+                if ($jarak['meters'] <= 20) {
 
-            if ($jarak['meters'] > 20) {
+                    $isInRadius = true;
+                };
 
-                $isInRadius = false;
-                // return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
-            };
+            }
 
             // Update Data absen
             $absen->update([
@@ -167,17 +168,18 @@ class GuestAbsenHalaqahController extends Controller
             $latmesjid = 5.463451583675343;
             $lonmesjid = 95.3861015036581;
 
-            $lokasiuser = explode(',', $request->lokasi);
+            $isInRadius = false;
+            if ($request->user) {
 
-            $jarak = $this->distance($latmesjid, $lonmesjid, $lokasiuser[0], $lokasiuser[1]);
+                $lokasiuser = explode(',', $request->lokasi);
 
-            $isInRadius = true;
+                $jarak = $this->distance($latmesjid, $lonmesjid, $lokasiuser[0], $lokasiuser[1]);
 
-            if ($jarak['meters'] > 20) {
+                if ($jarak['meters'] <= 20) {
 
-                $isInRadius = false;
-                // return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
-            };
+                    $isInRadius = true;
+                };
+            }
 
             $jadwal = JadwalHalaqah::where('nama_sesi', 'khusus')->first();
 
