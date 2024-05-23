@@ -104,9 +104,14 @@ class AbsenMengajarController extends Controller
         $lonsekolah = 95.38699315801608;
 
         $isInRadius = false;
-        if ($$request->lokasi) {
+        $latuser = '';
+        $lonuser = '';
+
+        if ($request->lokasi) {
 
             $lokasiuser = explode(',', $request->lokasi);
+            $latuser = $lokasiuser[0];
+            $lonuser = $lokasiuser[1];
 
             $jarak = $this->distance($latSekolah, $lonsekolah, $lokasiuser[0], $lokasiuser[1]);
 
@@ -128,8 +133,8 @@ class AbsenMengajarController extends Controller
             'keterlambatan' => $keterlambatan,
             'image' => $fileName,
             'in_location' => $isInRadius,
-            'latitude' => $lokasiuser[0],
-            'longitude' => $lokasiuser[0],
+            'latitude' => $latuser,
+            'longitude' => $lonuser,
 
         ]);
 

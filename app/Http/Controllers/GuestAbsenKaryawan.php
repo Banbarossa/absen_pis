@@ -91,6 +91,7 @@ class GuestAbsenKaryawan extends Controller
 
         $is_inlocation = false;
 
+        $lokasi = $latKantor . ',' . $longKantor;
         if ($request->lokasi) {
             $lokasi = explode(',', $request->lokasi);
             $latUser = $lokasi[0];
