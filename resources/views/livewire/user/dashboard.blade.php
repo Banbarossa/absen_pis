@@ -103,9 +103,6 @@
             </div>
             <!-- Column -->
         </div> --}}
-        @if (Auth::user()->is_karyawan)
-        <livewire:user.riwayat-absen-pribadi/>
-        @endif
 
         
         <div class="row">
