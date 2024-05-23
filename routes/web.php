@@ -184,7 +184,7 @@ Route::get('absen-mengajar-barcode/{id}', AbsenMengajarBarcode::class); //absen 
 Route::get('absen-karyawan/{name}', [GuestAbsenKaryawan::class, 'index'])->name('absen-karyawan.index'); //aksen absen karyawan
 Route::post('absen-karyawan/', [GuestAbsenKaryawan::class, 'store'])->name('absen-karyawan.store'); //simpan data absen karyawan
 Route::get('absen-dinasluar/{name}', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('absen-dinasluar.index'); //aksen absen karyawan
-Route::post('absen-dinasluar/', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('absen-dinasluar.store'); //simpan data absen karyawan
+// Route::post('absen-dinasluar/', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('absen-dinasluar.store'); //simpan data absen karyawan
 
 // Absen Mengajar Kelas
 Route::get('absen-mengajar/{code}', [AbsenMengajarController::class, 'index'])->name('absen-mengajar.index'); //aksen absen mengajar
