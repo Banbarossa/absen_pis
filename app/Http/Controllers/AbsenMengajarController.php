@@ -103,16 +103,18 @@ class AbsenMengajarController extends Controller
         $latSekolah = 5.4630899676613875;
         $lonsekolah = 95.38699315801608;
 
-        $lokasiuser = explode(',', $request->lokasi);
+        $isInRadius = false;
+        if ($$request->lokasi) {
 
-        $isInRadius = true;
-        $jarak = $this->distance($latSekolah, $lonsekolah, $lokasiuser[0], $lokasiuser[1]);
+            $lokasiuser = explode(',', $request->lokasi);
 
-        if ($jarak['meters'] > 40) {
+            $jarak = $this->distance($latSekolah, $lonsekolah, $lokasiuser[0], $lokasiuser[1]);
 
-            $isInRadius = false;
-            // return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
-        };
+            if ($jarak['meters'] <= 40) {
+
+                $isInRadius = true;
+            };
+        }
 
         // simpan image
 

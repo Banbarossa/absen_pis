@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Absenkaryawandetail extends Model
 {
@@ -20,6 +21,11 @@ class Absenkaryawandetail extends Model
     public function absenkaryawan(): BelongsTo
     {
         return $this->belongsTo(Absenkaryawan::class);
+    }
+
+    public function absendinasluars(): HasOne
+    {
+        return $this->hasOne(Absendinasluar::class);
     }
 
 }

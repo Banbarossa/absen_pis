@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12 col-lg-4">
+    <div class="col-12">
         <div class="bg-white card m-b-30">
             <div class="card-body new-user">
                     <h5 class="mt-0 mb-4 header-title">Riwayat Absen</h5>

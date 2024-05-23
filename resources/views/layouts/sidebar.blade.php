@@ -12,6 +12,9 @@
         <li class="has_sub">
             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-fingerprint"></i> <span>Kehadiran Saya</span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="list-unstyled">
+                <li class="{{Request::routeIs('absen.user.harian') ? 'active' :''}}">
+                    <a href="{{route('user.absen.harian')}}" class="{{Request::routeIs('user.absen.halaqah') ? 'active' :''}}">Harian</a>
+                </li>
                 @role('musyrif halaqah')
                 <li class="{{Request::routeIs('absen.user.halaqah') ? 'active' :''}}">
                     <a href="{{route('user.absen.halaqah')}}" class="{{Request::routeIs('user.absen.halaqah') ? 'active' :''}}">Halaqah</a>
@@ -102,9 +105,9 @@
         <li class="has_sub">
             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-poll"></i> <span> Laporan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="list-unstyled">
-                {{-- <li class="{{Request::routeIs('laporan.karyawan') ? 'active' :''}}">
+                <li class="{{Request::routeIs('laporan.karyawan') ? 'active' :''}}">
                     <a href="{{route('laporan.karyawan')}}" class="{{Request::routeIs('laporan.karyawan') ? 'active' :''}}">Absen Karyawan</a>
-                </li> --}}
+                </li>
                 <li class="{{Request::routeIs('laporan.detail.personal') ? 'active' :''}}">
                     <a href="{{route('laporan.detail.personal')}}" class="{{Request::routeIs('laporan.detail.personal') ? 'active' :''}}">Detail Personal</a>
                 </li>

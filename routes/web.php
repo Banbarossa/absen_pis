@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
 
     // user Area
     Route::group(['middleware' => 'auth', 'prefix' => 'user/absen', 'as' => 'user.absen.'], function () {
+        Route::get('harian', \App\Livewire\User\Harian::class)->name('harian');
         Route::get('halaqah', Halaqah::class)->name('halaqah')->middleware('role:musyrif halaqah');
         Route::get('mengajar', AbsenMengajar::class)->name('mengajar')->middleware('role:guru');
         Route::get('jadwal', [UserCetaksController::class, 'cetakJadwalMengajar'])->name('jadwal')->middleware('role:guru');
@@ -182,6 +183,8 @@ Route::get('absen-mengajar-barcode/{id}', AbsenMengajarBarcode::class); //absen 
 // Absen Karyawan
 Route::get('absen-karyawan/{name}', [GuestAbsenKaryawan::class, 'index'])->name('absen-karyawan.index'); //aksen absen karyawan
 Route::post('absen-karyawan/', [GuestAbsenKaryawan::class, 'store'])->name('absen-karyawan.store'); //simpan data absen karyawan
+Route::get('absen-dinasluar/{name}', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('absen-dinasluar.index'); //aksen absen karyawan
+Route::post('absen-dinasluar/', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('absen-dinasluar.store'); //simpan data absen karyawan
 
 // Absen Mengajar Kelas
 Route::get('absen-mengajar/{code}', [AbsenMengajarController::class, 'index'])->name('absen-mengajar.index'); //aksen absen mengajar
@@ -205,14 +208,7 @@ Route::post('absen-halaqah-khusus', [GuestAbsenHalaqahController::class, 'storeK
 Route::get('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'index'])->name('absen-security.index'); //aksen absen security lokasi
 Route::post('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'store'])->name('absen-security.store'); //simpan data absen security lokasi
 
-// calender
-// Route::get('calendar-event', [CalendarController::class, 'index']);
-// Route::post('calendar-crud-ajax', [CalendarController::class, 'calendarEvents']);
+Route::group(['prefix' => 'baru', 'as' => 'baru.'], function () {
+    Route::view('/', 'user-tailwind.dashboard.index')->name('dashboard');
 
-// Route::get('events', [EventController::class, 'eventList'])->name('event.list');
-
-// Route::resource('coba', EventController::class);
-
-Route::group(['prefix' => 'baru', 'as' => 'baru.'], function (
-
-) {});
+});

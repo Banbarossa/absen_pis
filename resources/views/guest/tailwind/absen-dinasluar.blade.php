@@ -6,15 +6,9 @@
 
     
     <x-notif-absen></x-notif-absen>
-    
-
-
-    
 
     <div id="latKantor" data-lokasi="{{ $latitude }}"></div>
     <div id="longKantor" data-lokasi="{{ $longitude }}"></div>
-
-   
 
     <div class="relative flex flex-col justify-center gap-3 mt-4 ">
         @if ($errors->any())
@@ -51,7 +45,7 @@
         
         
         <div class="absolute bottom-0 left-0 right-0 w-full px-4 sm:max-w-md">
-            <form id="form_store" method="POST" action="{{ route('absen-karyawan.store') }}">
+            <form id="form_store" method="POST" action="{{ route('absen-dinasluar.store') }}">
                 @csrf
                 <input type="hidden" id="lokasi" name="lokasi">
                 <input type="hidden" name="jamkaryawan_id" value="{{ $jam_karyawan->id }}">
@@ -76,14 +70,106 @@
             </form>
         </div>
     </div>
-    {{-- <div id="result"></div> --}}
+
+    @push('script')
+    <script>
+
+        Webcam.set({
+            width: 640,
+            height: 480,
+            image_format: 'jpeg',
+            jpeg_quality: 90,
+        });
+
+        Webcam.attach( '#my_camera' );
+
+        function take_snapshot() {
+            Webcam.snap( function(data_uri) {
+                var form =document.getElementById('form_store');
+                $(".image-tag").val(data_uri);
+                form.submit();
+            } );
+        }
 
 
-    {{-- <div class="text-sm font-thin">Jika anda punya tugas dinas di luara lokasi silahkan 
-        <a href="{{ route('absen-dinasluar.index',$name) }}" class="my-4 text-sm font-bold text-red-800">Absen Disini</a>
-    </div> --}}
+        // Map
+        var lokasi =document.getElementById('lokasi');
 
-    
-    
-    @include('guest.tailwind.part-absen.script-absen')
+        if(navigator.geolocation){
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 500
+            };
+            
+            navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options)
+        }else{
+            alert("Browser Anda tidak mendukung geolokasi.");
+        }
+
+        function successCallback(position){
+
+            posisi =position.coords.latitude +','+ position.coords.longitude;
+            lokasi.value = posisi;
+
+            var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+
+            // const radius = {{ $radius }};
+
+            // var circle = L.circle([latKantor, longKantor], {
+            //     color: 'red',
+            //     fillColor: '#f03',
+            //     fillOpacity: 0.5,
+            //     radius: radius,
+            // }).addTo(map);
+
+        }
+        function errorCallback(){
+            alert("Gagal mengambil lokasi ");
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let successMessageElement = document.getElementById('success-message');
+            let errorMessageElement = document.getElementById('error-message');
+
+            if (successMessageElement) {
+                let message = successMessageElement.getAttribute('data-message');
+                let notifSuccess = document.getElementById('notif-success');
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: message,
+                    icon: 'success',
+                    timer:2500,
+                    toast:true,
+                    confirmButtonText: 'close',
+                })
+                notifSuccess.play();
+            }
+
+            if (errorMessageElement) {
+                let message = errorMessageElement.getAttribute('data-message');
+                let notifError = document.getElementById('notif-error');
+                Swal.fire({
+                    title: 'Error!',
+                    text: message,
+                    icon: 'error',
+                    timer:2500,
+                    toast:true,
+                    confirmButtonText: 'close',
+                })
+
+                notifError.play();
+            }
+        });
+        
+    </script>
+        
+    @endpush
+
 </x-absen>
