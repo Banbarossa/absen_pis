@@ -105,8 +105,12 @@ class GuestAbsenHalaqahController extends Controller
             $lonmesjid = 95.3861015036581;
 
             $isInRadius = false;
+            $latuser = null;
+            $lonuser = null;
             if ($request->lokasi) {
                 $lokasiuser = explode(',', $request->lokasi);
+                $latuser = $lokasiuser[0];
+                $lonuser = $lokasiuser[1];
 
                 $jarak = $this->distance($latmesjid, $lonmesjid, $lokasiuser[0], $lokasiuser[1]);
 
@@ -123,8 +127,8 @@ class GuestAbsenHalaqahController extends Controller
                 'kehadiran' => 'hadir',
                 'image' => $fileName,
                 'in_location' => $isInRadius,
-                'latitude' => $lokasiuser[0],
-                'longitude' => $lokasiuser[1],
+                'latitude' => $latuser,
+                'longitude' => $lonuser,
             ]);
 
             return redirect()->route('success.page')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
@@ -169,9 +173,13 @@ class GuestAbsenHalaqahController extends Controller
             $lonmesjid = 95.3861015036581;
 
             $isInRadius = false;
-            if ($request->user) {
+            $latuser = null;
+            $lonuser = null;
+            if ($request->lokasi) {
 
                 $lokasiuser = explode(',', $request->lokasi);
+                $latuser = $lokasiuser[0];
+                $lonuser = $lokasiuser[1];
 
                 $jarak = $this->distance($latmesjid, $lonmesjid, $lokasiuser[0], $lokasiuser[1]);
 
@@ -191,8 +199,8 @@ class GuestAbsenHalaqahController extends Controller
                 "kehadiran" => 'hadir',
                 'waktu_absen' => $now->format('H:i:s'),
                 'in_location' => $isInRadius,
-                'latitude' => $lokasiuser[0],
-                'longitude' => $lokasiuser[1],
+                'latitude' => $latuser,
+                'longitude' => $lonuser,
                 'image' => $fileName,
             ]);
         }
