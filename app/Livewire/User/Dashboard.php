@@ -78,6 +78,7 @@ class Dashboard extends Component
         $absens = $data->paginate(15);
 
         return view('livewire.user.dashboard', [
+            'user' => Auth::user(),
             'absens' => $absens,
             'countHalaqah' => $countHalaqah,
             // 'chart' => $chart->build($user->id, $this->startDate, $this->endDate),

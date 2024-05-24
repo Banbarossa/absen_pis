@@ -97,7 +97,9 @@ class AbsenMengajarController extends Controller
 
         // Perhitungan keterlambatan
 
-        $keterlambatan = $this->terlambat($absenSekolah->mulai_kbm, 10, );
+        $mulaikbm = Carbon::createFromFormat('H:i:s', $absenSekolah->mulai_kbm);
+
+        $keterlambatan = $this->terlambat($mulaikbm, 10, );
 
         //hitung radius
         $latSekolah = 5.4630899676613875;
@@ -144,7 +146,7 @@ class AbsenMengajarController extends Controller
     public function terlambat($waktuMasuk, $toleransi)
     {
 
-        $now = Carbon::now();
+        $now = Carbon::now()->format('H:i:s');
         $dispensasiWaktu = Carbon::parse($waktuMasuk)->addMinutes($toleransi);
         $toleransi = $toleransi;
         $terlambat = 0;

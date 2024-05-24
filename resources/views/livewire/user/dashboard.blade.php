@@ -15,6 +15,15 @@
                 </div>
             </div>
         </div>
+
+        @if ($user->is_karyawan)
+        <div class="row">
+            <div class="col-12">
+                <livewire:user.dashboard.absendinasluarlink/>
+            </div>
+        </div>
+            
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card">

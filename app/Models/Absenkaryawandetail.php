@@ -20,7 +20,7 @@ class Absenkaryawandetail extends Model
 
     public function absenkaryawan(): BelongsTo
     {
-        return $this->belongsTo(Absenkaryawan::class);
+        return $this->belongsTo(Absenkaryawan::class, 'absenkaryawan_id', 'id');
     }
 
     public function absendinasluars(): HasOne
