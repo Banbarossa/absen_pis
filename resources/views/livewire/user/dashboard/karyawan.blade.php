@@ -14,8 +14,8 @@
                         @endphp
                         @if ($detail)
                             <div class="flex items-center justify-start gap-4 p-4 transition duration-500 border rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 hover:ring-2 hover:ring-gray-200 hover:border hover:border-white hover:border-dashed">
-                                <a href="javascript:void(0)" x-on:click="popup = true; imageUrl = '{{ asset('storage/images/karyawan/' . $detail->image) }}'">
-                                    <img src="{{ asset('storage/images/karyawan/' . $detail->image) }}" class="w-20 h-20 transition duration-500 rounded-xl min-w-20 hover:scale-125" alt="">
+                                <a href="javascript:void(0)" x-on:click="popup = true; imageUrl = '{{ asset('storage/public/images/karyawan/' . $detail->image) }}'">
+                                    <img src="{{ asset('storage/public/images/karyawan/' . $detail->image) }}" class="w-20 h-20 transition duration-500 rounded-xl min-w-20 hover:scale-125" alt="">
                                 </a>
                                 <div>
                                     <p class="text-sm font-bold">{{ strtoupper(str_replace('_', ' ', $detail->type)) }}</p>
