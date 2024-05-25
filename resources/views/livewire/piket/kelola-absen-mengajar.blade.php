@@ -137,6 +137,7 @@
                         <option value="sakit">Sakit</option>
                         <option value="izin dinas">Izin Dinas</option>
                         <option value="izin pribadi">Izin Pribadi</option>
+                        <option value="hadir">Hadir</option>
                     </select>
                     @error('change_to')
                     <div class="invalid-feedback">

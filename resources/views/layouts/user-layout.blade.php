@@ -18,7 +18,6 @@
 
 <body class="font-sans antialiased text-gray-900">
 
-
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
             <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
