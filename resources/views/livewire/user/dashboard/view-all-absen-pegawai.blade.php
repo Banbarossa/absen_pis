@@ -1,37 +1,33 @@
-<div class="w-full" x-data="{ popup: false, imageUrl: '' }">
-    <div class="flex items-center justify-between">
-        <h3 class="font-bold text-red-800">{{ __('Absen Terakhir') }}</h3>
-        <a href="{{ route('baru.absen-pegawai') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
-    </div>
+<div class="w-full p-6 bg-white rounded-lg" x-data="{ popup: false, imageUrl: '' }">
     <ul class="divide-y-2 divide-gray-300 dark:divide-gray-700">
         @forelse ($absen as $item)
             <li class="py-4">
                 <p class="font-semibold tracking-wide">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, d-M-Y') }}</p>
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
                     @foreach(['masuk_1', 'masuk_2', 'pulang'] as $type)
                         @php
                             $detail = $item->$type;
                         @endphp
                         @if ($detail)
-                            <div class="flex items-center justify-start gap-4 p-4 transition duration-500 border rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 hover:ring-2 hover:ring-gray-200 hover:border hover:border-white hover:border-dashed">
+                            <div class="flex items-center justify-start gap-4 p-4 transition duration-300 border hover:bg-gray-200 rounded-xl bg-gray-50 dark:bg-gray-800">
                                 <a href="javascript:void(0)" x-on:click="popup = true; imageUrl = '{{ asset('storage/images/karyawan/' . $detail->image) }}'">
-                                    <img src="{{ asset('storage/images/karyawan/' . $detail->image) }}" class="w-20 h-20 transition duration-500 rounded-xl min-w-20 hover:scale-125" alt="">
+                                    <img src="{{ asset('storage/images/karyawan/' . $detail->image) }}" class="w-20 h-20 transition duration-500 min-w-20 rounded-xl hover:scale-125 " alt="">
                                 </a>
                                 <div>
                                     <p class="text-sm font-bold">{{ strtoupper(str_replace('_', ' ', $detail->type)) }}</p>
-                                    <time class="text-sm">Jam Absen : {{ $detail->jam }}</time>
-                                    <p class="text-sm">Terlambat : {{ $detail->selisih_waktu ? $detail->selisih_waktu . ' Menit' : '0 Menit' }}</p>
-                                    <a href="https://www.google.com/maps?q={{ $detail->lokasi }}" target="_blank" class="text-sm text-blue-700 hover:underline hover:underline-offset-1">Lihat Lokasi</a>
+                                    <time class="text-xs">Jam Absen : {{ $detail->jam }}</time>
+                                    <p class="text-xs">Terlambat : {{ $detail->selisih_waktu ? $detail->selisih_waktu . ' Menit' : '0 Menit' }}</p>
+                                    <a href="https://www.google.com/maps?q={{ $detail->lokasi }}" target="_blank" class="text-xs text-blue-700 hover:underline hover:underline-offset-1 ">Lihat Lokasi</a>
                                 </div>
                             </div>
                         @else
                         <div class="flex items-center justify-start gap-4 p-4 border rounded-xl bg-gray-50 dark:bg-gray-800">
                             <a href="javascript:void(0)" x-on:click="popup = true; imageUrl = '{{ asset('assets/images/avatar.png') }}'">
-                                <img src="{{ asset('assets/images/avatar.png') }}" class="w-20 h-20 rounded-xl" alt="">
+                                <img src="{{ asset('assets/images/avatar.png') }}" class="w-20 h-20 min-w-20 rounded-xl" alt="">
                             </a>
                             <div>
                                 <p class="text-sm font-bold">{{ strtoupper(str_replace('_', ' ', $type)) }}</p>
-                                <p class="text-sm text-red-700">{{ __('Tidak Ada Data') }}</p>
+                                <p class="text-xs text-red-700">{{ __('Tidak Ada Data') }}</p>
                             </div>
                         </div>
                         @endif

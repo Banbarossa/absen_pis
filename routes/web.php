@@ -210,7 +210,10 @@ Route::post('absen-halaqah-khusus', [GuestAbsenHalaqahController::class, 'storeK
 Route::get('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'index'])->name('absen-security.index'); //aksen absen security lokasi
 Route::post('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'store'])->name('absen-security.store'); //simpan data absen security lokasi
 
-Route::group(['prefix' => 'baru', 'as' => 'baru.'], function () {
-    Route::view('/', 'livewire.user-tailwind.dashboard.index')->name('dashboard');
+Route::group(['middleware' => 'auth', 'prefix' => 'baru', 'as' => 'baru.'], function () {
+    Route::view('/', 'user-tailwind.dashboard.index')->name('dashboard');
+    Route::get('absen-pegawai', \App\Livewire\User\Dashboard\ViewAllAbsenPegawai::class)->name('absen-pegawai');
+    Route::get('profile', \App\Livewire\User\Profile\Index::class)->name('profile');
+    Route::get('jadwal-mengajar', \App\Livewire\User\Dashboard\LihatJadwalMengajar::class)->name('jadwal.mengajar');
 
 });

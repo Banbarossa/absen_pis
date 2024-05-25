@@ -11,11 +11,11 @@
                 <div class="card m-b-30">
                     <div class="card-body">
                         <div class="d-flex justify-content-end">
-                            <a href="{{route('user.absen.jadwal')}}" class="btn btn-primary mb-3">Cetak Jadwal Mengajar Anda</a>
+                            <a href="{{route('user.absen.jadwal')}}" class="mb-3 btn btn-primary">Cetak Jadwal Mengajar Anda</a>
                             
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="mb-3 row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -99,7 +99,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-6 col-md-4 col-lg-3">
-                                            <div class="form-group mr-2">
+                                            <div class="mr-2 form-group">
                                                 <label for="startDate">Tanggal Awal</label>
                                                 <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
                                             </div>
