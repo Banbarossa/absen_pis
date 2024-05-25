@@ -88,6 +88,8 @@ Route::middleware('auth')->group(function () {
         Route::get('halaqah', Halaqah::class)->name('halaqah')->middleware('role:musyrif halaqah');
         Route::get('mengajar', AbsenMengajar::class)->name('mengajar')->middleware('role:guru');
         Route::get('jadwal', [UserCetaksController::class, 'cetakJadwalMengajar'])->name('jadwal')->middleware('role:guru');
+        Route::get('dinasluar/{type}', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('dinasluar');
+        Route::post('absen-dinasluar/{type}', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('dinasluar.store');
 
     });
 
@@ -183,7 +185,7 @@ Route::get('absen-mengajar-barcode/{id}', AbsenMengajarBarcode::class); //absen 
 // Absen Karyawan
 Route::get('absen-karyawan/{name}', [GuestAbsenKaryawan::class, 'index'])->name('absen-karyawan.index'); //aksen absen karyawan
 Route::post('absen-karyawan/', [GuestAbsenKaryawan::class, 'store'])->name('absen-karyawan.store'); //simpan data absen karyawan
-Route::get('absen-dinasluar/{name}', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('absen-dinasluar.index'); //aksen absen karyawan
+// Route::get('absen-dinasluar/{name}', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('absen-dinasluar.index'); //aksen absen karyawan
 // Route::post('absen-dinasluar/', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('absen-dinasluar.store'); //simpan data absen karyawan
 
 // Absen Mengajar Kelas
@@ -209,6 +211,6 @@ Route::get('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'index'
 Route::post('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'store'])->name('absen-security.store'); //simpan data absen security lokasi
 
 Route::group(['prefix' => 'baru', 'as' => 'baru.'], function () {
-    Route::view('/', 'user-tailwind.dashboard.index')->name('dashboard');
+    Route::view('/', 'livewire.user-tailwind.dashboard.index')->name('dashboard');
 
 });

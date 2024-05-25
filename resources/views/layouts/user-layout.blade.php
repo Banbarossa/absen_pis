@@ -100,14 +100,14 @@
         </div>
     </nav>
 
-    <div class="block w-full gap-6 px-4 bg-gray-200 md:flex md:px-6">
+    <div class="block w-full gap-6 px-4 bg-gradient-to-r from-gray-200 to-gray-100 md:flex md:px-6">
         <div class="py-4 md:h-screen ">
             <aside class="px-3 py-6 bg-white md:min-w-24 md:h-full rounded-xl dark:bg-gray-800">
                 <ul class="grid grid-cols-4 space-y-2 text-xs font-medium md:grid-cols-1">
                     <li>
                         <a href="#"
-                            class="flex flex-col items-center justify-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            class="flex flex-col items-center justify-center p-2 text-red-900 rounded-lg dark:text-white hover:bg-red-100 dark:hover:bg-red-700 group">
+                            <svg class="w-5 h-5 text-red-500 transition duration-75 dark:text-red-400 group-hover:text-red-900 dark:group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 22 21">
                                 <path
@@ -197,7 +197,7 @@
                 {{-- </div> --}}
             </aside>
         </div>
-        <div class="md:py-8">
+        <div class="w-full md:py-8">
             @if (isset($title))
             <h3 class="hidden mb-4 text-xl font-bold text-red-800 md:block">{{ $title }}</h3>
             @endif

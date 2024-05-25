@@ -45,13 +45,13 @@
         
         
         <div class="absolute bottom-0 left-0 right-0 w-full px-4 sm:max-w-md">
-            <form id="form_store" method="POST" action="{{ route('absen-dinasluar.store') }}">
+            <form id="form_store" method="POST" action="{{ route('user.absen.dinasluar.store',$absen_type) }}">
                 @csrf
                 <input type="hidden" id="lokasi" name="lokasi">
                 <input type="hidden" name="jamkaryawan_id" value="{{ $jam_karyawan->id }}">
-                <input type="hidden" id="absen_type" name="absen_type" value="{{ $absen_type }}">
-                <input type="hidden" id="bagianuser_id" name="bagianuser_id" value="{{ $bagianuser->id }}">
                 <input type="hidden" id="image-tag" name="image" class="image-tag">
+
+
                 <div class="relative">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                         <svg class="w-6 h-6 text-gray-400"  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -59,7 +59,8 @@
                           </svg>
                           
                     </div>
-                    <input type="text" name="password_absen" id="input-group-1" class="bg-gray-50 bg-opacity-60 border border-red-600 ring-1 ring-offset-2 ring-red-600 text-gray-900 rounded-full focus:ring-red-500 focus:border-red-500 block w-full  px-2.5  py-3 dark:bg-gray-700 text-center dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Password Absen">
+                    <textarea name="password_absen" id="input-group-1" cols="30" rows="2"  class="bg-gray-50 bg-opacity-60 border border-red-600 ring-1 ring-offset-2 ring-red-600 text-gray-900 rounded-xl focus:ring-red-500 focus:border-red-500 block w-full  px-2.5  py-3 dark:bg-gray-700 text-center dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Password Absen"></textarea>
+                    {{-- <input type="text" name="password_absen" id="input-group-1" class="bg-gray-50 bg-opacity-60 border border-red-600 ring-1 ring-offset-2 ring-red-600 text-gray-900 rounded-full focus:ring-red-500 focus:border-red-500 block w-full  px-2.5  py-3 dark:bg-gray-700 text-center dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Password Absen"> --}}
                 </div>
                 <button onClick="take_snapshot()" type="button" class="inline-flex items-center justify-center w-full gap-2 px-5 py-4 mt-4 mb-8 font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 ring-1 ring-offset-2 ring-red-600 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                     <svg class="w-6 h-6" stroke="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -91,7 +92,6 @@
             } );
         }
 
-
         // Map
         var lokasi =document.getElementById('lokasi');
 
@@ -119,17 +119,8 @@
             }).addTo(map);
 
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-
-            // const radius = {{ $radius }};
-
-            // var circle = L.circle([latKantor, longKantor], {
-            //     color: 'red',
-            //     fillColor: '#f03',
-            //     fillOpacity: 0.5,
-            //     radius: radius,
-            // }).addTo(map);
-
         }
+        
         function errorCallback(){
             alert("Gagal mengambil lokasi ");
         }

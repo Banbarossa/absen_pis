@@ -15,8 +15,6 @@
                         </div>
                         {{-- table header --}}
                         <div class="mb-1 d-flex align-items-center justify-content-between">
-                            <button class="btn btn-primary" wire:click='unduhExcel'>Unduh Excel</button>
-                            {{-- <a href="/user-unduh-jadwal-mengajar" class="btn btn-primary">Cetak Jadwal Mengajar Anda</a> --}}
                             <div class="d-flex">
                                 <div class="mr-2 form-group">
                                     <label for="startDate">Tanggal Awal</label>

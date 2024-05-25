@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absendinasluar;
 use App\Models\Absenkaryawan;
 use App\Models\Absenkaryawandetail;
 use App\Models\Bagianuser;
@@ -12,6 +13,7 @@ use App\Traits\PengasuhanImage;
 use App\Traits\PengasuhanLocation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GuestAbsenKaryawan extends Controller
 {
@@ -92,6 +94,9 @@ class GuestAbsenKaryawan extends Controller
         $is_inlocation = false;
 
         $lokasi = $latKantor . ',' . $longKantor;
+        $latUser = 5.463230;
+        $longUser = 95.386380;
+
         if ($request->lokasi) {
             $lokasi = explode(',', $request->lokasi);
             $latUser = $lokasi[0];
@@ -154,7 +159,7 @@ class GuestAbsenKaryawan extends Controller
                 'type' => $request->absen_type,
                 'jam' => Carbon::now()->format('H:i:s'),
                 'selisih_waktu' => $getSelisih,
-                'lokasi' => $request->lokasi,
+                'lokasi' => $latUser . "," . $longUser,
                 'image' => $imageName,
 
             ]);
@@ -163,147 +168,152 @@ class GuestAbsenKaryawan extends Controller
 
     }
 
-    // public function absendinasluar($name)
-    // {
-    //     $now = Carbon::now()->format('H:i');
-    //     $bagianuser = Bagianuser::where('name', $name)->first();
+    public function absendinasluar($type)
+    {
 
-    //     if (!$bagianuser) {
-    //         return abort(404);
-    //     }
+        $now = Carbon::now()->format('H:i');
 
-    //     $lokasi = explode(',', $bagianuser->lokasi);
-    //     $latitude = $lokasi[0];
-    //     $longitude = $lokasi[1];
+        $user = Auth::user();
+        $bagianuser = Bagianuser::findOrFail($user->bagianuser_id);
 
-    //     if ($this->isSunday()) {
-    //         return view('halaman-error', [
-    //             'judul' => 'Hari Ahad',
-    //             'content' => 'Tidak Ada Jadwal Pada Hari ini',
-    //         ]);
-    //     };
+        if (!$bagianuser) {
+            return abort(404);
+        }
 
-    //     $absen_masuk_1 = Jamkaryawan::selectRaw('*, "masuk_1" as absen_type')
-    //         ->where('bagianuser_id', $bagianuser->id)
-    //         ->where('mulai_absen_masuk_1', '<=', $now)
-    //         ->where('akhir_absen_masuk_1', '>=', $now);
+        $lokasi = explode(',', $bagianuser->lokasi);
+        $latitude = $lokasi[0];
+        $longitude = $lokasi[1];
 
-    //     $absen_masuk_2 = Jamkaryawan::selectRaw('*, "masuk_2" as absen_type')
-    //         ->where('bagianuser_id', $bagianuser->id)
-    //         ->where('mulai_absen_masuk_2', '<=', $now)
-    //         ->where('akhir_absen_masuk_2', '>=', $now);
+        if ($this->isSunday()) {
+            return view('halaman-error', [
+                'judul' => 'Hari Ahad',
+                'content' => 'Tidak Ada Jadwal Pada Hari ini',
+            ]);
+        };
 
-    //     $absen_pulang = Jamkaryawan::selectRaw('*, "pulang" as absen_type')
-    //         ->where('bagianuser_id', $bagianuser->id)
-    //         ->where('mulai_absen_pulang', '<=', $now)
-    //         ->where('akhir_absen_pulang', '>=', $now);
+        $absen_masuk_1 = Jamkaryawan::selectRaw('*, "masuk_1" as absen_type')
+            ->where('bagianuser_id', $bagianuser->id)
+            ->where('mulai_absen_masuk_1', '<=', $now)
+            ->where('akhir_absen_masuk_1', '>=', $now);
 
-    //     $jam_karyawan = $absen_masuk_1->union($absen_masuk_2)->union($absen_pulang)->first();
-    //     if ($jam_karyawan) {
-    //         $absen_type = $jam_karyawan->absen_type;
-    //     } else {
-    //         $absen_type = null;
-    //         return view('halaman-error', [
-    //             'judul' => 'Tidak ditemukan Jadwal',
-    //             'content' => 'Tidak ditemukan jadwal yang valid, silahkan hubungi admin',
-    //         ]);
+        $absen_masuk_2 = Jamkaryawan::selectRaw('*, "masuk_2" as absen_type')
+            ->where('bagianuser_id', $bagianuser->id)
+            ->where('mulai_absen_masuk_2', '<=', $now)
+            ->where('akhir_absen_masuk_2', '>=', $now);
 
-    //     }
+        $absen_pulang = Jamkaryawan::selectRaw('*, "pulang" as absen_type')
+            ->where('bagianuser_id', $bagianuser->id)
+            ->where('mulai_absen_pulang', '<=', $now)
+            ->where('akhir_absen_pulang', '>=', $now);
 
-    //     $now = Carbon::now();
-    //     $title = 'Absen Karyawan';
-    //     $radius = $bagianuser->radius;
-    //     return view('guest.tailwind.absen-dinasluar', compact('radius', 'title', 'jam_karyawan', 'now', 'absen_type', 'bagianuser', 'latitude', 'longitude'));
-    // }
+        $jam_karyawan = $absen_masuk_1->union($absen_masuk_2)->union($absen_pulang)->first();
 
-    // public function storeDinasluar(Request $request)
-    // {
+        if ($jam_karyawan) {
+            $absen_type = $jam_karyawan->absen_type;
+        } else {
+            $absen_type = null;
+            return view('halaman-error', [
+                'judul' => 'Tidak ditemukan Jadwal',
+                'content' => 'Tidak ditemukan jadwal yang valid, silahkan hubungi admin',
+            ]);
 
-    //     $request->validate([
-    //         'password_absen' => 'required',
-    //         'jamkaryawan_id' => 'required|numeric',
-    //         'absen_type' => 'required',
-    //         'bagianuser_id' => 'required|numeric',
-    //         'image' => 'required',
-    //         // 'lokasi' => 'required',
-    //     ]);
+        }
 
-    //     $latKantor = 5.463230;
-    //     $longKantor = 95.386380;
+        $now = Carbon::now();
+        $title = 'Absen Karyawan';
+        $radius = $bagianuser->radius;
+        return view('guest.tailwind.absen-dinasluar', compact('radius', 'title', 'jam_karyawan', 'now', 'absen_type', 'latitude', 'longitude'));
+    }
 
-    //     // cekLokasi
+    public function storeDinasluar(Request $request, $type)
+    {
 
-    //     $is_inlocation = false;
+        $request->validate([
+            'jamkaryawan_id' => 'required|numeric',
+            'image' => 'required',
+        ]);
 
-    //     if ($request->lokasi) {
-    //         $lokasi = explode(',', $request->lokasi);
-    //         $latUser = $lokasi[0];
-    //         $longUser = $lokasi[1];
+        $latKantor = 5.463230;
+        $longKantor = 95.386380;
 
-    //         $jarak = $this->distance($latKantor, $longKantor, $latUser, $longUser);
-    //         if ($jarak['meters'] <= 20) {
-    //             $is_inlocation = true;
-    //             // return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
-    //         };
+        // cekLokasi
 
-    //     }
+        $is_inlocation = false;
 
-    //     $jamKaryawan = Jamkaryawan::findOrFail($request->jamkaryawan_id);
-    //     $now = Carbon::now();
+        if ($request->lokasi) {
+            $lokasi = explode(',', $request->lokasi);
+            $latUser = $lokasi[0];
+            $longUser = $lokasi[1];
 
-    //     if ($request->absen_type == 'pulang' && $jamKaryawan->ischeckouttomorrow) {
-    //         $now = Carbon::now()->subDays(1);
-    //     }
+            $jarak = $this->distance($latKantor, $longKantor, $latUser, $longUser);
+            if ($jarak['meters'] <= 20) {
+                $is_inlocation = true;
+                // return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
+            };
 
-    //     // Cek User
-    //     $user = User::where('password_absen', $request->password_absen)
-    //         ->where('is_karyawan', true)
-    //         ->where('status', true)
-    //         ->where('bagianuser_id', $request->bagianuser_id)
-    //         ->first();
+        }
 
-    //     if (!$user) {
-    //         return redirect()->back()->with('error', 'Password Salah, Atau Anda Tidak Punya Akses');
-    //     }
+        $jamKaryawan = Jamkaryawan::findOrFail($request->jamkaryawan_id);
+        $now = Carbon::now();
 
-    //     // Cek Terlambat Atau Pulang Cepat
-    //     $getSelisih = $this->selisihWaktu($jamKaryawan, $request->absen_type);
+        if ($request->absen_type == 'pulang' && $jamKaryawan->ischeckouttomorrow) {
+            $now = Carbon::now()->subDays(1);
+        }
 
-    //     $absen = Absenkaryawan::firstOrNew([
-    //         'user_id' => $user->id,
-    //         'tanggal' => $now->toDateString(),
-    //         'jamkaryawan_id' => $request->jamkaryawan_id,
-    //         'bagianuser_id' => $request->bagianuser_id,
-    //     ]);
+        // Cek User
 
-    //     $absen->save();
+        $login = Auth::user();
+        $user = User::where('id', $login->id)
+            ->where('is_karyawan', true)
+            ->where('status', true)
+            ->first();
 
-    //     if ($request->image) {
-    //         $folderPath = "public/images/karyawan/";
-    //         $imageName = $this->storeImage($request->image, $folderPath);
-    //     }
+        if (!$user) {
+            return redirect()->back()->with('error', 'Anda Tidak Punya Akses');
+        }
 
-    //     $existingDetail = Absenkaryawandetail::where('absenkaryawan_id', $absen->id)
-    //         ->where('type', $request->absen_type)
-    //         ->first();
+        // Cek Terlambat Atau Pulang Cepat
+        $getSelisih = $this->selisihWaktu($jamKaryawan, $request->absen_type);
 
-    //     if ($existingDetail) {
-    //         return redirect()->route('login')->with('error', 'Anda sudah melakukan absen sebelumnya.');
-    //     }
+        $absen = Absenkaryawan::firstOrNew([
+            'user_id' => $user->id,
+            'tanggal' => $now->toDateString(),
+            'jamkaryawan_id' => $request->jamkaryawan_id,
+            'bagianuser_id' => $request->bagianuser_id,
+        ]);
 
-    //     $detail = new Absenkaryawandetail();
-    //     $detail->absenkaryawan_id = $absen->id;
-    //     $detail->type = $request->absen_type;
-    //     $detail->jam = Carbon::now()->format('H:i:s');
-    //     $detail->selisih_waktu = $getSelisih;
-    //     $detail->lokasi = $request->lokasi;
-    //     $detail->image = $imageName;
+        $absen->save();
 
-    //     $detail->save();
+        if ($request->image) {
+            $folderPath = "public/images/karyawan/";
+            $imageName = $this->storeImage($request->image, $folderPath);
+        }
 
-    //     return redirect()->route('success.page')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
+        $existingDetail = Absenkaryawandetail::where('absenkaryawan_id', $absen->id)
+            ->where('type', $type)
+            ->first();
 
-    // }
+        if ($existingDetail) {
+            return redirect()->route('login')->with('error', 'Anda sudah melakukan absen sebelumnya.');
+        }
+
+        $detail = new Absenkaryawandetail();
+        $detail->absenkaryawan_id = $absen->id;
+        $detail->type = $request->absen_type;
+        $detail->jam = Carbon::now()->format('H:i:s');
+        $detail->selisih_waktu = $getSelisih;
+        $detail->lokasi = $request->lokasi;
+        $detail->image = $imageName;
+
+        $detail->save();
+
+        $absendinasluar = new Absendinasluar();
+        $absendinasluar->absenkaryawandetail_id = $detail->id;
+        $absendinasluar->keterangan = $request->id;
+
+        return redirect()->route('success.page')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
+
+    }
 
     public function isSunday()
     {

@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <div class="flex-row d-flex">
                         <div class="col-3 align-self-center">
-                            @if ($absenmasuk2)
+                            @if ($absenpulang)
                             <div>
                                 <img src="{{asset('storage/public/images/karyawan/'. $absenmasuk1->image)}}" alt="Image" class="thumbnail rounded-circle">
                             </div>
@@ -18,13 +18,12 @@
                         </div>
                         <div class="text-center col-9 align-self-center">
                             <div class="m-l-10">
-                                <h6 class="mt-0 round-inner">MASUK 2</h6>
-                                @if ($absenmasuk2)
-                                <p class="mb-0 text-muted">{{ $absenmasuk2->jam }}</p>  
+                                <h6 class="mt-0 round-inner">{{ __('PULANG') }}</h6>
+                                @if ($absenpulang)
+                                <p class="mb-0 text-muted">{{ $absenpulang->jam }}</p>  
                                 @else                                                               
                                 <p class="mb-0 text-muted">Anda Belum Absen</p>
-                                <button onclick="showAlert('masuk_2')">Absen Dinas Luar</button>
-                                {{-- <a href="" onclick="showAlert()"><small>Absen Dinas Luar</small></a>                                                                 --}}
+                                <button onclick="warning('masuk_2')" class="btn btn-sm btn-outline-warning">Absen Dinas Luar</button>
                                 @endif
                             </div>
                         </div>
@@ -109,24 +108,20 @@
 
     @push('script')
     <script>
-        function showAlert(type){
-
-            alert(type);
-            
-            // Swal.fire({
-            //     title: "Do you want to save the changes?",
-            //     showDenyButton: true,
-            //     showCancelButton: true,
-            //     confirmButtonText: "Save",
-            //     denyButtonText: `Don't save`
-            //     }).then((result) => {
-            //     /* Read more about isConfirmed, isDenied below */
-            //     if (result.isConfirmed) {
-            //         Swal.fire("Saved!", "", "success");
-            //     } else if (result.isDenied) {
-            //         Swal.fire("Changes are not saved", "", "info");
-            //     }
-            // });
+        function warning(type){
+            Swal.fire({
+                title: "Absen Dinas Luar",
+                text: "Absen dengan metode ini tidak masuk langsung ke data asben, sebelum di Approve oleh kepala bidang",
+                showCancelButton: true,
+                confirmButtonText: "Lanjut",
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    const route = "{{ route('user.absen.dinasluar', ':type') }}".replace(':type', type);
+                    window.location.href = route;
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
         }
     </script>
         
