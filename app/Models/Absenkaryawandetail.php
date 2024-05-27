@@ -23,7 +23,7 @@ class Absenkaryawandetail extends Model
         return $this->belongsTo(Absenkaryawan::class, 'absenkaryawan_id', 'id');
     }
 
-    public function absendinasluars(): HasOne
+    public function absendinasluar(): HasOne
     {
         return $this->hasOne(Absendinasluar::class);
     }

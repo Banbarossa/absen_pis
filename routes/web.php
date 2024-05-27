@@ -88,8 +88,6 @@ Route::middleware('auth')->group(function () {
         Route::get('halaqah', Halaqah::class)->name('halaqah')->middleware('role:musyrif halaqah');
         Route::get('mengajar', AbsenMengajar::class)->name('mengajar')->middleware('role:guru');
         Route::get('jadwal', [UserCetaksController::class, 'cetakJadwalMengajar'])->name('jadwal')->middleware('role:guru');
-        Route::get('dinasluar/{type}', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('dinasluar');
-        Route::post('absen-dinasluar/{type}', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('dinasluar.store');
 
     });
 
@@ -210,10 +208,15 @@ Route::post('absen-halaqah-khusus', [GuestAbsenHalaqahController::class, 'storeK
 Route::get('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'index'])->name('absen-security.index'); //aksen absen security lokasi
 Route::post('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'store'])->name('absen-security.store'); //simpan data absen security lokasi
 
-Route::group(['middleware' => 'auth', 'prefix' => 'baru', 'as' => 'baru.'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function () {
     Route::view('/', 'user-tailwind.dashboard.index')->name('dashboard');
-    Route::get('absen-pegawai', \App\Livewire\User\Dashboard\ViewAllAbsenPegawai::class)->name('absen-pegawai');
     Route::get('profile', \App\Livewire\User\Profile\Index::class)->name('profile');
-    Route::get('jadwal-mengajar', \App\Livewire\User\Dashboard\LihatJadwalMengajar::class)->name('jadwal.mengajar');
+    Route::get('home/absen-pegawai', \App\Livewire\User\Dashboard\ViewAllAbsenPegawai::class)->name('absen-pegawai');
+    Route::get('home/jadwal-mengajar', \App\Livewire\User\Dashboard\LihatJadwalMengajar::class)->name('jadwal.mengajar');
+    Route::get('home/jadwal-halaqah', \App\Livewire\User\Dashboard\LihatJadwalHalaqah::class)->name('jadwal.halaqah');
+    Route::get('home/complain-absen-mengajar/{absen}', \App\Livewire\User\Dashboard\ComplainMengajar::class)->name('complain.mengajar');
+
+    Route::get('dinasluar', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('dinasluar');
+    Route::post('absen-dinasluar/{type}', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('dinasluar.store');
 
 });

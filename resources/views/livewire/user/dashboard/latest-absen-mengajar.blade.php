@@ -2,15 +2,15 @@
     <div class="flex items-center justify-between">
         <h3 class="font-bold text-red-800">{{ __('Absen Hari Ini') }}</h3>
         <div>
-            <a href="{{ route('baru.jadwal.mengajar') }}" class="p-2 text-sm text-red-500 border rounded">Lihat Jadwal</a>
-            <a href="{{ route('baru.absen-pegawai') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
+            <a href="{{ route('v2.jadwal.mengajar') }}" class="p-2 text-sm text-red-500 border rounded">Lihat Jadwal</a>
+            <a href="{{ route('v2.absen-pegawai') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
         </div>
     </div>
-    <ul class="divide-y-2 divide-gray-300 dark:divide-gray-700">
+    <ul class="mt-2">
         @forelse ($absenToday as $item)
-            <li class="py-4">
-                <p class="font-semibold tracking-wide">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, d-M-Y') }}</p>
-                <div class="flex items-center justify-start gap-6 p-4 border rounded-xl bg-gray-50 dark:bg-gray-800">
+            <li class="p-4 py-4 mb-3 border rounded-xl bg-gray-50 {{ $item->kehadiran == 'alpa' ? 'bg-red-100 animate-pulse' :'' }}">
+                <p class="font-semibold tracking-wide text-gray-700">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, d-M-Y') }}</p>
+                <div class="flex items-center justify-start gap-6 ">
                     <div class="text-center">
                         @if ($item->image)
                         <a href="javascript:void(0)" x-on:click="popup = true; imageUrl = '{{ asset('storage/public/images/' . $item->image) }}'">
@@ -23,7 +23,7 @@
                         @endif
                         <p class="font-bold mt-2 tracking-wider {{ $item->kehadiran == 'alpa' ? 'text-red-700' :'text-gray-700' }}">{{ strtoupper($item->kehadiran) }}</p>
                     </div>
-                    <div class="grid w-full grid-cols-1 md:grid-cols-2">
+                    <div class="grid w-full grid-cols-1 gap-2 md:grid-cols-3">
                         <div>
                             <p class="text-sm font-bold">Kelas : {{ $item->rombel? $item->rombel->nama_rombel :'Undefined' }}</p>
                             <p class="text-sm font-bold">Jam Ke : {{ $item->jam_ke }}</p>
@@ -35,14 +35,52 @@
                             <p class="text-sm font-bold">Mulai KBM : {{ $item->mulai_kbm }}</p>
                             <p class="text-sm font-bold">Scan Masuk : {{ $item->waktu_absen }}</p>
                             <p class="text-sm font-bold">Jam Ke : {{ $item->jam_ke }}</p>
-                            <p class="text-sm">Terlambat : {{ $item->keterlambatan ? $item->keterlambatan . ' Menit' : '0 Menit' }}</p>
+                            <p class="text-sm {{ $item->keterlambatan > 0 ? 'text-red-600 font-bold animate-pulse' :''  }}">Terlambat : {{ $item->keterlambatan ? $item->keterlambatan . ' Menit' : '0 Menit' }}</p>
                             <p class="text-sm">Jumlah Jam : {{ $item->jumlah_jam.' J/P' }}</p>
                         </div>
+                        @if ($item->complainmengajar)
+                        <div>
+                            <p class="text-sm font-semibold text-red-600">Ajuan Complain</p>
+                            <p class="text-sm ">Permohonan Ubah Ke : <span class="font-semibold">{{ $item->complainmengajar->change_to }}</span></p>
+                            <p class="text-sm ">Catatan/Alasan :</p>
+                            <p class="text-sm font-semibold">{{ $item->complainmengajar->reason }}</p>
+                            @if ($item->complainmengajar->status == 1)
+                            <div class="flex items-center text-sm text-green-500">
+                                <svg class="w-3.5 h-3.5 me-2  flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                </svg>
+                                {{ __('Complain Diterima') }}
+                            </div>
+                            @elseif ($item->complainmengajar->status = 0)
+                            <div class="flex items-center text-sm text-red-500">
+                                <svg class="w-3.5 h-3.5 me-2  flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                </svg>
+                                {{ __('Ditolak') }}
+                            </div>
+                            @else
+                            <div class="flex items-center text-sm text-orange-300">
+                                <svg class="w-3.5 h-3.5 me-2  flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                </svg>
+                                {{ __('Belum diproses') }}
+                            </div>
+                            @endif
+
+                        </div>
+                        @endif
+
+                        @if ($item->kehadiran == 'alpa' && !$item->complainmengajar)
+                        <div>
+                            <a href="{{ route('v2.complain.mengajar',$item) }}" class="inline-block p-2 text-sm text-white bg-red-800 rounded-lg hover:ring-2 hover:ring-red-300">Ajukan Complain</a>
+
+                        </div>
+                        @endif
                     </div>
                 </div>
             </li>
         @empty
-            <p>Tidak Ada Data yang Ditemukan</p>
+            <li class="">Tidak Ada Data yang Ditemukan</li>
         @endforelse
     </ul>
 

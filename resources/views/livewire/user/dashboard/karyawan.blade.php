@@ -1,7 +1,12 @@
 <div class="w-full" x-data="{ popup: false, imageUrl: '' }">
     <div class="flex items-center justify-between">
         <h3 class="font-bold text-red-800">{{ __('Absen Terakhir') }}</h3>
-        <a href="{{ route('baru.absen-pegawai') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
+        <div>
+            @if (Auth::user()->is_karyawan)
+            <button onclick="warning()" class="p-2 my-2 text-sm text-white bg-red-700 rounded-lg border-1 hover:ring-2 hover:ring-red-300">Absen Dinas Luar</button>
+            @endif
+            <a href="{{ route('v2.absen-pegawai') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
+        </div>
     </div>
     <ul class="divide-y-2 divide-gray-300 dark:divide-gray-700">
         @forelse ($absen as $item)
@@ -13,7 +18,7 @@
                             $detail = $item->$type;
                         @endphp
                         @if ($detail)
-                            <div class="flex items-center justify-start gap-4 p-4 transition duration-500 border rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 hover:ring-2 hover:ring-gray-200 hover:border hover:border-white hover:border-dashed">
+                            <div class=" relative flex items-center justify-start gap-4 p-4 transition duration-500 border rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 hover:ring-2 hover:ring-gray-200 hover:border hover:border-white hover:border-dashed {{ $detail->absendinasluars ? 'border-red-100 animate-pulse bg-red-50 ' :'' }} ">
                                 <a href="javascript:void(0)" x-on:click="popup = true; imageUrl = '{{ asset('storage/public/images/karyawan/' . $detail->image) }}'">
                                     <img src="{{ asset('storage/public/images/karyawan/' . $detail->image) }}" class="w-20 h-20 transition duration-500 rounded-xl min-w-20 hover:scale-125" alt="">
                                 </a>
@@ -22,6 +27,9 @@
                                     <time class="text-sm">Jam Absen : {{ $detail->jam }}</time>
                                     <p class="text-sm">Terlambat : {{ $detail->selisih_waktu ? $detail->selisih_waktu . ' Menit' : '0 Menit' }}</p>
                                     <a href="https://www.google.com/maps?q={{ $detail->lokasi }}" target="_blank" class="text-sm text-blue-700 hover:underline hover:underline-offset-1">Lihat Lokasi</a>
+                                    @if ($detail->absendinasluars)
+                                        <x-tooltipabsendinasluar :data="$detail->absendinasluars"></x-tooltipabsendinasluar>
+                                    @endif
                                 </div>
                             </div>
                         @else
@@ -32,6 +40,7 @@
                             <div>
                                 <p class="text-sm font-bold">{{ strtoupper(str_replace('_', ' ', $type)) }}</p>
                                 <p class="text-sm text-red-700">{{ __('Tidak Ada Data') }}</p>
+                                
                             </div>
                         </div>
                         @endif
@@ -70,5 +79,26 @@
             </div>
         </div>
     </div>
+    
+    @push('script')
+    <script>
+        function warning(){
+            Swal.fire({
+                title: "Absen Dinas Luar",
+                text: "Absen dengan metode ini tidak masuk langsung ke data asben, sebelum di Approve oleh kepala bidang",
+                showCancelButton: true,
+                confirmButtonText: "Lanjut",
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    const route = "{{ route('v2.dinasluar') }}";
+                    window.location.href = route;
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
+        }
+    </script>
+        
+    @endpush
 
 </div>

@@ -10,6 +10,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -36,9 +37,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $user = $request->user();
         if ($user && $user->status != 1) {
-            Auth::logout(); // Logout pengguna jika status tidak disetujui
+            Auth::logout();
+            Session::invalidate();
+            Session::regenerateToken();
 
-            return redirect()->route('welcome')->with('error', 'Akun Anda belum diapprove oleh Admin');
+            return redirect()->route('login')->with('error', 'Akun Anda belum diapprove oleh Admin');
             // throw ValidationException::withMessages([
             //     'error' => __('Akun Anda belum diapprove oleh Admin'),
             // ]);

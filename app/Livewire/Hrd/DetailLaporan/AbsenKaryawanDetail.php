@@ -29,10 +29,14 @@ class AbsenKaryawanDetail extends Component
         $startDate = Carbon::parse($this->startDate);
         $endDate = Carbon::parse($this->endDate)->endOfDay();
 
-        $models = \App\Models\AbsenKaryawan::with('absenkaryawandetails')
+        $models = \App\Models\AbsenKaryawan::with(['absenkaryawandetails' => function ($query) {
+            $query->whereDoesntHave('absendinasluar')
+                ->orWhereHas('absendinasluar', function ($subquery) {
+                    $subquery->where('approval', true);
+                });
+        }])
             ->whereBetween('created_at', [$startDate, $endDate])
-        // ->where('user_id', $this->userId)
-            ->where('user_id', 36)
+            ->where('user_id', $this->userId)
             ->get();
 
         return view('livewire.hrd.detail-laporan.absen-karyawan-detail', compact('models'));

@@ -18,16 +18,20 @@ class ViewAllAbsenPegawai extends Component
     public $startDate;
     public $endDate;
 
+    public function mount()
+    {
+        $this->startDate = Carbon::now()->subDays(7)->toDateString();
+        $this->endDate = Carbon::now()->endOfDay()->toDateString();
+    }
+
     public function render()
     {
 
         $user = Auth::user();
 
-        $startDate = Carbon::now()->startOfMonth();
-        $endDate = Carbon::now()->endOfDay();
         $absen = Absenkaryawan::with('absenkaryawandetails')
             ->where('user_id', $user->id)
-            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->whereBetween('tanggal', [$this->startDate, $this->endDate])
             ->orderBy('tanggal', 'desc')
             ->get();
 

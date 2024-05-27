@@ -168,7 +168,7 @@ class GuestAbsenKaryawan extends Controller
 
     }
 
-    public function absendinasluar($type)
+    public function absendinasluar()
     {
 
         $now = Carbon::now()->format('H:i');
@@ -207,7 +207,6 @@ class GuestAbsenKaryawan extends Controller
             ->where('akhir_absen_pulang', '>=', $now);
 
         $jam_karyawan = $absen_masuk_1->union($absen_masuk_2)->union($absen_pulang)->first();
-
         if ($jam_karyawan) {
             $absen_type = $jam_karyawan->absen_type;
         } else {
@@ -219,8 +218,21 @@ class GuestAbsenKaryawan extends Controller
 
         }
 
+        $existingDetail = Absenkaryawandetail::where('type', $absen_type)
+            ->whereHas('absenkaryawan', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->first();
+
+        if ($existingDetail) {
+            return view('halaman-error', [
+                'judul' => 'Sudah Absen',
+                'content' => 'Sebelumnya anda sudah melakukan absen, Silahkan lanjutkan aktifitas anda',
+            ]);
+        }
+
         $now = Carbon::now();
-        $title = 'Absen Karyawan';
+        $title = 'ABSEN PEGAWAI';
         $radius = $bagianuser->radius;
         return view('guest.tailwind.absen-dinasluar', compact('radius', 'title', 'jam_karyawan', 'now', 'absen_type', 'latitude', 'longitude'));
     }
@@ -231,6 +243,7 @@ class GuestAbsenKaryawan extends Controller
         $request->validate([
             'jamkaryawan_id' => 'required|numeric',
             'image' => 'required',
+            'keterangan' => 'required',
         ]);
 
         $latKantor = 5.463230;
@@ -272,6 +285,8 @@ class GuestAbsenKaryawan extends Controller
             return redirect()->back()->with('error', 'Anda Tidak Punya Akses');
         }
 
+        $bagianuser = Bagianuser::findOrFail($user->bagianuser_id);
+
         // Cek Terlambat Atau Pulang Cepat
         $getSelisih = $this->selisihWaktu($jamKaryawan, $request->absen_type);
 
@@ -279,7 +294,7 @@ class GuestAbsenKaryawan extends Controller
             'user_id' => $user->id,
             'tanggal' => $now->toDateString(),
             'jamkaryawan_id' => $request->jamkaryawan_id,
-            'bagianuser_id' => $request->bagianuser_id,
+            'bagianuser_id' => $bagianuser->id,
         ]);
 
         $absen->save();
@@ -299,7 +314,7 @@ class GuestAbsenKaryawan extends Controller
 
         $detail = new Absenkaryawandetail();
         $detail->absenkaryawan_id = $absen->id;
-        $detail->type = $request->absen_type;
+        $detail->type = $type;
         $detail->jam = Carbon::now()->format('H:i:s');
         $detail->selisih_waktu = $getSelisih;
         $detail->lokasi = $request->lokasi;
@@ -309,7 +324,8 @@ class GuestAbsenKaryawan extends Controller
 
         $absendinasluar = new Absendinasluar();
         $absendinasluar->absenkaryawandetail_id = $detail->id;
-        $absendinasluar->keterangan = $request->id;
+        $absendinasluar->keterangan = $request->keterangan;
+        $absendinasluar->save();
 
         return redirect()->route('success.page')->with('success', 'Berhasil Melakukan Absen, Jazakumullahukhairan');
 

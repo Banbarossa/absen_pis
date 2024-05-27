@@ -9,6 +9,7 @@ use Livewire\Component;
 
 class LatestAbsenMengajar extends Component
 {
+
     public function render()
     {
         $today = Carbon::now()->toDateString();

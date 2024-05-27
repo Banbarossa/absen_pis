@@ -1,4 +1,14 @@
 <div class="w-full p-6 bg-white rounded-lg" x-data="{ popup: false, imageUrl: '' }">
+    <div class="flex items-center justify-end w-full gap-4">
+        <div>
+            <x-input-label for="startDate">{{ __('Tanggal Awal') }}</x-input-label>
+            <x-text-input-tailwind id="startDate" wire:model='startDate' type="date"></x-text-input-tailwind>
+        </div>
+        <div>
+            <x-input-label for="endDate">{{ __('Tanggal Akhir') }}</x-input-label>
+            <x-text-input-tailwind id="endDate" wire:model='endDate' type="date"></x-text-input-tailwind>
+        </div>
+    </div>
     <ul class="divide-y-2 divide-gray-300 dark:divide-gray-700">
         @forelse ($absen as $item)
             <li class="py-4">
@@ -9,7 +19,7 @@
                             $detail = $item->$type;
                         @endphp
                         @if ($detail)
-                            <div class="flex items-center justify-start gap-4 p-4 transition duration-300 border hover:bg-gray-200 rounded-xl bg-gray-50 dark:bg-gray-800">
+                            <div class="relative flex items-center justify-start gap-4 p-4 transition duration-300 border hover:bg-gray-200 rounded-xl bg-gray-50 dark:bg-gray-800 {{ $detail->absendinasluars ? 'border-red-100 animate-pulse bg-red-50 ' :'' }}">
                                 <a href="javascript:void(0)" x-on:click="popup = true; imageUrl = '{{ asset('storage/public/images/karyawan/' . $detail->image) }}'">
                                     <img src="{{ asset('storage/public/images/karyawan/' . $detail->image) }}" class="w-20 h-20 transition duration-500 min-w-20 rounded-xl hover:scale-125 " alt="">
                                 </a>
@@ -18,6 +28,9 @@
                                     <time class="text-xs">Jam Absen : {{ $detail->jam }}</time>
                                     <p class="text-xs">Terlambat : {{ $detail->selisih_waktu ? $detail->selisih_waktu . ' Menit' : '0 Menit' }}</p>
                                     <a href="https://www.google.com/maps?q={{ $detail->lokasi }}" target="_blank" class="text-xs text-blue-700 hover:underline hover:underline-offset-1 ">Lihat Lokasi</a>
+                                    @if ($detail->absendinasluars)
+                                        <x-tooltipabsendinasluar :data="$detail->absendinasluars"></x-tooltipabsendinasluar>
+                                    @endif
                                 </div>
                             </div>
                         @else
