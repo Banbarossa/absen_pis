@@ -20,7 +20,7 @@ class ViewAllAbsenMengajar extends Component
 
     public function mount()
     {
-        $this->startDate = Carbon::now()->subDays(7)->toDateString();
+        $this->startDate = Carbon::now()->subDays(300)->toDateString();
         $this->endDate = Carbon::now()->toDateString();
     }
     public function render()
@@ -29,7 +29,7 @@ class ViewAllAbsenMengajar extends Component
         $today = Carbon::now()->toDateString();
         $now = Carbon::now()->format('H:i:s');
 
-        $absen = Absensekolah::with('complainmengajar', 'rombel', 'mapel')
+        $absens = Absensekolah::with('complainmengajar', 'rombel', 'mapel')
             ->where('user_id', $user->id)
             ->whereBetween('tanggal', [$this->startDate, $this->endDate])
             ->where(function ($query) use ($today, $now) {
@@ -42,10 +42,11 @@ class ViewAllAbsenMengajar extends Component
                             });
                     });
             })
+            ->orderBy('tanggal', 'desc')
             ->orderBy('jam_ke', 'desc')
             ->get();
 
-        return view('livewire.user.dashboard.view-all-absen-mengajar');
+        return view('livewire.user.dashboard.view-all-absen-mengajar', compact('absens', 'today'));
 
     }
 }

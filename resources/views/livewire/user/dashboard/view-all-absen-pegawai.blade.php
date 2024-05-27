@@ -2,11 +2,11 @@
     <div class="flex items-center justify-end w-full gap-4">
         <div>
             <x-input-label for="startDate">{{ __('Tanggal Awal') }}</x-input-label>
-            <x-text-input-tailwind id="startDate" wire:model='startDate' type="date"></x-text-input-tailwind>
+            <x-text-input-tailwind id="startDate" wire:model.live='startDate' type="date" class="w-full md:w-auto"></x-text-input-tailwind>
         </div>
         <div>
             <x-input-label for="endDate">{{ __('Tanggal Akhir') }}</x-input-label>
-            <x-text-input-tailwind id="endDate" wire:model='endDate' type="date"></x-text-input-tailwind>
+            <x-text-input-tailwind id="endDate" wire:model.live='endDate' type="date" class="w-full md:w-auto"></x-text-input-tailwind>
         </div>
     </div>
     <ul class="divide-y-2 divide-gray-300 dark:divide-gray-700">

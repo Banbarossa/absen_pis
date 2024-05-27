@@ -3,7 +3,7 @@
         <h3 class="font-bold text-red-800">{{ __('Absen Hari Ini') }}</h3>
         <div>
             <a href="{{ route('v2.jadwal.mengajar') }}" class="p-2 text-sm text-red-500 border rounded">Lihat Jadwal</a>
-            <a href="{{ route('v2.absen-pegawai') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
+            <a href="{{ route('v2.absen-mengajar') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
         </div>
     </div>
     <ul class="mt-2">
