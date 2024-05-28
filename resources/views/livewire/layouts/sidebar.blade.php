@@ -1,4 +1,4 @@
-<aside class="px-3 py-6 bg-white md:fixed md:top-20 md:min-w-24 md:w-32 rounded-xl dark:bg-gray-800">
+<aside class="px-3 py-6 bg-white divide-y-2 md:fixed md:top-20 md:min-w-24 md:w-32 rounded-xl dark:bg-gray-800">
     <ul class="grid grid-cols-3 gap-2 text-xs font-medium md:space-y-2 md:grid-cols-1">
 
         <x-sidebar-link :href="route('v2.dashboard')" :active="Request::routeIs('v2.dashboard')" label="Dashboard">
@@ -14,7 +14,7 @@
         
 
         {{-- Menu Hanya Tampil di Dashboard --}}
-        @if (Request::routeis('v2.dashboard') || Request::is('v2/home/*'))
+        @if (Request::routeis('v2.dashboard') || Request::is('v2/*'))
         <x-sidebar-link :href="route('v2.jadwal.mengajar')" :active="Request::routeIs('v2.jadwal.mengajar')" label="Jadwal Mengajar">
             <svg class="flex-shrink-0 w-5 h-5 transition duration-75 "
                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -104,4 +104,18 @@
         </x-sidebar-link> --}}
         
     </ul>
+    {{-- @if (Request::is('v2/admin/*')) --}}
+    <ul class="grid grid-cols-3 gap-2 text-xs font-medium md:space-y-2 md:grid-cols-1">
+        {{-- @if (Request::is('v2/admin/akun/*')) --}}
+        <x-sidebar-link :href="route('v2.akun')" :active="Request::routeIs('v2.akun')" label="User">
+            <svg class="flex-shrink-0 w-5 h-5 transition duration-75"
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 20 18">
+                <path
+                    d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+            </svg>
+        </x-sidebar-link>
+        {{-- @endif --}}
+    <ul>
+    {{-- @endif --}}
 </aside>

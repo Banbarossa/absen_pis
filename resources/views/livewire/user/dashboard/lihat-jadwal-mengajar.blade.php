@@ -22,13 +22,14 @@
 
                 @php
                 $is_now = false;
-                if ($today == $roster->jammengajar->hari && $now >= \Carbon\Carbon::createFromFormat('H:i:s',$roster->jammengajar->mulai_kbm) && $now <= \Carbon\Carbon::createFromFormat('H:i:s',$roster->jammengajar->akhir_kbm)) {
+                if ($today == $roster->jammengajar->hari && $now >= \Carbon\Carbon::parse($roster->jammengajar->mulai_kbm)->format("H:i:s") && $now <= \Carbon\Carbon::parse($roster->jammengajar->akhir_kbm)->format("H:i:s")) {
                     $is_now =true;
                 }
                 @endphp
 
 
                 <li class="p-4 mb-4 space-y-2 transition duration-500 {{ $is_now ?'bg-red-300 animate-pulse' : 'bg-gray-100'}}  border-2 border-dashed rounded-lg hover:bg-gray-200 hover:scale-105 hover:rotate-1 hover:border-white hover:ring-2 hover:ring-gray-200">
+                    
                         <p class="text-sm">Rombel: <span class="font-bold">{{ $roster->rombel->nama_rombel }}</span> </p>
                         <p class="text-sm">Jam Ke: <span class="font-bold">{{ $roster->jammengajar->jam_ke }}</span></p>
                         <p class="text-sm">Mata Pelajaran: <span class="font-bold">{{ $roster->mapel->mata_pelajaran }}</span> </p>

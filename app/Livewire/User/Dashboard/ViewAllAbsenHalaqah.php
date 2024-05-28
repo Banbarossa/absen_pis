@@ -12,7 +12,7 @@ use Livewire\Component;
 class ViewAllAbsenHalaqah extends Component
 {
     #[Layout('layouts.user-layout')]
-    #[Title('Absen Halaqah')]
+    #[Title('Riwayat Absen Halaqah')]
 
     public $startDate;
     public $endDate;
