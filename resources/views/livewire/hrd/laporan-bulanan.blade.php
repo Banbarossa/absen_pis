@@ -61,42 +61,6 @@
                 </div>
             </div>
             <div class="col-12 col-lg-9">
-                {{-- <div class="card m-b-30">
-                    <div class="card-body">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-selected="true">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Profile</a>
-                            </li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <div class="p-3 tab-pane active" id="home" role="tabpanel">
-                                <livewire:hrd.detail-laporan.absen-karyawan-detail
-                                    :startDate="$startDate"
-                                    :endDate="$endDate"
-                                    :userId="$user_id"
-                                />
-                            </div>
-                            <div class="p-3 tab-pane" id="profile" role="tabpanel">
-                                
-                            </div>
-                        </div>
-
-                    </div>
-                </div> --}}
-
-
-
-
-
-
-
-
-
-
 
                 <div class="card m-b-30">
                     <div class="modal-content">

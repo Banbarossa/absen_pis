@@ -13,6 +13,7 @@
 
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-6">
+        @role('musyrif halaqah')
         @foreach($rosters as $hari => $groupedRosters)
         <div>
             <div class="p-4 mb-4 text-center bg-red-200 border-2 border-white border-dashed rounded-lg ring-2 ring-red-200">
@@ -37,6 +38,11 @@
             </ul>
         </div>
         @endforeach
+        @else
+        <div class="my-4 text-sm text-gray-700 md:col-span-3 lg:col-span-6">
+            Hanya Bisa di Akses oleh Musyrif Halaqah
+        </div>
+        @endrole
     </div>
 
 

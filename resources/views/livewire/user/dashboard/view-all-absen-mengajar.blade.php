@@ -1,5 +1,5 @@
-<div class="w-full" x-data="{ popup: false, imageUrl: '' }">
-    <div class="flex items-center justify-end w-full gap-4">
+<div class="w-full p-4 bg-white rounded-lg" x-data="{ popup: false, imageUrl: '' }">
+    <div class="flex items-center justify-start w-full gap-4 mb-6">
         <div>
             <x-input-label for="startDate">{{ __('Tanggal Awal') }}</x-input-label>
             <x-text-input-tailwind id="startDate" wire:model.live='startDate' type="date" class="w-full md:w-auto"></x-text-input-tailwind>
@@ -31,11 +31,12 @@
                             <p class="text-sm font-bold">Kelas : {{ $item->rombel? $item->rombel->nama_rombel :'Undefined' }}</p>
                             <p class="text-sm font-bold">Jam Ke : {{ $item->jam_ke }}</p>
                             <p class="text-sm font-bold">mata Pelajaran : {{ $item->mapel ? $item->mapel->mata_pelajaran :'Undefined' }}</p>
+                            <p class="text-sm font-bold">Mulai KBM : {{ $item->mulai_kbm }}</p>
                             {{-- <p class="text-sm {{ !$item->in_location ?"text-red-700":"" }}">Dalam radius : {{ $item->in_location ? "Ya":"tidak" }}</p>
                             <a href="https://www.google.com/maps?q={{ $item->latitude.','.$item->latitude }}" target="_blank" class="text-sm text-blue-700 hover:underline hover:underline-offset-1">Lihat Lokasi</a> --}}
                         </div>
                         <div>
-                            <p class="text-sm font-bold">Mulai KBM : {{ $item->mulai_kbm }}</p>
+                            
                             <p class="text-sm font-bold">Scan Masuk : {{ $item->waktu_absen }}</p>
                             <p class="text-sm font-bold">Jam Ke : {{ $item->jam_ke }}</p>
                             <p class="text-sm {{ $item->keterlambatan > 0 ? 'text-red-600 font-bold animate-pulse' :''  }}">Terlambat : {{ $item->keterlambatan ? $item->keterlambatan . ' Menit' : '0 Menit' }}</p>

@@ -1,5 +1,5 @@
 <div class="w-full p-6 bg-white rounded-lg" x-data="{ popup: false, imageUrl: '' }">
-    <div class="flex items-center justify-end w-full gap-4">
+    <div class="flex items-center justify-start w-full gap-4">
         <div>
             <x-input-label for="startDate">{{ __('Tanggal Awal') }}</x-input-label>
             <x-text-input-tailwind id="startDate" wire:model.live='startDate' type="date" class="w-full md:w-auto"></x-text-input-tailwind>

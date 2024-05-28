@@ -210,13 +210,14 @@ Route::post('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'store
 
 Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function () {
     Route::view('/', 'user-tailwind.dashboard.index')->name('dashboard');
-    Route::get('profile', \App\Livewire\User\Profile\Index::class)->name('profile');
+    Route::get('home/profile', \App\Livewire\User\Profile\Index::class)->name('profile');
     Route::get('home/absen-pegawai', \App\Livewire\User\Dashboard\ViewAllAbsenPegawai::class)->name('absen-pegawai');
     Route::get('home/absen-mengajar', \App\Livewire\User\Dashboard\ViewAllAbsenMengajar::class)->name('absen-mengajar');
     Route::get('home/absen-halaqah', \App\Livewire\User\Dashboard\ViewAllAbsenHalaqah::class)->name('absen-halaqah');
     Route::get('home/jadwal-mengajar', \App\Livewire\User\Dashboard\LihatJadwalMengajar::class)->name('jadwal.mengajar');
     Route::get('home/jadwal-halaqah', \App\Livewire\User\Dashboard\LihatJadwalHalaqah::class)->name('jadwal.halaqah');
     Route::get('home/complain-absen-mengajar/{absen}', \App\Livewire\User\Dashboard\ComplainMengajar::class)->name('complain.mengajar');
+    Route::get('home/complain-absen-halaqah/{absen}', \App\Livewire\User\Dashboard\ComplainHalaqah::class)->name('complain.halaqah');
 
     Route::get('dinasluar', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('dinasluar');
     Route::post('absen-dinasluar/{type}', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('dinasluar.store');

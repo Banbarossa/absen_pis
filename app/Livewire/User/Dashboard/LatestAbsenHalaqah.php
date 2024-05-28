@@ -14,7 +14,11 @@ class LatestAbsenHalaqah extends Component
 
         $user = Auth::user();
         $today = Carbon::now()->toDateString();
-        $absens = Absenhalaqah::with('jadwalhalaqah', 'complainhalaqah')->where('user_id', $user->id)->latest()->take(7)->get();
+        $absens = Absenhalaqah::with('jadwalhalaqah', 'complainhalaqah')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->take(7)
+            ->get();
 
         return view('livewire.user.dashboard.latest-absen-halaqah', compact('absens', 'today'));
     }

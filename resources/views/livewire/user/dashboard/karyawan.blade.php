@@ -2,12 +2,19 @@
     <div class="flex items-center justify-between">
         <h3 class="font-bold text-red-800">{{ __('Absen Terakhir') }}</h3>
         <div>
-            @if (Auth::user()->is_karyawan)
-            <button onclick="warning()" class="p-2 my-2 text-sm text-white bg-red-700 rounded-lg border-1 hover:ring-2 hover:ring-red-300">Absen Dinas Luar</button>
-            @endif
             <a href="{{ route('v2.absen-pegawai') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
         </div>
     </div>
+    @if (Auth::user()->is_karyawan)
+        <button onclick="warning()" class="flex items-center p-2 my-2 text-sm text-white bg-red-700 rounded-lg border-1 hover:ring-2 hover:ring-red-300">
+            <svg class="w-4 h-w-4 " stroke="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a28.076 28.076 0 0 1-1.091 9M7.231 4.37a8.994 8.994 0 0 1 12.88 3.73M2.958 15S3 14.577 3 12a8.949 8.949 0 0 1 1.735-5.307m12.84 3.088A5.98 5.98 0 0 1 18 12a30 30 0 0 1-.464 6.232M6 12a6 6 0 0 1 9.352-4.974M4 21a5.964 5.964 0 0 1 1.01-3.328 5.15 5.15 0 0 0 .786-1.926m8.66 2.486a13.96 13.96 0 0 1-.962 2.683M7.5 19.336C9 17.092 9 14.845 9 12a3 3 0 1 1 6 0c0 .749 0 1.521-.031 2.311M12 12c0 3 0 6-2 9"/>
+            </svg>
+            <span class="ms-2">
+                Absen Dinas Luar
+            </span>
+        </button>
+    @endif
     <ul class="divide-y-2 divide-gray-300 dark:divide-gray-700">
         @forelse ($absen as $item)
             <li class="py-4">

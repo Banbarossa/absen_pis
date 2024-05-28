@@ -1,4 +1,4 @@
-<aside class="px-3 py-6 bg-white md:fixed md:top-20 md:min-w-24 md:min-h-full md:w-32 rounded-xl dark:bg-gray-800">
+<aside class="px-3 py-6 bg-white md:fixed md:top-20 md:min-w-24 md:w-32 rounded-xl dark:bg-gray-800">
     <ul class="grid grid-cols-3 gap-2 text-xs font-medium md:space-y-2 md:grid-cols-1">
 
         <x-sidebar-link :href="route('v2.dashboard')" :active="Request::routeIs('v2.dashboard')" label="Dashboard">

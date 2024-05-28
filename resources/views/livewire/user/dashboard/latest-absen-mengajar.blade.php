@@ -1,6 +1,6 @@
 <div class="w-full" x-data="{ popup: false, imageUrl: '' }">
     <div class="flex items-center justify-between">
-        <h3 class="font-bold text-red-800">{{ __('Absen Hari Ini') }}</h3>
+        <h3 class="font-bold text-red-800">{{ __('Absen Terakhir') }}</h3>
         <div>
             <a href="{{ route('v2.jadwal.mengajar') }}" class="p-2 text-sm text-red-500 border rounded">Lihat Jadwal</a>
             <a href="{{ route('v2.absen-mengajar') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
@@ -28,11 +28,11 @@
                             <p class="text-sm font-bold">Kelas : {{ $item->rombel? $item->rombel->nama_rombel :'Undefined' }}</p>
                             <p class="text-sm font-bold">Jam Ke : {{ $item->jam_ke }}</p>
                             <p class="text-sm font-bold">mata Pelajaran : {{ $item->mapel ? $item->mapel->mata_pelajaran :'Undefined' }}</p>
+                            <p class="text-sm font-bold">Mulai KBM : {{ $item->mulai_kbm }}</p>
                             {{-- <p class="text-sm {{ !$item->in_location ?"text-red-700":"" }}">Dalam radius : {{ $item->in_location ? "Ya":"tidak" }}</p>
                             <a href="https://www.google.com/maps?q={{ $item->latitude.','.$item->latitude }}" target="_blank" class="text-sm text-blue-700 hover:underline hover:underline-offset-1">Lihat Lokasi</a> --}}
                         </div>
                         <div>
-                            <p class="text-sm font-bold">Mulai KBM : {{ $item->mulai_kbm }}</p>
                             <p class="text-sm font-bold">Scan Masuk : {{ $item->waktu_absen }}</p>
                             <p class="text-sm font-bold">Jam Ke : {{ $item->jam_ke }}</p>
                             <p class="text-sm {{ $item->keterlambatan > 0 ? 'text-red-600 font-bold animate-pulse' :''  }}">Terlambat : {{ $item->keterlambatan ? $item->keterlambatan . ' Menit' : '0 Menit' }}</p>

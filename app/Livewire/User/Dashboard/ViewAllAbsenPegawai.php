@@ -13,7 +13,7 @@ class ViewAllAbsenPegawai extends Component
 {
 
     #[Layout('layouts.user-layout')]
-    #[Title('Riwayat Absen')]
+    #[Title('Riwayat Absen Pegawai')]
 
     public $startDate;
     public $endDate;

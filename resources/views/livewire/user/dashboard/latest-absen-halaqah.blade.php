@@ -1,9 +1,9 @@
 <div class="w-full" x-data="{ popup: false, imageUrl: '' }">
     <div class="flex items-center justify-between">
-        <h3 class="font-bold text-red-800">{{ __('Absen Hari Ini') }}</h3>
+        <h3 class="font-bold text-red-800">{{ __('Absen Terakhir') }}</h3>
         <div>
             <a href="{{ route('v2.jadwal.halaqah') }}" class="p-2 text-sm text-red-500 border rounded">Lihat Jadwal</a>
-            <a href="{{ route('v2.absen-mengajar') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
+            <a href="{{ route('v2.absen-halaqah') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
         </div>
     </div>
     <ul class="grid grid-cols-1 gap-4 mt-2 lg:grid-cols-2">
@@ -26,15 +26,15 @@
                     <div class="w-full ">
                         <div>
                             <p class="text-sm">Hari/ Tanggal : <span class="font-semibold">{{ \Carbon\Carbon::parse($item->tanggal)->format('l, d M Y') }}</span></p>
-                            <p class="text-sm">Sesi : <span class="font-semibold">{{ $item->jadwalhalaqah ? $item->jadwalhalaqah->nama_sesi:'Undefined' }}</span></p>
+                            <p class="text-sm">Sesi : <span class="font-semibold">{{ $item->jadwalhalaqah ? ucFirst($item->jadwalhalaqah->nama_sesi):'Undefined' }}</span></p>
                             <p class="text-sm">Waktu Absen : <span class="font-semibold">{{ $item->waktu_absen }}</span></p>
                             <p class="text-sm">Kehadiran : <span class="font-semibold">{{ strtoupper($item->kehadiran) }}</span></p>
                             @if ($item->complainhalaqah)
                             <div>
                                 <p class="text-sm font-semibold text-red-600">Ajuan Complain</p>
-                                <p class="text-sm ">Permohonan Ubah Ke : <span class="font-semibold">{{ $item->complainmengajar->change_to }}</span></p>
+                                <p class="text-sm ">Permohonan Ubah Ke : <span class="font-semibold">{{ $item->complainhalaqah->change_to }}</span></p>
                                 <p class="text-sm ">Catatan/Alasan :</p>
-                                <p class="text-sm font-semibold">{{ $item->complainmengajar->reason }}</p>
+                                <p class="text-sm font-semibold">{{ $item->complainhalaqah->reason }}</p>
                                 
                                 @if ($item->complainhalaqah->status == 1)
                                 <div class="flex items-center text-sm text-green-500">
@@ -64,10 +64,9 @@
                         </div>
                         
 
-                        @if ($item->kehadiran == 'alpa' && !$item->complainmengajar )
-                        {{-- && \Carbon\Carbon::parse($item->tanggal)->diffInDays($today) < 4 --}}
+                        @if ($item->kehadiran == 'alpa' && !$item->complainhalaqah && \Carbon\Carbon::parse($item->tanggal)->diffInDays($today) < 4)
                         <div>
-                            <a href="" class="inline-block p-2 text-sm text-white bg-red-800 rounded-lg hover:ring-2 hover:ring-red-300">Ajukan Complain</a>
+                            <a href="{{ route('v2.complain.halaqah',$item) }}" class="inline-block p-2 text-sm text-white bg-red-800 rounded-lg hover:ring-2 hover:ring-red-300">Ajukan Complain</a>
                         </div>
                         @endif
                     </div>

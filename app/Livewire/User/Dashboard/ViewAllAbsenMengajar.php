@@ -16,7 +16,7 @@ class ViewAllAbsenMengajar extends Component
     public $endDate;
 
     #[Layout('layouts.user-layout')]
-    #[Title('Riwayat Absen mengajar')]
+    #[Title('Riwayat Absen Mengajar')]
 
     public function mount()
     {

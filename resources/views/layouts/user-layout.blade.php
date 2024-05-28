@@ -26,9 +26,11 @@
         </div>
         <div class="w-full md:mt-12 md:py-8 min-h-svh md:ms-32">
             @if (isset($title))
-            <div class="flex items-center justify-between my-2">
-                <h3 class="hidden mb-4 text-xl font-bold tracking-wide text-red-800 md:block">{{ $title }}</h3>
-                <a href="{{ route('dashboard') }}" class="p-2 text-white bg-red-600 rounded-lg  hover:ring-2 hover:ring-red-300">Kembali Ke Tampilan Sebelumnya</a>
+            <div class="p-4 my-2 mb-4 text-red-800 bg-white rounded-lg ">
+                <h3 class="w-full mb-2 text-xl font-bold tracking-wide">{{ $title }}</h3>
+                <a href="{{ route('dashboard') }}" class="p-2 text-white bg-red-600 rounded-lg hover:ring-2 hover:ring-red-300">
+                    Kembali Ke Tampilan Sebelumnya
+                </a>
             </div>
             @endif
             {{ $slot }}
