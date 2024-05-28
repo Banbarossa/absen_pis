@@ -18,15 +18,23 @@ class LatestAbsenMengajar extends Component
 
         $now = Carbon::now()->format('H:i:s');
 
-        $absenToday = Absensekolah::with('complainmengajar', 'rombel', 'mapel')->where('user_id', $user->id)
-            ->where('tanggal', '=', $today)
-            ->where(function ($query) use ($now) {
-                $query->where('mulai_kbm', '<=', $now)
-                    ->orWhere('waktu_absen', '<=', $now);
+        $absenToday = Absensekolah::with('complainmengajar', 'rombel', 'mapel')
+            ->where('user_id', $user->id)
+            ->where(function ($query) use ($today, $now) {
+                $query->whereDate('tanggal', '<>', $today)
+                    ->orWhere(function ($query) use ($today, $now) {
+                        $query->whereDate('tanggal', $today)
+                            ->where(function ($query) use ($now) {
+                                $query->where('mulai_kbm', '<=', $now)
+                                    ->orWhere('waktu_absen', '<=', $now);
+                            });
+                    });
             })
+            ->orderBy('tanggal', 'desc')
             ->orderBy('jam_ke', 'desc')
+            ->take(6)
             ->get();
 
-        return view('livewire.user.dashboard.latest-absen-mengajar', compact('absenToday'));
+        return view('livewire.user.dashboard.latest-absen-mengajar', compact('absenToday', 'today'));
     }
 }

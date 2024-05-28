@@ -28,8 +28,8 @@
                             <p class="text-sm font-bold">Kelas : {{ $item->rombel? $item->rombel->nama_rombel :'Undefined' }}</p>
                             <p class="text-sm font-bold">Jam Ke : {{ $item->jam_ke }}</p>
                             <p class="text-sm font-bold">mata Pelajaran : {{ $item->mapel ? $item->mapel->mata_pelajaran :'Undefined' }}</p>
-                            <p class="text-sm {{ !$item->in_location ?"text-red-700":"" }}">Dalam radius : {{ $item->in_location ? "Ya":"tidak" }}</p>
-                            <a href="https://www.google.com/maps?q={{ $item->latitude.','.$item->latitude }}" target="_blank" class="text-sm text-blue-700 hover:underline hover:underline-offset-1">Lihat Lokasi</a>
+                            {{-- <p class="text-sm {{ !$item->in_location ?"text-red-700":"" }}">Dalam radius : {{ $item->in_location ? "Ya":"tidak" }}</p>
+                            <a href="https://www.google.com/maps?q={{ $item->latitude.','.$item->latitude }}" target="_blank" class="text-sm text-blue-700 hover:underline hover:underline-offset-1">Lihat Lokasi</a> --}}
                         </div>
                         <div>
                             <p class="text-sm font-bold">Mulai KBM : {{ $item->mulai_kbm }}</p>
@@ -70,7 +70,8 @@
                         </div>
                         @endif
 
-                        @if ($item->kehadiran == 'alpa' && !$item->complainmengajar)
+                        @if ($item->kehadiran == 'alpa' && !$item->complainmengajar && \Carbon\Carbon::parse($item->tanggal)->diffInDays($today) < 4)
+
                         <div>
                             <a href="{{ route('v2.complain.mengajar',$item) }}" class="inline-block p-2 text-sm text-white bg-red-800 rounded-lg hover:ring-2 hover:ring-red-300">Ajukan Complain</a>
 

@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between">
         <h3 class="font-bold text-red-800">{{ __('Absen Hari Ini') }}</h3>
         <div>
-            <a href="{{ route('v2.jadwal.mengajar') }}" class="p-2 text-sm text-red-500 border rounded">Lihat Jadwal</a>
+            <a href="{{ route('v2.jadwal.halaqah') }}" class="p-2 text-sm text-red-500 border rounded">Lihat Jadwal</a>
             <a href="{{ route('v2.absen-mengajar') }}" class="p-2 text-sm text-red-500 border rounded">View All</a>
         </div>
     </div>
@@ -64,10 +64,10 @@
                         </div>
                         
 
-                        @if ($item->kehadiran == 'alpa' && !$item->complainmengajar)
+                        @if ($item->kehadiran == 'alpa' && !$item->complainmengajar )
+                        {{-- && \Carbon\Carbon::parse($item->tanggal)->diffInDays($today) < 4 --}}
                         <div>
                             <a href="" class="inline-block p-2 text-sm text-white bg-red-800 rounded-lg hover:ring-2 hover:ring-red-300">Ajukan Complain</a>
-
                         </div>
                         @endif
                     </div>

@@ -20,7 +20,7 @@ class ViewAllAbsenMengajar extends Component
 
     public function mount()
     {
-        $this->startDate = Carbon::now()->subDays(300)->toDateString();
+        $this->startDate = Carbon::now()->startOfMonth()->toDateString();
         $this->endDate = Carbon::now()->toDateString();
     }
     public function render()
@@ -33,8 +33,8 @@ class ViewAllAbsenMengajar extends Component
             ->where('user_id', $user->id)
             ->whereBetween('tanggal', [$this->startDate, $this->endDate])
             ->where(function ($query) use ($today, $now) {
-                $query->whereDate('tanggal', '<>', $today) // Untuk tanggal sebelumnya, tampilkan semua
-                    ->orWhere(function ($query) use ($today, $now) { // Untuk hari ini, cek mulai_kbm atau waktu_absen
+                $query->whereDate('tanggal', '<>', $today)
+                    ->orWhere(function ($query) use ($today, $now) {
                         $query->whereDate('tanggal', $today)
                             ->where(function ($query) use ($now) {
                                 $query->where('mulai_kbm', '<=', $now)
