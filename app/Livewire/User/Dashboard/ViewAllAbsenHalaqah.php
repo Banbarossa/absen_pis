@@ -26,14 +26,25 @@ class ViewAllAbsenHalaqah extends Component
     public function render()
     {
         $user = Auth::user();
+        $today = Carbon::now()->toDateString();
+        $now = Carbon::now()->format('H:i;s');
         $absens = Absenhalaqah::with('jadwalhalaqah', 'complainhalaqah')
             ->where('user_id', $user->id)
             ->whereBetween('tanggal', [$this->startDate, $this->endDate])
+            ->where(function ($query) use ($today, $now) {
+                $query->whereDate('tanggal', '<>', $today)
+                    ->orWhere(function ($subquery) use ($today, $now) {
+                        $subquery->whereDate('tanggal', $today)
+                            ->whereHas('jadwalhalaqah', function ($q) use ($now) {
+                                $q->where('mulai_absen', '<=', $now);
+                            });
+                    });
+            })
             ->orderBy('tanggal', 'desc')
             ->get();
 
         $today = Carbon::now()->toDateString();
 
-        return view('livewire.user.dashboard.view-all-absen-halaqah', compact('today', 'absens'));
+        return view('livewire.user.dashboard.view-all-absen-halaqah', compact('today', 'absens', 'now'));
     }
 }

@@ -14,8 +14,18 @@ class LatestAbsenHalaqah extends Component
 
         $user = Auth::user();
         $today = Carbon::now()->toDateString();
+        $now = Carbon::now()->format('H:i;s');
         $absens = Absenhalaqah::with('jadwalhalaqah', 'complainhalaqah')
             ->where('user_id', $user->id)
+            ->where(function ($query) use ($today, $now) {
+                $query->whereDate('tanggal', '<>', $today)
+                    ->orWhere(function ($subquery) use ($today, $now) {
+                        $subquery->whereDate('tanggal', $today)
+                            ->whereHas('jadwalhalaqah', function ($q) use ($now) {
+                                $q->where('mulai_absen', '<=', $now);
+                            });
+                    });
+            })
             ->latest()
             ->take(7)
             ->get();
