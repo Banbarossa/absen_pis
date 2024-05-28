@@ -60,8 +60,8 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-12 col-lg-9">
-                <div class="card m-b-30">
+            <div class="col-12 col-lg-9">
+                {{-- <div class="card m-b-30">
                     <div class="card-body">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
