@@ -222,15 +222,18 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function
     Route::get('dinasluar', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('dinasluar');
     Route::post('absen-dinasluar/{type}', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('dinasluar.store');
 
-    Route::group(['prefix' => 'admin'], function () {
-        // Route::get('user', \App\Livewire\Newadmin\Akun\Index::class)->name('akun')->middleware('role:admin');
+    Route::get('admin/user', \App\Livewire\Newadmin\Akun\Index::class)->name('akun')->middleware('role:admin');
 
-        Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin/complain'], function () {
-            Route::get('absen-pegawai', \App\Livewire\Newadmin\IrregularAttandace\OfficialTripPegawai::class)->name('absen-perjalanan-dinas');
-        });
-        Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin/laporan'], function () {
-            Route::get('laporan-harian', \App\Livewire\NewAdmin\Report\TodayAttandanceStaff::class)->name('today-staf-report');
-        });
-    });
+    Route::get('admin/complain/absen-pegawai', \App\Livewire\Newadmin\IrregularAttandace\OfficialTripPegawai::class)->name('absen-perjalanan-dinas')->middleware('role:admin');
+
+    Route::get('admin/laporan/laporan-harian', \App\Livewire\NewAdmin\Report\TodayAttandanceStaff::class)->name('today-staf-report')->middleware('role:admin');
+
+    // Route::group(['prefix' => 'admin'], function () {
+
+    //     Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin/complain'], function () {
+    //     });
+    //     Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin/laporan'], function () {
+    //     });
+    // });
 
 });
