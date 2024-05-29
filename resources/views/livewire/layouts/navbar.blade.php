@@ -49,9 +49,9 @@
                 
                 <x-navbar-link :href="route('v2.dashboard')" :active="Request::routeIs('v2.dashboard') || Request::is('v2/home/*')">Home</x-navbar-link>
 
-                <x-navbar-link :href="route('v2.akun')" :active="Request::is('v2/admin/akun') || Request::is('v2/admin/akun/*')">Pengguna</x-navbar-link>
+                {{-- <x-navbar-link :href="route('v2.akun')" :active="Request::is('v2/admin/akun') || Request::is('v2/admin/akun/*')">Pengguna</x-navbar-link>
                 
-                <x-navbar-link :href="route('v2.akun')" :active="Request::is('v2/admin/akun') || Request::is('v2/admin/akun/*')">Pengguna</x-navbar-link>
+                <x-navbar-link :href="route('v2.akun')" :active="Request::is('v2/admin/akun') || Request::is('v2/admin/akun/*')">Pengguna</x-navbar-link> --}}
                 
             </ul>
         </div>

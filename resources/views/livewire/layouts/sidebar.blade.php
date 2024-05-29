@@ -104,7 +104,7 @@
         </x-sidebar-link> --}}
         
     </ul>
-    @if (Request::is('v2/admin/*'))
+    {{-- @if (Request::is('v2/admin/*'))
     <ul class="grid grid-cols-3 gap-2 text-xs font-medium md:space-y-2 md:grid-cols-1">
         @if (Request::is('v2/admin/akun') ||Request::is('v2/admin/akun/*'))
         <x-sidebar-link :href="route('v2.akun')" :active="Request::is('v2/admin/akun/*')" label="User">
@@ -117,5 +117,5 @@
         </x-sidebar-link>
         @endif
     <ul>
-    @endif
+    @endif --}}
 </aside>
