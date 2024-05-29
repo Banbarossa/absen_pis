@@ -51,7 +51,7 @@
 
                 {{-- <x-navbar-link :href="route('v2.akun')" :active="Request::is('v2/admin/akun') || Request::is('v2/admin/akun/*')">Pengguna</x-navbar-link>
                 
-                <x-navbar-link :href="route('v2.akun')" :active="Request::is('v2/admin/akun') || Request::is('v2/admin/akun/*')">Pengguna</x-navbar-link> --}}
+                <x-navbar-link :href="route('v2.admin')" :active="Request::is('v2/admin/akun') || Request::is('v2/admin/akun/*')">Pengguna</x-navbar-link> --}}
                 
             </ul>
         </div>

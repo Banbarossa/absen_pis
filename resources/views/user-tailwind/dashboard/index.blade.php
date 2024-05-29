@@ -3,6 +3,15 @@
         Dashboard
     </x-slot:title>
 
+    @role('admin')
+    <div class="w-full pb-4">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <livewire:user.dashboard.widget-count-user>
+            <livewire:user.dashboard.widget-count-absen-harian>
+        </div>
+    </div>
+    @endrole
+
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-4">
         <div class="md:col-span-4 lg:col-span-3">

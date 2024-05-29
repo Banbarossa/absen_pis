@@ -21,11 +21,11 @@
 
     <livewire:layouts.navbar>
 
-    <div class="block w-full gap-6 px-4 bg-gradient-to-r from-gray-200 to-gray-100 md:flex md:px-6">
-        <div class="py-4 md:h-screen">
+    <div class="block w-full gap-6 px-4 bg-gradient-to-r from-gray-200 to-gray-100 md:flex">
+        <div class="md:h-screen">
             <livewire:layouts.sidebar>
         </div>
-        <div class="w-full md:mt-12 md:py-8 min-h-svh md:ms-32">
+        <div class="w-full md:mt-12 md:py-8 min-h-svh md:ms-60">
             @if (isset($title))
             <div class="p-4 my-2 mb-4 text-red-800 bg-white rounded-lg ">
                 <h3 class="w-full mb-2 text-xl font-bold tracking-wide">{{ $title }}</h3>

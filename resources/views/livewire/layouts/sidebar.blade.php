@@ -1,8 +1,8 @@
-<aside class="px-3 py-6 bg-white divide-y-2 md:fixed md:top-20 md:min-w-24 md:w-32 rounded-xl dark:bg-gray-800">
-    <ul class="grid grid-cols-3 gap-2 text-xs font-medium md:space-y-2 md:grid-cols-1">
+<aside class="px-2 py-6 divide-y-2 md:fixed md:top-20 md:min-w-60 md:w-60 rounded-xl dark:bg-gray-800">
+    <ul class="grid grid-cols-3 gap-2 text-xs font-medium md:gap-1 md:grid-cols-1">
 
         <x-sidebar-link :href="route('v2.dashboard')" :active="Request::routeIs('v2.dashboard')" label="Dashboard">
-            <svg class="w-5 h-5 transition duration-75"
+            <svg class="w-5 h-5 transition duration-1000 group-hover:rotate-180"
                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     viewBox="0 0 22 21">
                     <path
@@ -16,7 +16,7 @@
         {{-- Menu Hanya Tampil di Dashboard --}}
         @if (Request::routeis('v2.dashboard') || Request::is('v2/*'))
         <x-sidebar-link :href="route('v2.jadwal.mengajar')" :active="Request::routeIs('v2.jadwal.mengajar')" label="Jadwal Mengajar">
-            <svg class="flex-shrink-0 w-5 h-5 transition duration-75 "
+            <svg class="flex-shrink-0 w-5 h-5 transition duration-1000 group-hover:rotate-180"
                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     viewBox="0 0 18 18">
                     <path
@@ -24,16 +24,30 @@
             </svg>
         </x-sidebar-link>
         <x-sidebar-link :href="route('v2.jadwal.halaqah')" :active="Request::routeIs('v2.jadwal.halaqah')" label="Jadwal Halaqah">
-            <svg class="flex-shrink-0 w-6 h-6 transition duration-75" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="flex-shrink-0 w-5 h-5 transition duration-1000 group-hover:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M15 4H9v16h6V4Zm2 16h3a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3v16ZM4 4h3v16H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" clip-rule="evenodd"/>
-              </svg>
+            </svg>
         </x-sidebar-link>
-        {{-- <x-sidebar-link :href="route('v2.absen-perjalanan-dinas')" :active="Request::routeIs('v2.absen-perjalanan-dinas')" label="Absen Perjalanan Dinas">
-            <svg class="flex-shrink-0 w-6 h-6 transition duration-75" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M15 4H9v16h6V4Zm2 16h3a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3v16ZM4 4h3v16H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" clip-rule="evenodd"/>
-              </svg>
-        </x-sidebar-link> --}}
         @endif
+
+
+        <ul class="hidden md:block">
+            <li x-data="{ user: {{ Request::is('v2/admin/user') || Request::is('v2/admin/user/*') ? 'true' : 'false' }} }" x-init="$watch('user', value => { if (!value && Request::is('v2/admin/user')) user = true })">
+                <x-sidebar-dropdown x-on:click="user = !user" :active="Request::is('v2/admin/user') || Request::is('v2/admin/user/*')" data="user" label='User - Role'>
+                    @slot('svg')
+                    <svg class="flex-shrink-0 w-5 h-5 transition duration-1000 group-hover:rotate-180" stroke="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+                        <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
+                     </svg>
+                    @endslot
+
+                    <li>
+                        <a href="{{ route('v2.akun') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg ps-4 group hover:bg-red-300 dark:hover:bg-gray-700">User</a>
+                     </li>
+                </x-sidebar-dropdown>
+             </li>
+
+        </ul>
+
         {{-- <li>
             <a href="#"
                 class="flex flex-col items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -109,18 +123,25 @@
         </x-sidebar-link> --}}
         
     </ul>
-    {{-- @if (Request::is('v2/admin/*'))
-    <ul class="grid grid-cols-3 gap-2 text-xs font-medium md:space-y-2 md:grid-cols-1">
+    @if (Request::is('v2/admin/*'))
+    <ul class="grid grid-cols-3 gap-2 text-xs font-medium md:space-y-2 md:grid-cols-1" x-data="{menu:'user'}">
         @if (Request::is('v2/admin/akun') ||Request::is('v2/admin/akun/*'))
-        <x-sidebar-link :href="route('v2.akun')" :active="Request::is('v2/admin/akun/*')" label="User">
-            <svg class="flex-shrink-0 w-5 h-5 transition duration-75"
-                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                viewBox="0 0 20 18">
-                <path
-                    d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-            </svg>
-        </x-sidebar-link>
+        <button x-on:click="menu='user'">Pengguna</button>
+        <button x-on:click="menu='complain'">complan</button>
+        <div x-show="menu == 'user'">
+            <x-sidebar-link :href="route('v2.akun')" :active="Request::is('v2/admin/akun/*')" label="User">
+                <svg class="flex-shrink-0 w-5 h-5 transition duration-75"
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    viewBox="0 0 20 18">
+                    <path
+                        d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                </svg>
+            </x-sidebar-link>
+        </div>
+        <div x-show="menu == 'complain'">
+            <p>Complain</p>
+        </div>
         @endif
     <ul>
-    @endif --}}
+    @endif
 </aside>
