@@ -28,6 +28,11 @@
                 <path fill-rule="evenodd" d="M15 4H9v16h6V4Zm2 16h3a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3v16ZM4 4h3v16H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" clip-rule="evenodd"/>
               </svg>
         </x-sidebar-link>
+        <x-sidebar-link :href="route('v2.absen-perjalanan-dinas')" :active="Request::routeIs('v2.absen-perjalanan-dinas')" label="Absen Perjalanan Dinas">
+            <svg class="flex-shrink-0 w-6 h-6 transition duration-75" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M15 4H9v16h6V4Zm2 16h3a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3v16ZM4 4h3v16H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" clip-rule="evenodd"/>
+              </svg>
+        </x-sidebar-link>
         @endif
         {{-- <li>
             <a href="#"
