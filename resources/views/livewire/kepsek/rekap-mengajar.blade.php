@@ -212,7 +212,7 @@
                                                 <td>{{ $summary['totalIzinDinas']  ==0 ?'':$summary['totalIzinDinas'].' jp'}}</td>
                                                 <td>{{ $summary['totalIzinPribadi']  ==0 ?'':$summary['totalIzinPribadi'].' jp'}}</td>
                                                 <td>{{ $summary['total_alpa']  ==0 ?'':$summary['total_alpa'].' jp'}}</td>
-                                                <td>{{ $summary['total_keterlambatan']  ==0 ?'':$summary['total_keterlambatan'].'menit'}}</td>
+                                                <td>{{ $summary['total_keterlambatan']  ==0 ?'':$summary['total_keterlambatan'].' Menit'}}</td>
                                                
                                             </tr>
                                             @empty
