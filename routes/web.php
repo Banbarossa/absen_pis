@@ -222,7 +222,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function
     Route::get('dinasluar', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('dinasluar');
     Route::post('absen-dinasluar/{type}', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('dinasluar.store');
 
-    Route::get('admin/user', \App\Livewire\Newadmin\Akun\Index::class)->name('akun');
+    Route::get('admin/user', \App\Livewire\NewAdmin\Akun\Index::class)->name('akun');
 
     // Route::get('admin/complain/absen-pegawai', \App\Livewire\Newadmin\IrregularAttandace\OfficialTripPegawai::class)->name('absen-perjalanan-dinas')->middleware('role:admin');
 

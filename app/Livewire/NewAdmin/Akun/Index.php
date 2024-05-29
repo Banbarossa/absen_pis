@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Newadmin\Akun;
+namespace App\Livewire\NewAdmin\Akun;
 
 use App\Models\User;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
