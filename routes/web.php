@@ -222,8 +222,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function
     Route::get('dinasluar', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('dinasluar');
     Route::post('absen-dinasluar/{type}', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('dinasluar.store');
 
-    // Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'admin'], function () {
-    //     Route::get('akun', \App\Livewire\NewAdmin\Akun\Index::class)->name('akun');
-    // });
+    Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () {
+        Route::get('akun', \App\Livewire\NewAdmin\Akun\Index::class)->name('akun');
+        Route::get('absen-perjalanan-dinas', \App\Livewire\NewAdmin\IrregularAttandace\OfficialTripPegawai::class)->name('absen-perjalanan-dinas');
+    });
 
 });

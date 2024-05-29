@@ -15,10 +15,10 @@
                                 <h4 class="mt-0 header-title">Rekap Kehadiran</h4>
                                 <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-animation="bounce" data-target=".bs-example-modal-lg">Unduh Rekap Kehadiran</button>
                             </div>
-                            <div class="d-flex align-items-center mb-2 justify-content-between">
+                            <div class="mb-2 d-flex align-items-center justify-content-between">
                                 
                                 <div class="d-flex">
-                                    <div class="form-group mr-2">
+                                    <div class="mr-2 form-group">
                                         <label for="startDate">Tanggal Awal</label>
                                         <input type="date" wire:model.live="startDate" id="startDate" class="form-control @error('startDate') is-invalid @enderror">
                                     </div>
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card m-b-30 p-4">
+                <div class="p-4 card m-b-30">
                     <div class="card-header">
                         <h4 class="mt-0 header-title">Rekap Kehadiran</h4>
                     </div>
@@ -124,19 +124,19 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        {{-- <h5 class="modal-title mt-0" id="myLargeModalLabel">Large modal</h5> --}}
+                        {{-- <h5 class="mt-0 modal-title" id="myLargeModalLabel">Large modal</h5> --}}
                         <button class="btn btn-primary" onclick="generatePdf()">Unduh</button>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body" id="pdf">
                         <div class="card m-b-30">
-                            <div class="text-center mb-2">
+                            <div class="mb-2 text-center">
                                 <img src="{{asset('assets/images/logo.png')}}" height="60" alt="logo">
                                 <h4 class="mt-0 header-title">REKAPITULASI DATA KEHADIRAN ASATIZAH</h4>
                                 <h4 class="mt-0 header-title">JENJANG {{strToUpper($sekolah->nama)}}</h4>
                                 
                             </div>
-                             <div class="title mt-3">
+                             <div class="mt-3 title">
                                 <table>
                                     <tbody>
                                         <tr>
@@ -205,7 +205,7 @@
                                             @forelse ($sortedSummaryData as $key=> $summary)
                                             <tr>
                                                 <td scope="row">{{$loop->iteration}}</td>
-                                                <td>{{$summary['user_name'] ==0 ?'':$summary['user_name'].' jp'}}</td>
+                                                <td>{{$summary['user_name'] ==0 ?'':$summary['user_name'] }}</td>
                                                 <td>{{ $summary['total_hadir']  ==0 ?'':$summary['total_hadir'].' jp'}}</td>
                                                 <td>{{ $summary['totalSakit']  ==0 ?'':$summary['totalSakit'].' jp'}}</td>
                                                 {{-- <td>{{ $summary['total_izin']  ==0 ?'':$summary['total_izin'].' jp'}}</td> --}}
