@@ -223,7 +223,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function
     Route::post('absen-dinasluar/{type}', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('dinasluar.store');
 
     Route::group(['prefix' => 'admin'], function () {
-        Route::get('user', \App\Livewire\Newadmin\Akun\Index::class)->name('akun')->middleware('role:admin');
+        // Route::get('user', \App\Livewire\Newadmin\Akun\Index::class)->name('akun')->middleware('role:admin');
 
         Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin/complain'], function () {
             Route::get('absen-pegawai', \App\Livewire\Newadmin\IrregularAttandace\OfficialTripPegawai::class)->name('absen-perjalanan-dinas');
