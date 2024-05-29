@@ -2,7 +2,7 @@
     <ul class="divide-y-2 divide-gray-300 dark:divide-gray-700">
         @forelse ($absen as $item)
             <li class="py-4">
-                <p class="text-sm font-semibold tracking-wide">{{ $item->user ? strtoupper($item->user->name):'' }}</p>
+                <p class="text-sm font-semibold tracking-wide">{{ strtoupper($item->user_name) }}</p>
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
                     @foreach(['masuk_1', 'masuk_2', 'pulang'] as $type)
                         @php

@@ -18,6 +18,9 @@ class TodayAttandanceStaff extends Component
         $today = Carbon::now()->subDays(2)->toDateString();
         $absen = Absenkaryawan::with('absenkaryawandetails', 'user')
             ->whereDate('tanggal', $today)
+            ->join('users', 'absenkaryawans.user_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')
+            ->select('absenkaryawans.*', 'users.name as user_name')
             ->get();
 
         $absen->each(function ($item) {
