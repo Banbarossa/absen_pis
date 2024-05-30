@@ -228,7 +228,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function
         Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin/complain'], function () {
             Route::get('absen-pegawai', \App\Livewire\NewAdmin\IrregularAttandace\OfficialTripPegawai::class)->name('absen-perjalanan-dinas');
         });
-        Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin/laporan'], function () {
+        Route::group(['middleware' => ['role:admin|hrd'], 'prefix' => 'admin/laporan'], function () {
             Route::get('laporan-harian', \App\Livewire\NewAdmin\Report\TodayAttandanceStaff::class)->name('today-staf-report');
         });
     });

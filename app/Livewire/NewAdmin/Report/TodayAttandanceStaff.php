@@ -15,7 +15,7 @@ class TodayAttandanceStaff extends Component
     public function render()
     {
 
-        $today = Carbon::now()->subDays(2)->toDateString();
+        $today = Carbon::now()->toDateString();
         $absen = Absenkaryawan::with('absenkaryawandetails', 'user')
             ->whereDate('tanggal', $today)
             ->join('users', 'absenkaryawans.user_id', '=', 'users.id')

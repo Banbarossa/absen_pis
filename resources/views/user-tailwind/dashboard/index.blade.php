@@ -3,7 +3,7 @@
         Dashboard
     </x-slot:title>
 
-    @role('admin')
+    @role('admin|hrd')
     <div class="w-full pb-4">
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <livewire:user.dashboard.widget-count-user>
