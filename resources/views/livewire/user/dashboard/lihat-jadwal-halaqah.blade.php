@@ -16,8 +16,8 @@
         @role('musyrif halaqah')
         @foreach($rosters as $hari => $groupedRosters)
         <div>
-            <div class="p-4 mb-4 text-center bg-red-200 border-2 border-white border-dashed rounded-lg ring-2 ring-red-200">
-                <h2 class="text-lg font-bold">{{ $hariMapping[$hari] }}</h2>
+            <div class="p-2 mb-4 text-center bg-red-200 border-2 border-white border-dashed rounded-lg ring-2 ring-red-200">
+                <h2 class="text-sm font-bold md:text-base">{{ $hariMapping[$hari] }}</h2>
             </div>
             <ul>
                 @foreach($groupedRosters as $roster)
@@ -30,9 +30,9 @@
                 @endphp
 
 
-                <li class="p-4 mb-4 space-y-2 transition duration-500 {{ $is_now ?'bg-red-300 animate-pulse' : 'bg-gray-100'}}  border-2 border-dashed rounded-lg hover:bg-gray-200 hover:scale-105 hover:rotate-1 hover:border-white hover:ring-2 hover:ring-gray-200">
-                        <p class="text-sm">Nama Sesi: <span class="font-bold">{{ $roster->nama_sesi }}</span> </p>
-                        <p class="text-sm">Jam Absen : <span class="font-bold">{{ $roster->mulai_absen .' s/d '. $roster->akhir_absen}}</span></p>
+                <li class="p-4 mb-4  transition duration-500 {{ $is_now ?'bg-red-300 animate-pulse' : 'bg-gray-100'}}  border-2 border-dashed rounded-lg hover:bg-gray-200 hover:scale-105 hover:rotate-1 hover:border-white hover:ring-2 hover:ring-gray-200">
+                        <p class="text-xs md:text-sm">Nama Sesi: <span class="font-bold">{{ strtoupper($roster->nama_sesi) }}</span> </p>
+                        <p class="text-xs md:text-sm">Jam Absen : <span class="font-bold">{{ $roster->mulai_absen .' s/d '. $roster->akhir_absen}}</span></p>
                     </li>
                 @endforeach
             </ul>

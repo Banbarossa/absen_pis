@@ -1,4 +1,13 @@
 <div class="w-full p-6 bg-white rounded-lg" x-data="{ popup: false, imageUrl: '' }">
+    <div class="flex items-center gap-2 mb-6">
+        <button wire:click='previousDate' class="flex items-center justify-center w-8 h-8 transition duration-500 bg-red-200 rounded-lg hover:bg-red-300 hover:ring-2 hover:ring-red-200 hover:border hover:border-red-500 hover:border-dashed group">
+            <span class="transition duration-500 group-hover:scale-110"><</span>
+        </button>
+        <button {{ $date >= $today ? 'disabled':'' }} wire:click='nextDate' class="flex items-center justify-center w-8 h-8 transition duration-500 bg-red-200 rounded-lg hover:bg-red-300 hover:ring-2 hover:ring-red-200 hover:border hover:border-red-500 hover:border-dashed group">
+            <span class="transition duration-500 group-hover:scale-110">></span>
+        </button>
+        <h3 class="font-semibold text-gray-600">{{ \Carbon\Carbon::parse($date)->format('l, d M Y') }}</h3>
+    </div>
     <ul class="divide-y-2 divide-gray-300 dark:divide-gray-700">
         @forelse ($absen as $item)
             <li class="py-4">

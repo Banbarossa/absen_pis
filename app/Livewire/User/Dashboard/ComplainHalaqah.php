@@ -15,7 +15,7 @@ class ComplainHalaqah extends Component
 
     use LivewireAlert;
     #[Layout('layouts.user-layout')]
-    #[Title('Complain Absen Mengajar')]
+    #[Title('Complain Absen Halaqah')]
 
     public $absen;
 

@@ -1,7 +1,6 @@
 <div>
-    {{-- Stop trying to control. --}}
     <a href="{{ route('v2.akun') }}" class="relative flex items-center justify-between gap-4 p-4 bg-white border rounded-lg shadow-md min-h-28">
-        <div class="w-16 overflow-hidden border rounded-lg shadow-md h-w-16">
+        <div class="w-16 overflow-hidden transition duration-500 border rounded-lg shadow-md h-w-16 hover:scale-105 hover:rotate-6">
             <img src="{{ asset('assets/images/worker.png') }}" class="object-cover aspect-square "  alt="worker" class="rounded-lg ">
         </div>
         <div class="space-y-0">

@@ -4,20 +4,31 @@ namespace App\Livewire\NewAdmin\Report;
 
 use App\Models\Absenkaryawan;
 use Carbon\Carbon;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class TodayAttandanceStaff extends Component
 {
+    use LivewireAlert;
     #[Layout('layouts.user-layout')]
     #[Title('Kehadiran Pegawai')]
+
+    public $date;
+
+    public $today;
+    public function mount()
+    {
+        $this->date = Carbon::now()->toDateString();
+        $this->today = Carbon::now()->toDateString();
+    }
+
     public function render()
     {
 
-        $today = Carbon::now()->toDateString();
         $absen = Absenkaryawan::with('absenkaryawandetails', 'user')
-            ->whereDate('tanggal', $today)
+            ->whereDate('tanggal', $this->date)
             ->join('users', 'absenkaryawans.user_id', '=', 'users.id')
             ->orderBy('users.name', 'asc')
             ->select('absenkaryawans.*', 'users.name as user_name')
@@ -29,5 +40,15 @@ class TodayAttandanceStaff extends Component
             $item->pulang = $item->absenkaryawandetails->where('type', 'pulang')->first();
         });
         return view('livewire.new-admin.report.today-attandance-staff', compact('absen'));
+    }
+
+    public function previousDate()
+    {
+        $this->date = Carbon::createFromFormat('Y-m-d', $this->date)->subDay()->toDateString();
+    }
+
+    public function nextDate()
+    {
+        $this->date = Carbon::createFromFormat('Y-m-d', $this->date)->addDay()->toDateString();
     }
 }
