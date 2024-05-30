@@ -29,9 +29,9 @@
             @if (isset($title))
             <div class="p-4 my-2 mb-4 text-red-800 bg-white rounded-lg ">
                 <h3 class="w-full mb-2 text-xl font-bold tracking-wide">{{ $title }}</h3>
-                {{-- <a href="{{ route('dashboard') }}" class="p-2 text-white bg-red-600 rounded-lg hover:ring-2 hover:ring-red-300">
+                <a href="{{ route('dashboard') }}" class="p-2 text-white bg-red-600 rounded-lg hover:ring-2 hover:ring-red-300">
                     Kembali Ke Tampilan Sebelumnya
-                </a> --}}
+                </a>
             </div>
             @endif
             {{ $slot }}
