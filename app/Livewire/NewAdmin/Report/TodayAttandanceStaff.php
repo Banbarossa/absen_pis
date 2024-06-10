@@ -3,6 +3,7 @@
 namespace App\Livewire\NewAdmin\Report;
 
 use App\Models\Absenkaryawan;
+use App\Models\User;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Layout;
@@ -34,12 +35,18 @@ class TodayAttandanceStaff extends Component
             ->select('absenkaryawans.*', 'users.name as user_name')
             ->get();
 
+        $userNotScan = User::where('is_karyawan', true)->whereDoesntHave('absenkaryawans', function ($query) {
+            $query->whereDate('tanggal', $this->date);
+        })
+            ->orderBy('name', 'asc')
+            ->get();
+
         $absen->each(function ($item) {
             $item->masuk_1 = $item->absenkaryawandetails->where('type', 'masuk_1')->first();
             $item->masuk_2 = $item->absenkaryawandetails->where('type', 'masuk_2')->first();
             $item->pulang = $item->absenkaryawandetails->where('type', 'pulang')->first();
         });
-        return view('livewire.new-admin.report.today-attandance-staff', compact('absen'));
+        return view('livewire.new-admin.report.today-attandance-staff', compact('absen', 'userNotScan'));
     }
 
     public function previousDate()

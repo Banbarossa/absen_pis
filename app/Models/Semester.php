@@ -30,4 +30,9 @@ class Semester extends Model
         return $this->hasMany(Roster::class);
     }
 
+    public function anggotakelas()
+    {
+        return $this->hasMany(AnggotaKelas::class);
+    }
+
 }

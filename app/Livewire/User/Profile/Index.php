@@ -15,12 +15,15 @@ class Index extends Component
     use LivewireAlert;
     public $name, $email, $password_absen;
 
+    public $user;
+
     #[Layout('layouts.user-layout')]
     #[Title('Profile')]
 
     public function mount()
     {
         $user = Auth::user();
+        $this->user = $user;
         $this->name = $user->name;
         $this->email = $user->email;
         $this->password_absen = $user->password_absen;
@@ -37,7 +40,7 @@ class Index extends Component
 
         $this->validate([
             'name' => 'required|min:3',
-            'password_absen' => 'required|min:6|unique:users,password_absen',
+            'password_absen' => 'required|min:6|unique:users,password_absen,' . $this->user->id,
         ], [
             'name.required' => 'Nama Wajib Diisi',
             'name.min' => 'Nama minimal 3 karakter',

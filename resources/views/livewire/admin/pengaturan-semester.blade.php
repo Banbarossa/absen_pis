@@ -38,7 +38,7 @@
                                 <td>{{$item->nama_semester}}</td>
                                 <td>
                                     @if ($item->status == 1)
-                                        <button class="btn btn-sm btn-success" disabled>Tidak Aktif</button>
+                                        <button class="btn btn-sm btn-success" disabled>Aktif</button>
                                     @else
                                         <button wire:click='aktifkan({{$item->id}})' wire:confirm='Apakah anda yakin mengaktifkan semester ini' class="btn btn-sm btn-outline-warning">Tidak Aktif</button>
                                     @endif

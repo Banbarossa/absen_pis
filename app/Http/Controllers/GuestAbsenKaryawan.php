@@ -105,7 +105,6 @@ class GuestAbsenKaryawan extends Controller
             $jarak = $this->distance($latKantor, $longKantor, $latUser, $longUser);
             if ($jarak['meters'] <= 20) {
                 $is_inlocation = true;
-                // return redirect()->back()->with('error', 'Maaf Anda Berada diluar Radius');
             };
 
         }

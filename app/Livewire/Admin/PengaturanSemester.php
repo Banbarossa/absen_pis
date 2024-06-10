@@ -4,6 +4,8 @@ namespace App\Livewire\Admin;
 
 use App\Models\Semester;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,16 +20,18 @@ class PengaturanSemester extends Component
     public $nama_semester, $tahun, $semester_id;
     public $status = 0;
 
+    #[Layout('layouts.app')]
+    #[Title('Pengaturan Semester')]
     public function render()
     {
-        $model = Semester::orderBy($this->sortColumn, $this->sortDirection)->paginate($this->perPage);
+        $model = Semester::latest()->paginate($this->perPage);
         if ($this->search) {
             $model = Semester::search($this->search)->orderBy($this->sortColumn, $this->sortDirection)->paginate($this->perPage);
         }
 
         return view('livewire.admin.pengaturan-semester', [
             'model' => $model,
-        ])->layout('layouts.app');
+        ]);
     }
 
     public function sort($columnName)

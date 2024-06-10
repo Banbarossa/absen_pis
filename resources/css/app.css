@@ -1,3 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.text-custom-blue {
+@apply text-blue-700;
+}
+
+.bg-custom-blue {
+@apply bg-blue-600;
+}
+
+.text-custom-red {
+@apply text-red-700;
+}
+
+
+.bg-custom-red {
+@apply bg-red-600;
+}
+
+.text-custom-green {
+@apply text-green-700;
+}
+
+.bg-custom-green {
+@apply bg-green-600;
+}
+
+.text-custom-lime {
+@apply text-lime-700;
+}
+
+.bg-custom-lime {
+@apply bg-lime-600;
+}
+
+.text-custom-emerald {
+@apply text-emerald-700;
+}
+
+.bg-custom-emerald {
+@apply bg-emerald-600;
+}
+
+.text-custom-orange {
+@apply text-orange-700;
+}
+
+.bg-custom-orange {
+@apply bg-orange-600;
+}

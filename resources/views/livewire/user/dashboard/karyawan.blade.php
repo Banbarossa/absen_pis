@@ -60,7 +60,7 @@
     </ul>
 
 
-    <div x-show="popup" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-50 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-500 bg-opacity-50">
+    <div x-show="popup" class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-50 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-500 bg-opacity-50">
         <div class="relative w-full max-w-lg max-h-full p-4">
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700" @click.outside="popup = false">
                 <div class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">

@@ -35,4 +35,9 @@ class Absensekolah extends Model
         return $this->hasOne(Complainmengajar::class);
     }
 
+    public function absensiswa()
+    {
+        return $this->hasMany(Absensiswa::class);
+    }
+
 }

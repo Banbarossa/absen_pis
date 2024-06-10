@@ -210,6 +210,7 @@ Route::post('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'store
 
 Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function () {
     Route::view('/', 'user-tailwind.dashboard.index')->name('dashboard');
+    Route::get('absen/{absen}', \App\Livewire\User\Absensiswa\IndexAbsen::class)->name('absen-siswa');
     Route::get('home/profile', \App\Livewire\User\Profile\Index::class)->name('profile');
     Route::get('home/absen-pegawai', \App\Livewire\User\Dashboard\ViewAllAbsenPegawai::class)->name('absen-pegawai');
     Route::get('home/absen-mengajar', \App\Livewire\User\Dashboard\ViewAllAbsenMengajar::class)->name('absen-mengajar');
@@ -222,15 +223,43 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function
     Route::get('dinasluar', [GuestAbsenKaryawan::class, 'absendinasluar'])->name('dinasluar');
     Route::post('absen-dinasluar/{type}', [GuestAbsenKaryawan::class, 'storeDinasluar'])->name('dinasluar.store');
 
+    Route::group(['prefix' => 'laporan'], function () {
+        Route::get('absen-siswa', \App\Livewire\Admin\Absensi\SiswaIndex::class)->name('laporan.absen-siswa');
+        Route::get('detail-absen-siswa/{student_id}', \App\Livewire\Admin\Absensi\DetailAbsenSiswa::class)->name('laporan.detail-absen-siswa');
+    });
+
     Route::group(['prefix' => 'admin'], function () {
         Route::get('user', \App\Livewire\NewAdmin\Akun\Index::class)->name('akun')->middleware('role:admin');
+        Route::get('user/{user}', \App\Livewire\NewAdmin\Akun\UpdateUser::class)->name('akun.update')->middleware('role:admin');
 
         Route::group(['middleware' => ['role:admin'], 'prefix' => 'complain'], function () {
             Route::get('absen-pegawai', \App\Livewire\NewAdmin\IrregularAttandace\OfficialTripPegawai::class)->name('absen-perjalanan-dinas');
         });
+        Route::group(['middleware' => ['role:admin'], 'prefix' => 'halaqah'], function () {
+            Route::get('daftar-halaqah', \App\Livewire\NewAdmin\Halaqah\GroupingHalaqah::class)->name('halaqah');
+            Route::get('daftar-halaqah/create', \App\Livewire\NewAdmin\Halaqah\GroupingHalaqahCreate::class)->name('halaqah.create');
+            Route::get('daftar-halaqah/edit/{group}', \App\Livewire\NewAdmin\Halaqah\GroupingHalaqahUpdate::class)->name('halaqah.update');
+            Route::get('anggota-halaqah/{group}', \App\Livewire\NewAdmin\Halaqah\AngotaHalaqahIndex::class)->name('anggota-halaqah');
+        });
+
         Route::group(['middleware' => ['role:admin|hrd'], 'prefix' => 'laporan'], function () {
             Route::get('laporan-harian', \App\Livewire\NewAdmin\Report\TodayAttandanceStaff::class)->name('today-staf-report');
+            Route::get('laporan-pegawai', \App\Livewire\NewAdmin\Report\PegawaiReport::class)->name('staff-attandance-report');
+            Route::get('office-trip-report', \App\Livewire\NewAdmin\Report\OfficeTripAtt::class)->name('office-trip-report');
         });
+
+        Route::group(['middleware' => ['role:admin'], 'prefix' => 'sekolah'], function () {
+            Route::get('siswa', \App\Livewire\NewAdmin\Sekolah\Siswa\IndexSiswa::class)->name('siswa');
+            Route::get('rombel', \App\Livewire\NewAdmin\Sekolah\Rombel\IndexRombel::class)->name('rombel');
+            Route::get('anggota-rombel/{code}', \App\Livewire\NewAdmin\Sekolah\Rombel\AnggotaRombel::class)->name('anggota-rombel');
+        });
+
+    });
+
+    Route::group(['prefix' => 'absen'], function () {
+        Route::get('mengajar/{code}', [App\Http\Controllers\AbsenMengajarPkkpsController::class, 'getAbsen'])->name('absen-mengajar-pkkps');
+        Route::get('rombel/{code}', [App\Http\Controllers\AbsenMengajarPkkpsController::class, 'getRombel'])->name('absen-pkkps-rombel');
+        Route::post('mengajar/{id}', [App\Http\Controllers\AbsenMengajarPkkpsController::class, 'absenPkkpsStore'])->name('absen-kbm-store');
     });
 
 });

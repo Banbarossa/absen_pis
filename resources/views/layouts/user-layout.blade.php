@@ -12,9 +12,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
     @stack('style')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-sans antialiased text-gray-900">
@@ -22,7 +22,7 @@
     <livewire:layouts.navbar>
 
     <div class="block w-full gap-6 px-4 bg-gradient-to-r from-gray-200 to-gray-100 md:flex">
-        <div class="md:h-screen">
+        <div class="py-4 md:h-screen">
             <livewire:layouts.sidebar>
         </div>
         <div class="w-full md:mt-12 md:py-8 min-h-svh md:ms-60">
@@ -40,7 +40,9 @@
     </div>
 
     <x-livewire-alert::scripts />
+    @livewireScripts
     @stack('script')
+    <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

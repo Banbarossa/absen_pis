@@ -8,10 +8,35 @@
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <livewire:user.dashboard.widget-count-user>
             <livewire:user.dashboard.widget-count-absen-harian>
+            <div class="hidden lg:block">
+                <a href="#" class="relative flex items-center justify-center gap-4 p-4 bg-gray-200 border-2 border-white border-dashed rounded-lg shadow-md group min-h-28">
+                    <div class="transition duration-500 group-hover:scale-125 group-hover:rotate-6">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+                        </svg>
+                          
+                    </div>
+                </a>
+            </div>
+            <div class="hidden lg:block">
+                <a href="#" class="relative flex items-center justify-center gap-4 p-4 bg-gray-200 border-2 border-white border-dashed rounded-lg shadow-md group min-h-28">
+                    <div class="transition duration-500 group-hover:scale-125 group-hover:rotate-6">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+                        </svg>
+                          
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
     @endrole
 
+    {{-- Scan Guru SD --}}
+    <div>
+        <livewire:user.scan-mengajar-pkkps.index>
+    </div>
+    {{-- Edn Scan Guru SD --}}
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-4">
         <div class="md:col-span-4 lg:col-span-3">

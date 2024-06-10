@@ -9,7 +9,7 @@
             4 => 'Kamis',
             5 => 'Jumat',
             6 => 'Sabtu',
-            7 => 'Minggu',
+            0 => 'Minggu',
         ];
         @endphp
 
@@ -26,9 +26,9 @@
                         <div class="d-flex justify-content-between">
                             <h4 class="mt-0 header-title">Nama Jadwal</h4>
                         </div>
-                        <div class="form-group text-center row m-t-20">
+                        <div class="text-center form-group row m-t-20">
                             @foreach ($model as $item)
-                            <div class="col-12 mt-2 d-flex">
+                            <div class="mt-2 col-12 d-flex">
                                 <button class="btn btn-{{$schedule_id == $item->id ? 'primary':'outline-secondary'}} btn-block waves-effect waves-light" wire:click='getScheduleId({{$item->id}})' data-toggle="pill" href="#v-pills-{{$item->id}}" role="tab" aria-controls="v-pills-{{$item->id}}" aria-selected="false">{{ucFirst($item->name)}}</button>
                                 <button class="btn btn-sm text-danger" wire:confirm='yakin untuk menghapus Jadwal?, Pastikan jadwal ini tidak digunakn di rombel!' wire:click='nonaktifkanSchedule({{$item->id}})'><i class="fa fa-trash-o"></i></button>
 
@@ -42,7 +42,7 @@
                         <div>
                             <form action="" wire:submit='addJadwal'>
                                 <x-text-input-livewire type="text" name="new_schedule" label="Tambah Jadwal baru"></x-text-input-livewire>
-                                <div class="form-group text-center row m-t-20">
+                                <div class="text-center form-group row m-t-20">
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary btn-block waves-effect waves-light" >Submit</button>
                                     </div>
@@ -58,7 +58,7 @@
             <div class="col-12 col-lg-9">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between mb-3">
+                        <div class="mb-3 d-flex justify-content-between">
                             <h4 class="mt-0 header-title">Nama Jadwal</h4>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crudModal">
                                 Tambah Jam Mengajar
@@ -71,7 +71,7 @@
                                 {{-- tehapus --}}
                                 
                                 <!-- Nav tabs -->
-                                <ul class="nav nav-tabs mb-3" role="tablist">
+                                <ul class="mb-3 nav nav-tabs" role="tablist">
                                     @foreach ($hariMapping as $key=> $item)
                                     <li class="nav-item">
                                         <a class="nav-link {{$hari == $key ? 'active' :''}}" wire:click='gantiHari({{$key}})' data-toggle="tab" href="#home" role="tab" aria-selected="true">{{$item}}</a>
@@ -82,7 +82,7 @@
                 
                                 <!-- Table Content -->
                                 <div class="tab-content">
-                                    <div class="tab-pane active p-3" id="home" role="tabpanel">
+                                    <div class="p-3 tab-pane active" id="home" role="tabpanel">
                                         <div class="table-responsive">
                                             <table class="table table-sm table-bordered table-sortable">
                                                 <thead>

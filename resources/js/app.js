@@ -2,8 +2,10 @@ import './bootstrap';
 
 import 'flowbite';
 
-import Alpine from 'alpinejs';
+import { Modal } from 'flowbite';
 
-window.Alpine = Alpine;
+// import Alpine from 'alpinejs';
 
-Alpine.start();
+// window.Alpine = Alpine;
+
+// Alpine.start();

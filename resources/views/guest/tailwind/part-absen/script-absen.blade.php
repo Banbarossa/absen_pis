@@ -16,6 +16,7 @@
             Webcam.snap( function(data_uri) {
                 var form =document.getElementById('form_store');
                 $(".image-tag").val(data_uri);
+
                 form.submit();
                 // document.getElementById('result').innerHTML = '<img src="' + data_uri + '" class="rounded img-fluid"/>';
             } );

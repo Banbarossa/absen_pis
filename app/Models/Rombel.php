@@ -57,4 +57,14 @@ class Rombel extends Model
         return $this->hasMany(Absenalternatif::class);
     }
 
+    public function anggotakelas()
+    {
+        return $this->hasMany(AnggotaKelas::class);
+    }
+
+    public function absensiswa()
+    {
+        return $this->hasMany(Absensiswa::class);
+    }
+
 }

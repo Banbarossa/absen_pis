@@ -21,6 +21,10 @@
                     Status
                 </th>
             </tr>
+                <th scope="col" class="hidden px-6 py-3 md:table-cell">
+                    Action
+                </th>
+            </tr>
         </thead>
         <tbody x-data={open:null}>
             @forelse ($users as $item)
@@ -40,12 +44,6 @@
                             <dt class="text-xs text-gray-400">Password Absen</dt>
                             <dt>{{ $item->password_absen }}</dt>
                         </dl>
-                        <dl>
-                            <dt class="text-xs text-gray-400">Status</dt>
-                            <dt>
-                                <button wire:click='changeStatus({{ $item->id }})' class="p-2 text-white bg-red-600 rounded-lg hover:ring-2 hover:ring-red-300">{{ $item->status ?' Aktif' :'Tidak Aktif' }}</button>
-                            </dt>
-                        </dl>
                     </div>
                 </th>
                 <td class="hidden px-6 py-4 md:table-cell">
@@ -62,11 +60,21 @@
                     </div>
                 </td>
                 <td class="hidden px-6 py-4 md:table-cell">
-                    <button wire:click='changeStatus({{ $item->id }})' class="p-2 text-white bg-red-600 rounded-lg hover:ring-2 hover:ring-red-300">{{ $item->status ?' Aktif' :'Tidak Aktif' }}</button>
+                    <label class="inline-flex items-center cursor-pointer me-5">
+                        <input type="checkbox" wire:click='changeStatus({{ $item->id }})' value="" class="sr-only peer" {{ $item->status ?'checked' :''  }} wire:key='{{ $item->id }}'>
+                        <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                    </label>
+                </td>
+                <td class="hidden px-6 py-4 md:table-cell">
+                    <a href="{{ route('v2.akun.update',$item) }}" class="p-2 border border-red-500 rounded-lg hover:ring-2 hover:ring-red-200">Edit</a>
                 </td>
             </tr>
             @empty
-                
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4">
+                        {{ __('Tidak ada data yang ditemukan') }}
+                    </td>
+                </tr>
             @endforelse
         
         </tbody>

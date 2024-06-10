@@ -8,6 +8,7 @@ use App\Models\Absenalternatif;
 use App\Models\Absenhalaqah;
 use App\Models\jenjangPendidikan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -116,6 +117,16 @@ class User extends Authenticatable
     public function bagianuser()
     {
         return $this->belongsTo(Bagianuser::class);
+    }
+
+    public function stundent(): HasOne
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    public function groupinghalaqah()
+    {
+        return $this->hasOne(Groupinghalaqah::class);
     }
 
 }
