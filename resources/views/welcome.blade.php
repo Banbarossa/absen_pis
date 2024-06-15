@@ -39,7 +39,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14v3m4-6V7a3 3 0 1 1 6 0v4M5 11h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"/>
                     </svg>
                 </div>
-                <input x-bind:type="show ? 'text':'password'" name="password" id="password" class="bg-gray-50 bg-opacity-60 border border-red-600  text-gray-900 rounded-xl focus:ring-red-500 focus:border-red-500 focus:ring-1 focus:ring-offset-2 block w-full  px-2.5  py-2 dark:bg-gray-700 text-center dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Password">
+                <input type="password" name="password" id="password" class="bg-gray-50 bg-opacity-60 border border-red-600  text-gray-900 rounded-xl focus:ring-red-500 focus:border-red-500 focus:ring-1 focus:ring-offset-2 block w-full  px-2.5  py-2 dark:bg-gray-700 text-center dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Password">
             </div>
             <button type="button" x-on:click="show = !show" >
                 <span class="text-xs" x-text="show ? 'Sembunyikan Password' : 'Tampilkan Password'"></span>

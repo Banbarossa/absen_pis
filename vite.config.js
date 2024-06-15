@@ -7,6 +7,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/js/alpineguest.js',
             ],
             // refresh: true,
             refresh: ['resources/views/**','app/Http/**','app/Livewire/**'],
