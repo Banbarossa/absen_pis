@@ -15,6 +15,7 @@
         <!-- Scripts -->
         {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/> --}}
         <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}">
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         @stack('css')
         @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/alpineguest.js'])
        
