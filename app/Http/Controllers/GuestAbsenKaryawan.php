@@ -218,6 +218,7 @@ class GuestAbsenKaryawan extends Controller
         }
 
         $existingDetail = Absenkaryawandetail::where('type', $absen_type)
+            ->whereDate('created_at', Carbon::now())
             ->whereHas('absenkaryawan', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })

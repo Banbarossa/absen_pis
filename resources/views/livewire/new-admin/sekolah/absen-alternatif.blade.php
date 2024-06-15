@@ -1,6 +1,5 @@
 <div x-data="{type:'nonApproval'}">
     <x-admin-template>
-        
         <div class="mb-6 bg-white border-b border-gray-200 rounded-lg ">
             <ul class="flex flex-wrap gap-4 mb-4 text-sm font-medium text-center">
                 <li class="me-2">
@@ -14,15 +13,17 @@
                 </li>
             </ul>
         </div>
+
         <div x-show="type == 'nonApproval'">
-            <x-report.office-trip-list :models="$belumApprove" showButton="true"></x-report.office-trip-list>
+            <x-sekolah.list-absen-alternatif :models="$nonApproval" showButton="true"></x-sekolah.list-absen-alternatif>
         </div>
         <div x-show="type == 'approved'">
-            <x-report.office-trip-list :models="$approve"></x-report.office-trip-list>
+            <x-sekolah.list-absen-alternatif :models="$approval"></x-sekolah.list-absen-alternatif>
         </div>
         <div x-show="type == 'denied'">
-            <x-report.office-trip-list :models="$denied"></x-report.office-trip-list>
+            <x-sekolah.list-absen-alternatif :models="$denied"></x-sekolah.list-absen-alternatif>
         </div>
 
+            
     </x-admin-template>
 </div>

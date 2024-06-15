@@ -25,4 +25,9 @@ class Absenalternatif extends Model
     {
         return $this->hasOne(Absensekolah::class);
     }
+
+    public function approvedBy()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
 }

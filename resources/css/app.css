@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 
+.btn-primary{
+    @apply bg-red-700 rounded-lg text-sm py-2 hover:bg-red-800 hover:ring-1 hover:ring-red-300 px-4 text-white tracking-wider text-center
+}
+
+.btn-outline-primary{
+    @apply border border-red-700 rounded-lg text-sm py-2  hover:ring-1 hover:ring-red-300 px-4 text-red-700 hover:font-medium tracking-wider text-center
+}
+
 .text-custom-blue {
 @apply text-blue-700;
 }

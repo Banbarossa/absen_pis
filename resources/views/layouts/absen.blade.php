@@ -16,7 +16,8 @@
         {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/> --}}
         <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}">
         @stack('css')
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/alpineguest.js'])
+       
     </head>
     <body class="font-sans antialiased text-gray-900">
         <div class="flex items-start bg-gray-100 sm:justify-center">

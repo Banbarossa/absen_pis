@@ -25,7 +25,7 @@ class PegawaiReport extends Component
 
     public function mount()
     {
-        $startDate = Carbon::now()->subMonths(1)->startOfMonth()->addDays(22);
+        $startDate = Carbon::now()->subMonths(1)->startOfMonth()->addDays(26);
         $endDate = Carbon::now()->startOfMonth()->addDays(25);
         $today = Carbon::now();
         if ($today < $endDate) {

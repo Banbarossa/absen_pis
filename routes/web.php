@@ -209,7 +209,7 @@ Route::get('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'index'
 Route::post('absen-security/{code}', [GuestAbsenSecurityCekLokasi::class, 'store'])->name('absen-security.store'); //simpan data absen security lokasi
 
 Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function () {
-    Route::view('/', 'user-tailwind.dashboard.index')->name('dashboard');
+    Route::view('/', 'user-tailwind.dashboard.dashboardv2')->name('dashboard');
     Route::get('absen/{absen}', \App\Livewire\User\Absensiswa\IndexAbsen::class)->name('absen-siswa');
     Route::get('home/profile', \App\Livewire\User\Profile\Index::class)->name('profile');
     Route::get('home/absen-pegawai', \App\Livewire\User\Dashboard\ViewAllAbsenPegawai::class)->name('absen-pegawai');
@@ -227,6 +227,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function
         Route::get('absen-siswa', \App\Livewire\Admin\Absensi\SiswaIndex::class)->name('laporan.absen-siswa');
         Route::get('detail-absen-siswa/{student_id}', \App\Livewire\Admin\Absensi\DetailAbsenSiswa::class)->name('laporan.detail-absen-siswa');
     });
+    Route::group(['prefix' => 'halaqah'], function () {
+        Route::get('record-hafalan', \App\Livewire\User\Halaqah\RecordHafalan::class)->name('record-hafalan');
+    });
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('user', \App\Livewire\NewAdmin\Akun\Index::class)->name('akun')->middleware('role:admin');
@@ -240,18 +243,27 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v2', 'as' => 'v2.'], function
             Route::get('daftar-halaqah/create', \App\Livewire\NewAdmin\Halaqah\GroupingHalaqahCreate::class)->name('halaqah.create');
             Route::get('daftar-halaqah/edit/{group}', \App\Livewire\NewAdmin\Halaqah\GroupingHalaqahUpdate::class)->name('halaqah.update');
             Route::get('anggota-halaqah/{group}', \App\Livewire\NewAdmin\Halaqah\AngotaHalaqahIndex::class)->name('anggota-halaqah');
+
+            // komplain
+            Route::get('detail-personal/{user_id}/{startDate}/{endDate}', \App\Livewire\NewAdmin\Halaqah\DetailPersonal::class)->name('detail-personal');
+            Route::get('rekap-kehadiran', \App\Livewire\NewAdmin\Halaqah\KehadiranMusyrif::class)->name('rekap-kehadiran-halaqah');
+            Route::get('complain', \App\Livewire\NewAdmin\Halaqah\Complain\ComplainIndex::class)->name('complain-absen-halaqah');
+
         });
 
         Route::group(['middleware' => ['role:admin|hrd'], 'prefix' => 'laporan'], function () {
             Route::get('laporan-harian', \App\Livewire\NewAdmin\Report\TodayAttandanceStaff::class)->name('today-staf-report');
             Route::get('laporan-pegawai', \App\Livewire\NewAdmin\Report\PegawaiReport::class)->name('staff-attandance-report');
             Route::get('office-trip-report', \App\Livewire\NewAdmin\Report\OfficeTripAtt::class)->name('office-trip-report');
+
         });
 
         Route::group(['middleware' => ['role:admin'], 'prefix' => 'sekolah'], function () {
             Route::get('siswa', \App\Livewire\NewAdmin\Sekolah\Siswa\IndexSiswa::class)->name('siswa');
             Route::get('rombel', \App\Livewire\NewAdmin\Sekolah\Rombel\IndexRombel::class)->name('rombel');
             Route::get('anggota-rombel/{code}', \App\Livewire\NewAdmin\Sekolah\Rombel\AnggotaRombel::class)->name('anggota-rombel');
+            Route::get('complain', \App\Livewire\NewAdmin\Sekolah\ComplainAbsen::class)->name('complain-absen-mengajar');
+            Route::get('absen-alternatif', \App\Livewire\NewAdmin\Sekolah\AbsenAlternatif::class)->name('absen-alternatif');
         });
 
     });

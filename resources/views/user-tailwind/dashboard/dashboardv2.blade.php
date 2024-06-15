@@ -9,7 +9,7 @@
             <livewire:user.dashboard.widget-count-user>
             <livewire:user.dashboard.widget-count-absen-harian>
             <div class="hidden lg:block">
-                <a href="#" class="relative flex items-center justify-center gap-4 p-4 bg-gray-200 border-2 border-white border-dashed rounded-lg shadow-md group min-h-28">
+                <a href="{{ route('v2.record-hafalan') }}" class="relative flex items-center justify-center gap-4 p-4 bg-gray-200 border-2 border-white border-dashed rounded-lg shadow-md group min-h-28">
                     <div class="transition duration-500 group-hover:scale-125 group-hover:rotate-6">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
@@ -74,10 +74,16 @@
                 </div>
             </div>
         </div>
-        <div class="hidden lg:col-span-1 lg:block">
+        <div class="hidden space-y-4 lg:col-span-1 lg:block">
             <div class="p-6 bg-white rounded-lg">
                 <x-jam-absen>
                 </x-jam-absen>
+            </div>
+            <div class="p-4 bg-white rounded-lg">
+                <p class="mb-4 text-sm font-bold text-red-700">Notifikasi</p>
+                <ul class="max-w-md">
+                    <livewire:admin.dashboard.complain-notif>
+                </ul>
             </div>
         </div>
     </div>

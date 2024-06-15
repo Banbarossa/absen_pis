@@ -2,8 +2,8 @@
     <div class="mb-4" >
         <x-admin-template>
             <div class="flex gap-4 divide-x divide-red-300">
-                <div class="flex gap-4 px-3">
-                    <div class="mb-2">
+                <div class="flex gap-4">
+                    <div >
                         <x-input-label class="block mb-2 text-xs text-gray-500" for="startDate">{{ __('Tanggal Mulai') }}</x-input-label>
                         <x-text-input-tailwind type="date" wire:model.live='startDate' id="startData"></x-text-input-tailwind>
                     </div>

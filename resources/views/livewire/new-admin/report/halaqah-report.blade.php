@@ -42,15 +42,13 @@
                 <th scope="col" class="hidden px-6 py-3 md:table-cell">
                     Alpa (TP)
                 </th>
-                <th scope="col" class="hidden px-6 py-3 md:table-cell">
-                    Jumlah Hari (TP)
-                </th>
             </tr>
         </thead>
         <tbody>
             @forelse ($absenHalaqah as $halaqah)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" x-data="{showPegawai{{ $halaqah['user_id'] }}:true}">
                 <td scope="row" class="items-center table-cell w-3 px-4 py-4 md:hidden">
+
                     <button x-on:click="showPegawai{{ $halaqah['user_id'] }} = !showPegawai{{ $halaqah['user_id'] }}">
                         <svg class="w-6 h-6 text-green-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
@@ -60,27 +58,28 @@
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <div class="flex items-center justify-between">
                         <p>{{ $halaqah['nama'] }}</p>
-                        {{-- <div class="block md:hidden">
-                            <p class="text-red-600 ">{{ $harikerja-$halaqah['']->total_hadir }} <span class="text-[8px]">Alpa</span></p>
-                        </div> --}}
                     </div>
-                    {{-- <div class="block md:hidden" x-show="showPegawai{{ $halaqah['']->id }}">
+                    <div class="block md:hidden" x-show="showPegawai{{ $halaqah['user_id'] }}">
                         <dl class="flex items-center gap-2">
-                            <dt class="text-xs text-gray-400">Masuk 1</dt>
-                            <dt class="font-bold">{{ $halaqah['']->jumlah_scan_masuk1 }}</dt>
+                            <dt class="text-xs text-gray-400">Hadir</dt>
+                            <dt class="font-bold">{{ $halaqah['hadir'] }} <span class="text-[8px]">Tatap Muka</span></dt>
                         </dl>
                         <dl class="flex items-center gap-2">
-                            <dt class="text-xs text-gray-400">Masuk 2</dt>
-                            <dt class="font-bold">{{ $halaqah['']->jumlah_scan_masuk2 }}</dt>
+                            <dt class="text-xs text-gray-400">Izin Dinas</dt>
+                            <dt class="font-bold">{{ $halaqah['izin_dinas'] }} <span class="text-[8px]">Tatap Muka</span></dt>
                         </dl>
                         <dl class="flex items-center gap-2">
-                            <dt class="text-xs text-gray-400">Pulang</dt>
-                            <dt class="font-bold">{{ $halaqah['']->jumlah_scan_pulang }}</dt>
+                            <dt class="text-xs text-gray-400">Izin Pribadi</dt>
+                            <dt class="font-bold">{{ $halaqah['izin_pribadi'] }} <span class="text-[8px]">Tatap Muka</span></dt>
                         </dl>
                         <dl class="flex items-center gap-2">
-                            <dt class="text-xs text-gray-400">Hari Hadir</dt>
-                            <dt class="font-bold">{{ $halaqah['']->total_hadir }}</dt>
-                        </dl> --}}
+                            <dt class="text-xs text-gray-400">Sakit</dt>
+                            <dt class="font-bold">{{ $halaqah['sakit'] }} <span class="text-[8px]">Tatap Muka</span></dt>
+                        </dl>
+                        <dl class="flex items-center gap-2">
+                            <dt class="text-xs text-gray-400">Alpa</dt>
+                            <dt class="font-bold">{{ $halaqah['alpa'] }} <span class="text-[8px]">Tatap Muka</span></dt>
+                        </dl>
                     </div>
                 </th>
                 <td class="hidden px-6 py-4 text-center md:table-cell">
@@ -98,13 +97,10 @@
                 <td class="hidden px-6 py-2 text-center md:table-cell">
                    {{ $halaqah['alpa'] == 0 ?'':$halaqah['alpa'] }}
                 </td>
-                {{-- <td class="hidden px-6 py-2 text-center md:table-cell">
-                   {{ $halaqah[''] == 0 ?'':$halaqah[''] }}
-                </td> --}}
             </tr>
             @empty
             <tr>
-                <td class="px-6 py-4">{{ __('Tidak ada data yang ditemukan') }}</td>
+                <td colspan="7" class="px-6 py-4">{{ __('Tidak ada data yang ditemukan') }}</td>
             </tr>
             @endforelse
         </tbody>

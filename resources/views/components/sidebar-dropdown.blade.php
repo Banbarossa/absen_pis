@@ -16,6 +16,6 @@
         </svg>
     </span>
 </button>
-<ul class="py-2 space-y-2 text-sm ms-12" x-show="{{ $data }}">
+<ul class="py-2 space-y-1 text-sm ms-12" x-show="{{ $data }}">
     {{ $slot }}
 </ul>

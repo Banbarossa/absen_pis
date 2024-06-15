@@ -52,9 +52,10 @@
                     <svg class="flex-shrink-0 w-5 h-5 transition duration-1000 group-hover:rotate-180" stroke="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
                     </svg>
-                      
                     @endslot
                     <x-sidebar-dropdown-link :href="route('v2.halaqah')" :active="Request::routeIs('v2.halaqah')">Halaqah</x-sidebar-dropdown-link>
+                    <x-sidebar-dropdown-link :href="route('v2.complain-absen-halaqah')" :active="Request::routeIs('v2.complain-absen-halaqah')">Complain Absen</x-sidebar-dropdown-link>
+                    <x-sidebar-dropdown-link :href="route('v2.rekap-kehadiran-halaqah')" :active="Request::routeIs('v2.rekap-kehadiran-halaqah')">Kehadiran Musyrif</x-sidebar-dropdown-link>
                 </x-sidebar-dropdown>
              </li>
 
@@ -71,6 +72,8 @@
                     @endslot
                     <x-sidebar-dropdown-link :href="route('v2.rombel')" :active="Request::routeIs('v2.rombel')">Kelas</x-sidebar-dropdown-link>
                     <x-sidebar-dropdown-link :href="route('v2.siswa')" :active="Request::routeIs('v2.siswa')">Siswa</x-sidebar-dropdown-link>
+                    <x-sidebar-dropdown-link :href="route('v2.complain-absen-mengajar')" :active="Request::routeIs('v2.complain-absen-mengajar')">Complain Absen</x-sidebar-dropdown-link>
+                    <x-sidebar-dropdown-link :href="route('v2.absen-alternatif')" :active="Request::routeIs('v2.absen-alternatif')">Absen Alternatif</x-sidebar-dropdown-link>
                 </x-sidebar-dropdown>
              </li>
 
