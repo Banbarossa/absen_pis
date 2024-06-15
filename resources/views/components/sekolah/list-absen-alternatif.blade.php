@@ -11,8 +11,8 @@
                 </button>
                 <div>
                     @if ($item->image)
-                    <a href="javascript:void(0)" x-on:click="popuppegawai = true; imageUrl = '{{ asset('storage/public/images/karyawan/' . $item->image) }}'">
-                        <img src="{{ asset('storage/public/images/karyawan/' . $item->image) }}" class="w-20 h-20 transition duration-500 rounded-xl min-w-20 hover:scale-125" alt="">
+                    <a href="javascript:void(0)" x-on:click="popuppegawai = true; imageUrl = '{{ asset('storage/public/images/' . $item->image) }}'">
+                        <img src="{{ asset('storage/public/images/' . $item->image) }}" class="w-20 h-20 transition duration-500 rounded-xl min-w-20 hover:scale-125" alt="">
                     </a>
                     @else
                     <a href="javascript:void(0)" x-on:click="popuppegawai = true; imageUrl = '{{ asset('assets/images/avatar.png') }}'">
